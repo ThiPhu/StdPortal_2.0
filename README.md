@@ -1,4 +1,4 @@
-# StdPortal_2.0
+# StdPortal_2.0 ✌️.✊
 Ehanced version of TDTU Std Portal
 
 
