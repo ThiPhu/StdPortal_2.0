@@ -1,0 +1,67 @@
+/* Styling phần Header - Navbar - Sidebar - Footer*/
+
+.navbar-header {
+  background-color: #05445e !important;
+  color: #ffffff !important;
+  margin-bottom: 2em;
+  z-index: 99;
+}
+
+.navbar-sticky {
+  position: sticky !important;
+  margin-bottom: 2em;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 99;
+}
+
+.sb-left {
+  color: #05445e !important;
+  width: 100%;
+  position: sticky;
+  height: auto;
+  max-width: 320px;
+  overflow-x: auto;
+}
+
+.sb-left_sticky {
+  color: #05445e !important;
+  width: 100%;
+  position: fixed !important;
+  top: 5.5em;
+  bottom: 0;
+}
+
+.sb-mid {
+  color: #05445e !important;
+  position: relative;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  top: 6em;
+  height: auto;
+  overflow-x: auto;
+}
+
+.sb-right {
+  color: #05445e !important;
+  position: fixed;
+  width: 100%;
+  max-width: 420px;
+  top: 5em;
+  bottom: 0;
+  overflow: auto;
+}
+
+.sb-right_sticky {
+  color: #05445e !important;
+  width: 100%;
+  position: fixed !important;
+  top: 5em;
+  bottom: 0;
+}
+
+.sb-right:hover {
+  overflow: transparent !important;
+}
