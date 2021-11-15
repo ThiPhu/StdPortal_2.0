@@ -1,0 +1,267 @@
+<div class="navbar-header">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">Theta</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {{!-- <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li> --}}
+                    {{!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li> --}}
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </ul>
+
+                {{!-- <div class="text-end">
+                    <button type="button" class="btn btn-outline-light me-2">Login</button>
+                    <button type="button" class="btn btn-warning">Sign-up</button>
+                </div> --}}
+
+                <div class="dropdown text-end d-flex">
+                    <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
+                        <li><a class="dropdown-item" href="#">New project...</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="d-flex row flex-row">
+        {{!-- Side bar left --}}
+        <div class="col-lg-3">
+            <div class="d-lg-flex sb-left d-xm-none d-none flex-column bg-light"
+                style="width: 100%; max-width: 280px; height: 90vh;">
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
+                        id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                        <strong>mdo</strong>
+                    </a>
+                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                        <li><a class="dropdown-item" href="#">New project...</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                </div>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active d-flex justify-content-center" aria-current="page">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link d-flex justify-content-center" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                            aria-controls="collapseExample">
+                            Management
+                        </a>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <button class="btn btn-primary" style="color:white; background-color:green"
+                                    type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                    Student
+                                </button>
+                            </div>
+                            <div class="card card-body">
+                                <button style="color:white; background-color:green" type="button"
+                                    data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    Faculty
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        {{!-- Main post --}}
+        <div class="col-lg-9">
+            <div class="d-lg-flex flex-column">
+                <h1>Admin management</h1>
+                {{!-- Carousel --}}
+                <div id="carouselExampleControls" data-bs-wrap="false" data-bs-interval="false" class="carousel slide"
+                    data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {{!-- Student Carousel --}}
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h5>Student Details</h5>
+                                </div>
+                                <div class="col-lg-6 d-flex justify-content-end">
+                                    <div class="dropdown">
+                                        <span type="button" class="material-icons-outlined" data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                            style="font-size: 38px; background-color: bisque; border-radius: 50%;"
+                                            data-bs-toggle="tooltip" title="Action">
+                                            more_vert
+                                        </span>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item" href="#">Add User</a></li>
+                                            <li><a class="dropdown-item" href="#">Refresh List</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Avatar</th>
+                                        <th scope="col">Fullname</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Falcuty</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="font-size: 18px;">
+                                        {{!-- Avatar --}}
+                                        <th scope="row">1</th>
+                                        {{!-- Fullname/username --}}
+                                        <td>Nguyễn Văn A</td>
+                                        {{!-- Email --}}
+                                        <td>nva@gmail.com</td>
+                                        {{!-- Role --}}
+                                        <td>Student</td>
+                                        {{!-- Falcuty --}}
+                                        <td>Infomation Technology</td>
+                                        {{!-- Action --}}
+                                        <td class="d-flex flex-row">
+                                            <div class="me-3">
+                                                <a href="#" style="cursor:pointer; color: green;">
+                                                    <span class="material-icons-outlined" data-bs-toggle="tooltip"
+                                                        title="Profile">
+                                                        account_circle
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a href="#" style="cursor:pointer; color: red">
+                                                    <span class="material-icons-outlined" data-bs-toggle="tooltip"
+                                                        title="Delete">
+                                                        delete
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {{!-- Faculty Carousel --}}
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h5>Faculty Details</h5>
+                                </div>
+                                <div class="col-lg-6 d-flex justify-content-end">
+                                    <div class="dropdown">
+                                        <span type="button" class="material-icons-outlined" data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                            style="font-size: 38px; background-color: bisque; border-radius: 50%;"
+                                            data-bs-toggle="tooltip" title="Action">
+                                            more_vert
+                                        </span>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item" href="#">Add User</a></li>
+                                            <li><a class="dropdown-item" href="#">Refresh List</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Avatar</th>
+                                        <th scope="col">Fullname</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Falcuty</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="font-size: 18px;">
+                                        {{!-- Avatar --}}
+                                        <th scope="row">1</th>
+                                        {{!-- Fullname/username --}}
+                                        <td>Nguyễn Văn A</td>
+                                        {{!-- Email --}}
+                                        <td>nva@gmail.com</td>
+                                        {{!-- Role --}}
+                                        <td>Faculty</td>
+                                        {{!-- Falcuty --}}
+                                        <td>Infomation Technology</td>
+                                        {{!-- Action --}}
+                                        <td class="d-flex flex-row">
+                                            <div class="me-3">
+                                                <a href="#" style="cursor:pointer; color: green;">
+                                                    <span class="material-icons-outlined" data-bs-toggle="tooltip"
+                                                        title="Profile">
+                                                        account_circle
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a href="#" style="cursor:pointer; color: red">
+                                                    <span class="material-icons-outlined" data-bs-toggle="tooltip"
+                                                        title="Delete">
+                                                        delete
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
