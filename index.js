@@ -6,6 +6,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 
+
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -29,8 +30,8 @@ app.engine(
   'hbs',
   exphbs({
     defaultLayout: 'main',
-    layoutsDir: __dirname + '/views/layouts/',
-    partialsDir: __dirname + '/views/partials/',
+    layoutsDir: __dirname + '/src/views/layouts/',
+    partialsDir: __dirname + '/src/views/partials/',
     extname: '.hbs',
     helpers: {},
   })
@@ -38,11 +39,9 @@ app.engine(
 app.set('view engine', 'hbs');
 
 // Đặt đường dẫn là views vì default của view engine chỉ nhận folder từ root
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src/views'));
 
-// Khai báo routers
-app.get('/', (req, res) => {
-  res.render('home');
-});
+const route = require("./src/routes")
+route(app)
 
 app.listen(PORT, () => console.log(`Server is online at ${PORT}`));

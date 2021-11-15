@@ -14,4 +14,4 @@ File structure
 |   |---routes
 |   |---views
 |---.env
-|---app.js
+|---index.js
