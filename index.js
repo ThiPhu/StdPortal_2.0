@@ -5,6 +5,9 @@ const exphbs = require('express-handlebars');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+// Connect to MONGODB 
+const database = require("./src/config/database.config.js")
+
 
 
 const app = express();
