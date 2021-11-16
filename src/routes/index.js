@@ -9,7 +9,6 @@ const route = (app)=>{
     app.get("/login", (req,res)=>{
         res.render("login")
     })
-
     
 
     // Các route yêu cầu phiên đăng nhập của user
@@ -18,8 +17,9 @@ const route = (app)=>{
     })
 
 
+
     // 404
-    app.use((req,res)=> res.redirect("/404"))
+    app.get("/404", (req,res)=> res.render("404"))
 }
 
 module.exports = route

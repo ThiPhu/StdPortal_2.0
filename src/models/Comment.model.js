@@ -1,13 +1,11 @@
 const mongoose = require('mongoose');
 
-// Defining schema
+// Defining Schema
 let Schema = mongoose.Schema;
 
-const PostSchema = new Schema(
+const CommentSchema = new Schema(
   {
-    title: String, // Header
-    caption: String, // caption
-    images: String,
+    content: String, // body
     // reaction: String, Optional
     create_date: {
       type: Date,
@@ -17,8 +15,14 @@ const PostSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Users',
     },
+    postId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Posts',
+    },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Posts', PostSchema);
+const Comment = mongoose.model('Comments', CommentSchema);
+
+module.exports = Comment

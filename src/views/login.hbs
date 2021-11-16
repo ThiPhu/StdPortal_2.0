@@ -1,49 +1,39 @@
 <main>
-    <div class="wrapper w-100 h-100 bg-stu" id="bg_wrapper">
+    <div class="wrapper w-100 h-100 bg-tea" id="bg_wrapper">
         <div class="container d-flex align-items-center justify-content-center min-vh-100 py-3 py-md-0">
             <div class="card login-card">
                 <div class="row g-0 h-100">
-                    <!-- Image part -->
-                    {{!-- <div class="h-100 d-none d-sm-none d-md-block col-md-5 overflow-hidden">
-                        <div class="img__holder w-100 h-100 d-flex justify-content-center align-items-md-center">
-                            <img src="./image/stu.png" alt="">
-                            <img src="./image/tea.png" alt="">
-                        </div>
-                    </div>
-                    <!-- Divider -->
-                    <div class="d-none d-sm-none d-md-block col-md-1 divider dvBackgr_stu"></div> --}}
-                    <!-- Login main part -->
                     <div class="col-sm-12 col-md-6 h-100 flex-fill">
                         <div class="login-card__main">
-                                <img src="./image/tdt.jpg" alt=""class="login-card__icon col-md-3">
-                                <div ><p class="login-card__title" id="login-card__title">Howdy</p></div>
-                                <!-- <div class="login-card__error shadow-sm mb-3 alert alert-danger" role="alert">
-                                    <i class="fas fa-exclamation-circle"> </i>
-                                    <span>Please use your school email!</span>
-                                </div> -->
-                                {{!-- <div class="login-card__switch">
-                                    <span class="switch__label">Are you a teacher?</span>
-                                    <div class="mt-normal"> 
-                                    <input id="switch" type="checkbox"/>
-                                    <label for="switch"></label>
+                            <img src="./image/tdt.jpg" alt=""class="login-card__icon col-md-3">
+                            <div><p class="login-card__title" id="login-card__title">Howdy</p></div>
+                            <form id="loginForm" class="login-card__form w-100">
+                                <div class="d-flex flex-column justify-content-center align-items-center px-4">
+                                    <div class="form-floating mb-3 w-100">
+                                        <input type="text" class="form-control" id="loginUsername" placeholder="NguyenA">
+                                        <label for="loginUsername">Tên đăng nhập</label>
                                     </div>
-                                </div> --}}
-                                <form action="" id="student-login " class="login-card__form">
-                                    <div class="login-card__btn-wrapper">
-                                        <a href="" class="btn btn-danger btn_signIn ">
-                                            <i class="fab fa-google fa-lg"></i>
-                                            <span id="signIn_message">Sign in with your school mail</span>
-                                        </a>
+                                    <div class="form-floating mb-3 w-100">
+                                        <input type="password" class="form-control" id="loginPassword" placeholder="0000">
+                                        <label for="loginPassword">Mật khẩu</label>
                                     </div>
-                                </form>
-                                <div class="login-card__footer">
-                                    
-                                    <div class="login-card__footer-wrapper">
-                                        <a href=""><i class="fab fa-google-plus-g"></i></a>
-                                        <a href=""><i class="fab fa-facebook"></i></a>
-                                        <a href=""><i class="fas fa-phone"><span> 09XX-XXX-XXX</span></i></a>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary btn_signin w-100">Đăng nhập</button>
+                                    {{!-- custom hr --}}
+                                    <div class="d-none d-sm-none d-md-block col-md-1 divider dvBackgr_tea"></div>
+
+                                    <a href="" class="btn btn-danger btn_google my-3 w-100">
+                                        <i class="fab fa-google fa-lg"></i>
+                                        <span>Đăng nhập với Google</span>
+                                    </a>
                                 </div>
+                            </form>
+                            <div class="login-card__footer">
+                                <div class="login-card__footer-wrapper">
+                                    <a href=""><i class="fab fa-google-plus-g"></i></a>
+                                    <a href=""><i class="fab fa-facebook"></i></a>
+                                    <a href=""><i class="fas fa-phone"><span> 09XX-XXX-XXX</span></i></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
