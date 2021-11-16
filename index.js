@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const cookieParser = require('cookie-parser')
 // Connect to MONGODB 
 const database = require("./src/config/database.config.js")
 
@@ -43,6 +44,8 @@ app.set('view engine', 'hbs');
 
 // Đặt đường dẫn là views vì default của view engine chỉ nhận folder từ root
 app.set('views', path.join(__dirname, 'src/views'));
+
+app.use(cookieParser())
 
 const route = require("./src/routes")
 route(app)

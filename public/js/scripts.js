@@ -40,16 +40,19 @@ if(hour >= 0 && hour < 12){
 // login form post
 $("#loginForm").on("submit", (e)=>{
   e.preventDefault();
-  console.log("ALERT");
 
-  fetch("/login",{
+  fetch("/api/auth",{
     method:"POST",
     body: new URLSearchParams({
       loginUserName : $("#loginUsername").val(),
       loginPassword : $("#loginPassword").val()
     })
   }).then(res => res.json())
-    .then(res => console.log(res))
+    .then(({ok,msg}) => {
+      if(!ok) {return alert(msg)}
+      // If auth success, redirect to home
+      return window.location.href = "/home"
+    })
   
 })
 
@@ -58,4 +61,12 @@ $("#loginForm").on("submit", (e)=>{
 // ------------------- END LOGIN --------------------------------------
 
 
+// ------------------- LOGOUT --------------------------------------
 
+// $(".sign-out").on("click", (e)=>{
+//   e.preventDefault()
+
+//   fetch("/logout")
+// })
+
+// ------------------- END LOGOUT --------------------------------------
