@@ -19,30 +19,34 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a href="#" class="nav-link active d-flex justify-content-start" aria-current="page">
+            <a href="/" class="nav-link active d-flex justify-content-start" aria-current="page">
                 Trang chủ
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link d-flex justify-content-start" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <a href="#collapseManagement" role="button" class="nav-link d-flex justify-content-start"
+                data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseManagement">
                 Quản lý người dùng
             </a>
-            <div class="collapse" id="collapseExample">
+            <div class="collapse" id="collapseManagement">
                 <div class="">
                     <button class="d-flex justify-content-start admin_carouselBtn_mgmt" type="button"
                         data-bs-target="#carouselManagement" data-bs-slide="prev">
-                        Học viên
+                        <a href="/management">Học viên</a>
                     </button>
                 </div>
                 <div class="">
                     <button class="d-flex justify-content-start admin_carouselBtn_mgmt" type="button"
                         data-bs-target="#carouselManagement" data-bs-slide="next">
-                        Phòng/Khoa
+                        <a href="/management">Phòng/Khoa</a>
+                    </button>
+                </div>
+                <div class="">
+                    <button class="d-flex justify-content-start admin_carouselBtn_mgmt" type="button">
+                        <a href="#">Tạo tài khoản Phòng/Khoa</a>
                     </button>
                 </div>
             </div>
         </li>
-
     </ul>
 </div>

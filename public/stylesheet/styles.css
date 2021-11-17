@@ -455,3 +455,70 @@ content: "Sign in with student mail";
 /*======= End Main =======*/
 
 /* -----------------------------------End login--------------------------------------------------------- */
+
+/* =================== ============================================================== ===================*/
+/* =================== =============== ADMIN - Management =========================== ===================*/
+
+/* =================== Sidebar - Left */
+.admin_avatar_mgmt {
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid black;
+}
+
+.admin_carouselBtn_mgmt {
+  transition: 0.2s ease-in-out;
+  color: black;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgb(212, 212, 212) !important;
+  width: 100%;
+  padding-left: 1.2rem;
+  margin: 0.2rem 0 0.5rem 0;
+  font-size: 20px;
+}
+
+.admin_carouselBtn_mgmt:hover {
+  transition: 0.2s ease-in-out;
+  padding-left: 1.5rem;
+  cursor: pointer;
+}
+
+.admin_carouselBtn_mgmt a {
+  text-decoration: none;
+  color: black;
+}
+
+.admin_tr_mgmt {
+  font-size: 20px;
+  text-align: center;
+}
+
+.admin_tr_mgmt td {
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+.admin_td_topic {
+  max-width: 200px;
+  min-width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-line-clamp: 1;
+  text-overflow: ellipsis !important;
+}
+
+.admin_td_topic {
+  max-width: 200px;
+  min-width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-line-clamp: 1;
+  text-overflow: ellipsis !important;
+}
+
+/* =================== =============== END ADMIN - Management ======================= ===================*/
+/* =================== ============================================================== ===================*/
