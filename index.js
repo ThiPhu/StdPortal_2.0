@@ -5,11 +5,9 @@ const exphbs = require('express-handlebars');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const cookieParser = require('cookie-parser')
-// Connect to MONGODB 
-const database = require("./src/config/database.config.js")
-
-
+const cookieParser = require('cookie-parser');
+// Connect to MONGODB
+const database = require('./src/config/database.config.js');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -24,7 +22,7 @@ const limiter = rateLimit({
 app.use(cors());
 // app.use(limiter);
 app.use(express.json());
-app.use(express.urlencoded({ extended: true, limit: '50mb' })); // Limit kiểm soát số lượng request body
+app.use(express.urlencoded({ extended: true })); // Limit kiểm soát số lượng request body
 
 // Khai báo folder public để thêm styling và scripts
 app.use(express.static('public'));
@@ -45,9 +43,9 @@ app.set('view engine', 'hbs');
 // Đặt đường dẫn là views vì default của view engine chỉ nhận folder từ root
 app.set('views', path.join(__dirname, 'src/views'));
 
-app.use(cookieParser())
+app.use(cookieParser());
 
-const route = require("./src/routes")
-route(app)
+const route = require('./src/routes');
+route(app);
 
 app.listen(PORT, () => console.log(`Server is online at ${PORT}`));

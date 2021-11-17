@@ -5,16 +5,20 @@
                 <div class="row g-0 h-100">
                     <div class="col-sm-12 col-md-6 h-100 flex-fill">
                         <div class="login-card__main">
-                            <img src="./image/tdt.jpg" alt=""class="login-card__icon col-md-3">
-                            <div><p class="login-card__title" id="login-card__title">Howdy</p></div>
-                            <form id="loginForm" class="login-card__form w-100">
+                            <img src="./image/tdt.jpg" alt="" class="login-card__icon col-md-3">
+                            <div>
+                                <p class="login-card__title" id="login-card__title">Howdy</p>
+                            </div>
+                            <form method='post' id="loginForm" class="login-card__form w-100">
                                 <div class="d-flex flex-column justify-content-center align-items-center px-4">
                                     <div class="form-floating mb-3 w-100">
-                                        <input type="text" class="form-control" id="loginUsername" placeholder="NguyenA">
+                                        <input type="text" class="form-control" id="loginUsername" name="loginUsername"
+                                            placeholder="NguyenA">
                                         <label for="loginUsername">Tên đăng nhập</label>
                                     </div>
                                     <div class="form-floating mb-3 w-100">
-                                        <input type="password" class="form-control" id="loginPassword" placeholder="0000">
+                                        <input type="password" class="form-control" id="loginPassword"
+                                            placeholder="0000">
                                         <label for="loginPassword">Mật khẩu</label>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn_signin w-100">Đăng nhập</button>
