@@ -3,12 +3,13 @@ const dotenv = require('dotenv').config({ path: './.env' });
 const rateLimit = require('express-rate-limit');
 const exphbs = require('express-handlebars');
 const express = require('express');
-const route = require('./src/routes');
 const cors = require('cors');
 const path = require('path');
+const cookieParser = require('cookie-parser')
+// Connect to MONGODB 
+const database = require("./src/config/database.config.js")
 
-// Connect to MONGODB
-const database = require('./src/config/database.config.js');
+
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -44,6 +45,9 @@ app.set('view engine', 'hbs');
 // Đặt đường dẫn là views vì default của view engine chỉ nhận folder từ root
 app.set('views', path.join(__dirname, 'src/views'));
 
-route(app);
+app.use(cookieParser())
+
+const route = require("./src/routes")
+route(app)
 
 app.listen(PORT, () => console.log(`Server is online at ${PORT}`));

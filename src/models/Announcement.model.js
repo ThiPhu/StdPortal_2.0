@@ -3,10 +3,11 @@ const mongoose = require('mongoose');
 // Defining Schema
 let Schema = mongoose.Schema;
 
-const CommentSchema = new Schema(
+const AnnouncementSchema = new Schema(
   {
+    title: String, // header
     content: String, // body
-    // reaction: String, Optional
+    file: [String],
     create_date: {
       type: Date,
       default: Date.now,
@@ -15,12 +16,10 @@ const CommentSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Users',
     },
-    postId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Posts',
-    },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Comments', CommentSchema);
+const Announcement = mongoose.model('Announcements', AnnouncementSchema);
+
+module.exports = Announcement

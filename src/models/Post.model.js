@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 
-// Defining Schema
+// Defining schema
 let Schema = mongoose.Schema;
 
-const AnnouncementSchema = new Schema(
+const PostSchema = new Schema(
   {
-    title: String, // header
-    content: String, // body
-    file: [String],
+    title: String, // Header
+    caption: String, // caption
+    images: String,
+    // reaction: String, Optional
     create_date: {
       type: Date,
       default: Date.now,
@@ -20,4 +21,6 @@ const AnnouncementSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Announcements', AnnouncementSchema);
+const Post = mongoose.model('Posts', PostSchema);
+
+module.exports = Post
