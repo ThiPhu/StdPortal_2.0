@@ -44,7 +44,7 @@ $("#loginForm").on("submit", (e)=>{
   fetch("/api/auth",{
     method:"POST",
     body: new URLSearchParams({
-      loginUserName : $("#loginUsername").val(),
+      loginUsername : $("#loginUsername").val(),
       loginPassword : $("#loginPassword").val()
     })
   }).then(res => res.json())

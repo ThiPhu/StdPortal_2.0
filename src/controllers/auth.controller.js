@@ -5,12 +5,14 @@ const { genToken } = require("../utils/jwt.js")
 
 exports.post = async (req,res)=>{
     const {loginUsername, loginPassword} = req.body
+    console.log(req.body)
     console.log(loginUsername, loginPassword)
 
     try{
-        const user = await User.findOne({login: loginUsername}).lean()
+        const user = await User.findOne({username: loginUsername}).lean()
 
         if(user){
+            console.log("USER", user)
             const hashedPassword = user.password
             if(bcrypt.compareSync(loginPassword, hashedPassword)){
                 return res

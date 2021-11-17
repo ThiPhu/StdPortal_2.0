@@ -2,7 +2,7 @@ const {check} = require("express-validator")
 const {handleValidationResult} = require("../utils/handleValidationResult")
 
 module.exports = [
-    check("loginUserName")
+    check("loginUsername")
         .exists().withMessage("Vui lòng cung cấp tên đăng nhập!")
         .notEmpty().withMessage("Vui lòng cung cấp tên đăng nhập!"),
     check("loginPassword")
