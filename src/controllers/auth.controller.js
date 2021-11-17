@@ -3,10 +3,10 @@ const bcrypt = require('bcrypt');
 const { genToken } = require('../utils/jwt.js');
 
 exports.post = async (req, res, next) => {
-  const { loginUserName, loginPassword } = req.body;
-
+  const { loginUsername, loginPassword } = req.body;
+  console.log(loginUsername);
   try {
-    const user = await User.findOne({ username: loginUserName }).lean();
+    const user = await User.findOne({ username: loginUsername }).lean();
     if (user) {
       const hashedPassword = user.password;
       if (bcrypt.compareSync(loginPassword, hashedPassword)) {
