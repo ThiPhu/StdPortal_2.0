@@ -56,6 +56,15 @@ $("#loginForm").on("submit", (e)=>{
   
 })
 
+// Login with google
+// $(".btn_google_signin").on("click", (e)=>{
+//   e.preventDefault()
+
+//   fetch("/api/auth/google")
+//     .then(data => data.json())
+//      .then(json => console.log("FROM CLIENT", json))
+// })
+
 
 
 // ------------------- END LOGIN --------------------------------------

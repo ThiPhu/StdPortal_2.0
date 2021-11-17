@@ -7,7 +7,10 @@ const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser')
 // Connect to MONGODB 
-const database = require("./src/config/database.config.js")
+require("./src/config/database.config.js")
+require("./src/config/passport.config")
+
+
 
 
 
@@ -46,6 +49,8 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'src/views'));
 
 app.use(cookieParser())
+
+
 
 const route = require("./src/routes")
 route(app)
