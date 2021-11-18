@@ -20,7 +20,13 @@ const route = app => {
     res.render('login');
   });
 
-  app.get('/404', (req, res) => res.render('404'));
+    app.get("/login", (req,res)=>{
+        // Nếu tồn tại token đăng nhập, bay thẳng vào nhà
+        if(req.cookies.access_token) {return res.redirect("/home")}
+        console.log("EROR",req.session.error);
+        res.render("login", {msg: req.session.error})
+        req.session.destroy()
+    })
 
   // Kiểm tra token session
   app.use(userAuth);

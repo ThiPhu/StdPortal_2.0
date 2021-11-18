@@ -5,11 +5,16 @@
                 <div class="row g-0 h-100">
                     <div class="col-sm-12 col-md-6 h-100 flex-fill">
                         <div class="login-card__main">
-                            <img src="./image/tdt.jpg" alt="" class="login-card__icon col-md-3">
-                            <div>
-                                <p class="login-card__title" id="login-card__title">Howdy</p>
+                            <div class="d-flex">
+                                <img src="./image/tdt.jpg" alt=""class="login-card__icon col-md-3">
+                                {{#if msg}}
+                                    <div class="alert alert-danger" role="alert" style="margin-left: 40px">
+                                        {{msg.message}}
+                                    </div>
+                                {{/if}}
                             </div>
-                            <form method='post' id="loginForm" class="login-card__form w-100">
+                            <div><p class="login-card__title" id="login-card__title">Howdy</p></div>
+                            <form id="loginForm" class="login-card__form w-100">
                                 <div class="d-flex flex-column justify-content-center align-items-center px-4">
                                     <div class="form-floating mb-3 w-100">
                                         <input type="text" class="form-control loginUsername" name="loginUsername"
@@ -24,7 +29,7 @@
                                     {{!-- custom hr --}}
                                     <div class="d-none d-sm-none d-md-block col-md-1 divider dvBackgr_tea"></div>
 
-                                    <a href="" class="btn btn-danger btn_google my-3 w-100">
+                                    <a href="/api/auth/google" class="btn btn-danger btn_google_signin my-3 w-100">
                                         <i class="fab fa-google fa-lg"></i>
                                         <span>Đăng nhập với Google</span>
                                     </a>

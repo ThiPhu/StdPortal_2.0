@@ -2,14 +2,33 @@ const User = require('../models/User.model');
 const bcrypt = require('bcrypt');
 const { genToken } = require('../utils/jwt.js');
 
-exports.post = async (req, res, next) => {
-  const { loginUsername, loginPassword } = req.body;
-  console.log(loginUsername);
-  try {
-    const user = await User.findOne({ username: loginUsername }).lean();
-    if (user) {
-      const hashedPassword = user.password;
-      if (bcrypt.compareSync(loginPassword, hashedPassword)) {
+
+exports.post = async (req,res)=>{
+    const {loginUsername, loginPassword} = req.body
+    console.log(req.body)
+    console.log(loginUsername, loginPassword)
+
+    try{
+        const user = await User.findOne({username: loginUsername}).lean()
+
+        if(user){
+            console.log("USER", user)
+            const hashedPassword = user.password
+            if(bcrypt.compareSync(loginPassword, hashedPassword)){
+                return res
+                        .cookie("access_token", genToken({id: user["_id"].toString()}), {httpOnly: true})
+                        .json({
+                            ok: true,
+                            msg: "Đăng nhập thành công!"
+                        })
+            }
+            return res
+                    .status(401)
+                    .json({
+                        ok: false,
+                        msg: "Mật khẩu không đúng!"
+                    })
+        }
         return res
           .cookie('access_token', genToken({ id: user['_id'].toString() }), {
             httpOnly: true,
@@ -19,10 +38,7 @@ exports.post = async (req, res, next) => {
             msg: 'Đăng nhập thành công!',
           });
       }
-      return res.status(401).json({
-        ok: false,
-        msg: 'Mật khẩu không đúng!',
-      });
+
     }
     return res.status(401).json({
       ok: false,
