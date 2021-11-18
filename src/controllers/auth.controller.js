@@ -1,6 +1,6 @@
-const User = require('../models/User.model');
-const bcrypt = require('bcrypt');
-const { genToken } = require('../utils/jwt.js');
+const User = require("../models/User.model")
+const bcrypt = require("bcrypt")
+const { genToken } = require("../utils/jwt.js")
 
 
 exports.post = async (req,res)=>{
@@ -30,21 +30,13 @@ exports.post = async (req,res)=>{
                     })
         }
         return res
-          .cookie('access_token', genToken({ id: user['_id'].toString() }), {
-            httpOnly: true,
-          })
-          .json({
-            ok: true,
-            msg: 'Đăng nhập thành công!',
-          });
-      }
+                .status(401)
+                .json({
+                    ok: false,
+                    msg: "Tài khoản không tồn tại!"
+                })
 
     }
-    return res.status(401).json({
-      ok: false,
-      msg: 'Tài khoản không tồn tại!',
-    });
-  } catch (err) {
-    next(err);
-  }
-};
+    catch(err) { next(err) }
+
+}
