@@ -1,24 +1,19 @@
-const apiRouter = require('./api.routes');
-const { userAuth } = require('../middlewares/auth.middleware');
+const apiRouter = require("./api.routes")
+const {userAuth} = require("../middlewares/auth.middleware")
 
-const route = app => {
-  // Các route api
-  app.use('/api', apiRouter);
 
-  // Các route không yêu cầu phiên đăng nhập của user
+const route = (app)=>{
 
-  app.get('/', (req, res) => res.redirect('/home'));
+    // Các route api
+    app.use("/api", apiRouter)
 
-  app.get('/logout', (req, res) => {
-    res.clearCookie('access_token').redirect('/login');
-  });
+    // Các route không yêu cầu phiên đăng nhập của user
+    
+	  app.get("/", (req,res) => res.redirect("/home"))
 
-  app.get('/login', (req, res) => {
-    if (req.cookies.access_token) {
-      return res.redirect('/home');
-    }
-    res.render('login');
-  });
+    app.get("/logout", (req,res)=>{
+        res.clearCookie("access_token").redirect("/login")
+    })
 
     app.get("/login", (req,res)=>{
         // Nếu tồn tại token đăng nhập, bay thẳng vào nhà
@@ -28,19 +23,18 @@ const route = app => {
         req.session.destroy()
     })
 
-  // Kiểm tra token session
-  app.use(userAuth);
+    app.get("/404", (req,res) => res.render("404"))
 
-  // Các route yêu cầu phiên đăng nhập của user
-  app.get('/home', (req, res) => {
-    res.render('home');
-  });
+    // Kiểm tra token session
+    app.use(userAuth)
 
-  app.get('/management', (req, res) => {
-    res.render('admin/management');
-  });
+    // Các route yêu cầu phiên đăng nhập của user
+    app.get("/home", (req,res)=>{
+        res.render("home")
+    })
 
-  // app.use((req,res) => res.redirect("/404"))
-};
 
-module.exports = route;
+    // app.use((req,res) => res.redirect("/404"))
+}
+
+module.exports = route

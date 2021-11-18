@@ -44,8 +44,8 @@ $('#loginForm').on('submit', e => {
     method: 'POST',
     contentType: 'application/json',
     body: new URLSearchParams({
-      loginUsername : $("#loginUsername").val(),
-      loginPassword : $("#loginPassword").val()
+      loginUsername : $(".loginUsername").val(),
+      loginPassword : $(".loginPassword").val()
     })
   }).then(res => res.json())
     .then(({ok,msg}) => {

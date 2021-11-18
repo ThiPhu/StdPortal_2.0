@@ -31,7 +31,7 @@ const limiter = rateLimit({
 app.use(cors());
 // app.use(limiter);
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // Limit kiểm soát số lượng request body
+app.use(express.urlencoded({ extended: true, limit: '50mb' })); // Limit kiểm soát số lượng request body
 
 // Khai báo folder public để thêm styling và scripts
 app.use(express.static('public'));
