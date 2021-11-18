@@ -34,7 +34,7 @@ if(hour >= 0 && hour < 12){
 } else if(hour >= 13 && hour < 18){
     login_title.innerHTML = "Chào buổi chiều!";
 } else{
-    login_title.innerHTML = "";
+    login_title.innerHTML = "Chào buổi tối!";
 }
 
 // login form post
