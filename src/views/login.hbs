@@ -5,7 +5,14 @@
                 <div class="row g-0 h-100">
                     <div class="col-sm-12 col-md-6 h-100 flex-fill">
                         <div class="login-card__main">
-                            <img src="./image/tdt.jpg" alt=""class="login-card__icon col-md-3">
+                            <div class="d-flex">
+                                <img src="./image/tdt.jpg" alt=""class="login-card__icon col-md-3">
+                                {{#if msg}}
+                                    <div class="alert alert-danger" role="alert" style="margin-left: 40px">
+                                        {{msg.message}}
+                                    </div>
+                                {{/if}}
+                            </div>
                             <div><p class="login-card__title" id="login-card__title">Howdy</p></div>
                             <form id="loginForm" class="login-card__form w-100">
                                 <div class="d-flex flex-column justify-content-center align-items-center px-4">

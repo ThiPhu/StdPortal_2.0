@@ -1,8 +1,10 @@
 const Router = require("express").Router()
 const authController = require('../controllers/auth.controller')
 const authValidation = require('../validations/auth.validation')
+const {genToken} = require("../utils/jwt")
 
 const passport = require("passport")
+const { session } = require("passport")
 
 
 Router.post("/", authValidation, authController.post)
@@ -15,8 +17,26 @@ Router.get("/google", passport.authenticate('google',
 )
 
 // get callback
-Router.get("/google/callback", 
-    passport.authenticate('google'),
-)
+Router.get("/google/callback", function(req, res, next){
+        passport.authenticate('google',function(err, user, message){
+            console.log(err, user, message)
+            // Database error
+            if(err){ return next(err)}
+            // User not found
+            if(!user){
+                // res.render("login",{error: message})
+                // Initiate error session
+                req.session.error = message
+                res.redirect("/login")
+            }
+            if(user){
+                return res
+                        .cookie("access_token", genToken({id: user["_id"].toString()}), {httpOnly: true})
+                        .redirect("/home")
+
+            }
+        })(req, res, next)
+    })
+
 
 module.exports = Router

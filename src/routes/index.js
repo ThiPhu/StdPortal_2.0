@@ -16,8 +16,11 @@ const route = (app)=>{
     })
 
     app.get("/login", (req,res)=>{
+        // Nếu tồn tại token đăng nhập, bay thẳng vào nhà
         if(req.cookies.access_token) {return res.redirect("/home")}
-        res.render("login")
+        console.log("EROR",req.session.error);
+        res.render("login", {msg: req.session.error})
+        req.session.destroy()
     })
 
     app.get("/404", (req,res) => res.render("404"))
