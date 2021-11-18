@@ -18,7 +18,7 @@ const route = app => {
   app.get('/login', (req, res) => {
     // Nếu tồn tại token đăng nhập, bay thẳng vào nhà
     if (req.cookies.access_token) {
-      return res.status(200).render('home');
+      return res.redirect('/home');
     }
     console.log('EROR', req.session.error);
     res.render('login', { msg: req.session.error });
@@ -32,7 +32,8 @@ const route = app => {
 
   // Các route yêu cầu phiên đăng nhập của user
   app.get('/home', (req, res) => {
-    res.render('home');
+    console.log(req.user);
+    res.render('home', { user: req.user });
   });
 
   // app.use((req,res) => res.redirect("/404"))
