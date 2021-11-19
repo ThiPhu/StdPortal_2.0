@@ -27,7 +27,7 @@
 
 .navbar-brand img {
   background: white;
-  border: 2px solid black;
+  border-radius: 50%;
 }
 
 .navbar-custom-item:hover {
@@ -77,6 +77,7 @@
 
 .dropdown-menu-alert .dropdown-item {
   transition: 0.1s ease-in-out;
+  border-bottom: 1px solid rgb(195, 195, 195);
 }
 
 .dropdown-menu-alert .dropdown-item:hover {
@@ -100,15 +101,65 @@
 }
 
 .sb-left {
-  color: #05445e !important;
+  box-shadow: 2px 0px 1px rgb(221, 221, 221);
+  border-radius: 6px;
   width: 100%;
   position: fixed;
-  height: auto;
-  max-width: 320px;
-  width: 320px;
+  width: 100%;
   top: 5.5em;
   bottom: 0;
   overflow: auto;
+  max-width: 280px;
+  height: 90vh;
+}
+
+.sb-left-header {
+  text-decoration: none !important;
+  color: var(--primary-color);
+  font-size: 24px;
+}
+
+.sb-left-header img {
+  border: 2px solid var(--primary-color);
+  margin-bottom: 0.5em;
+}
+
+.sb-left-link .nav-link {
+  transition: 0.2s ease-in-out;
+  text-decoration: none !important;
+  color: var(--primary-color) !important;
+  font-size: 18px;
+}
+
+.sb-left-link:hover .nav-link {
+  background-color: var(--secondary-color-hover);
+  color: white !important;
+}
+
+.sb-left-content {
+  transition: 0.2s ease-in-out;
+  color: black;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgb(212, 212, 212) !important;
+  width: 100%;
+  padding-left: 1.2rem;
+  margin: 0.2rem 0 0.5rem 0;
+  font-size: 18px;
+}
+
+.sb-left-content a {
+  transition: 0.2s ease-in-out;
+  text-decoration: none !important;
+  color: var(--primary-color) !important;
+  font-size: 18px;
+}
+
+.sb-left-content a:hover {
+  transition: 0.2s ease-in-out;
+  padding-left: 1rem;
+  cursor: pointer;
 }
 
 .sb-left_sticky {
@@ -131,11 +182,13 @@
 }
 
 .sb-right {
-  color: #05445e !important;
+  box-shadow: -2px 0px 1px rgb(221, 221, 221);
+  border-radius: 5px;
   position: fixed;
   width: 100%;
   max-width: 420px;
-  top: 5em;
+  height: auto;
+  top: 5.5em;
   bottom: 0;
   overflow: auto;
 }
@@ -145,10 +198,9 @@
 }
 
 .sb-right_sticky {
-  color: #05445e !important;
   width: 100%;
   position: fixed !important;
-  top: 5em;
+  top: 5.5em;
   bottom: 0;
 }
 

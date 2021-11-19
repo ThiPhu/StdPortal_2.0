@@ -33,9 +33,21 @@ const route = app => {
   // Các route yêu cầu phiên đăng nhập của user
   app.get('/home', (req, res) => {
     console.log(req.user);
-    res.render('home', { user: req.user });
+    res.render('home', {
+      user: req.user,
+      admin: req.user.role === 'admin' ? true : false,
+      exampleAvatar: '../../public/image/tdt.jpg',
+    });
   });
 
+  app.get('/management', (req, res) => {
+    console.log(req.user);
+    res.render('admin/management', {
+      user: req.user,
+      admin: req.user.role === 'admin' ? true : false,
+      exampleAvatar: '../../public/image/tdt.jpg',
+    });
+  });
   // app.use((req,res) => res.redirect("/404"))
 };
 

@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
+// Create user
 exports.create = async (req, res, next) => {
   const { username, password, role } = req.body;
 
@@ -26,6 +27,11 @@ exports.create = async (req, res, next) => {
     next(err);
   }
 };
+
+// Update user
+exports.update = async (req, res, next) => {
+  
+}
 
 // exports.createFromGoogleAuth = async (req, res, next) =>{
 //     passport.use(
