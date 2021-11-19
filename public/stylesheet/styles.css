@@ -1,10 +1,52 @@
+/* Main color variable */
+:root {
+  --primary-color: #001f3d;
+  --secondary-color: #05445e;
+  --secondary-color-hover: #0e6286;
+  --alert-board: #055772;
+}
+
 /* Styling phần Header - Navbar - Sidebar - Footer*/
 
 .navbar-header {
-  background-color: #05445e !important;
+  background-color: var(--secondary-color);
   color: #ffffff !important;
   margin-bottom: 2em;
   z-index: 99;
+}
+
+.navbar-custom-item a {
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-custom-item {
+  transition: 0.1s ease-in-out;
+  padding: 0.2rem;
+}
+
+.navbar-brand img {
+  background: white;
+  border: 2px solid black;
+}
+
+.navbar-custom-item:hover {
+  transition: 0.1s ease-in-out;
+  border-radius: 20px;
+  background-color: var(--secondary-color-hover);
+}
+
+.navbar-action-btn {
+  transition: 0.1s ease-in-out;
+  color: white;
+}
+
+.navbar-action-btn:hover {
+  transition: 0.1s ease-in-out;
+  color: white;
+  border-radius: 50% !important;
+  box-shadow: 1px 1px 2px var(--secondary-color);
+  background-color: var(--secondary-color-hover);
 }
 
 .navbar-sticky {
@@ -16,13 +58,57 @@
   z-index: 99;
 }
 
+.dropdown-menu-alert::-webkit-scrollbar {
+  display: none;
+}
+
+.dropdown-menu-alert {
+  position: fixed;
+  right: 20rem !important;
+  top: 4rem !important;
+  background-color: white;
+  max-width: 400px;
+  width: 400px;
+  border-radius: 10px;
+  top: 5em;
+  bottom: 0;
+  overflow: auto;
+}
+
+.dropdown-menu-alert .dropdown-item {
+  transition: 0.1s ease-in-out;
+}
+
+.dropdown-menu-alert .dropdown-item:hover {
+  transition: 0.1s ease-in-out;
+  border-radius: 10px;
+  background-color: var(--secondary-color) !important;
+}
+
+.dropdown-item:hover .dropdown-alert-content {
+  color: white;
+}
+
+.dropdown-alert-content {
+  color: var(--secondary-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: initial;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
 .sb-left {
   color: #05445e !important;
   width: 100%;
-  position: sticky;
+  position: fixed;
   height: auto;
   max-width: 320px;
-  overflow-x: auto;
+  width: 320px;
+  top: 5.5em;
+  bottom: 0;
+  overflow: auto;
 }
 
 .sb-left_sticky {
@@ -52,6 +138,10 @@
   top: 5em;
   bottom: 0;
   overflow: auto;
+}
+
+.sb-right::-webkit-scrollbar {
+  display: none;
 }
 
 .sb-right_sticky {
@@ -175,9 +265,6 @@ body {
   min-height: 20%;
 } */
 
-.login-card__header {
-}
-
 .login-card__icon {
   width: 15%;
   height: 15%;
@@ -200,12 +287,6 @@ body {
 
 .login-card__switch > .switch__label {
   margin-right: 1rem;
-}
-
-.login-card__switch .form-check-input {
-}
-
-.login-card__switch .form-switch {
 }
 
 .mt-normal {
@@ -248,9 +329,6 @@ body {
 
 .mt-normal > label::before {
   z-index: 1;
-}
-
-.mt-normal > label::after {
 }
 
 .login-card__form {
@@ -329,8 +407,6 @@ content: "Sign in with student mail";
   text-align: center;
 }
 
-.icon--square {
-}
 .icon--circular {
   height: 25px;
   width: 25px;
@@ -351,21 +427,14 @@ content: "Sign in with student mail";
   text-overflow: ellipsis;
   overflow: hidden;
 }
-/* End general class */
-.menu {
-}
-.create-group {
-}
 
-.sideBarNav__body {
-}
+/* End general class */
 
 .sideBarNav__search {
   width: 90%;
   padding: 20px 0;
 }
-.searchBar {
-}
+
 .searchBar__input {
   display: flex;
   position: relative;
@@ -425,32 +494,14 @@ content: "Sign in with student mail";
   /* background-color: #ff3b3b; */
 }
 
-.content__top {
-}
-
-.content__grpName {
-}
-
 .content__lastMesgTime {
   padding-left: 10px;
-}
-
-.content__bottom {
-}
-
-.content__grpMesg {
 }
 
 /* Center */
 .chat-box__header {
   background-color: aqua;
   min-height: 3.5rem;
-}
-
-.header__subject {
-}
-
-.header__subject .avatar {
 }
 
 .header__subject .subject__info {
@@ -466,12 +517,6 @@ content: "Sign in with student mail";
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-}
-
-.subject__info .grpMembersQuantity {
-}
-
-.header__ultility {
 }
 
 /*======= End Main =======*/

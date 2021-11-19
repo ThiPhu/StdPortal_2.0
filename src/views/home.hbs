@@ -1,7 +1,9 @@
 <div class="navbar-header">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="#">Theta</a>
+            <a class="navbar-brand" href="#">
+                <img src="image/theta.png" width="50" height="50" alt="logo">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -31,36 +33,294 @@
                     </li> --}}
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                        <button class="btn navbar-action-btn d-flex align-items-center" type="submit">
+                            <span class="material-icons-outlined">
+                                search
+                            </span>
+                        </button>
                     </form>
                 </ul>
 
-                {{!-- <div class="text-end">
-                    <button type="button" class="btn btn-outline-light me-2">Login</button>
-                    <button type="button" class="btn btn-warning">Sign-up</button>
-                </div> --}}
+                <div class="d-flex flex-row align-items-center">
+                    <div class="d-flex me-3 align-items-center navbar-custom-item">
+                        <a href="#">
+                            <img src='{{#each user}}{{avatar}}{{/each}}' alt="avatar" width="32" height="32"
+                                class="rounded-circle me-2">
+                            {{#each user}}
+                            {{#if username}}
+                            {{username}}
+                            {{else}}
+                            {{fullname}}
+                            {{/if}}
+                            {{/each}}
+                        </a>
+                    </div>
 
-                <div class="dropdown text-end d-flex">
-                    <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1"
+                    {{!-- Alert dropdown --}}
+                    <div class="btn-group d-flex me-3 align-items-center">
+                        <button type="button" class="btn navbar-action-btn" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <span class="material-icons-outlined" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Thông báo">
+                                notifications
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-alert p-0">
+                            <li>
+                                <a href="#" class="dropdown-item p-3" aria-current="true">
+                                    <div
+                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
+                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
+                                    </div>
+                                    <div class="col-12 mb-1 small dropdown-alert-content">
+                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
+                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
+                                        đồ án CNTT2Đăng
+                                        ký đồ án CNTT2
+                                    </div>
+                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
+                                        <span class="material-icons-outlined m-1">
+                                            schedule
+                                        </span>
+                                        Vào lúc: <strong>19:00</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item p-3" aria-current="true">
+                                    <div
+                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
+                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
+                                    </div>
+                                    <div class="col-12 mb-1 small dropdown-alert-content">
+                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
+                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
+                                        đồ án CNTT2Đăng
+                                        ký đồ án CNTT2
+                                    </div>
+                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
+                                        <span class="material-icons-outlined m-1">
+                                            schedule
+                                        </span>
+                                        Vào lúc: <strong>19:00</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item p-3" aria-current="true">
+                                    <div
+                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
+                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
+                                    </div>
+                                    <div class="col-12 mb-1 small dropdown-alert-content">
+                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
+                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
+                                        đồ án CNTT2Đăng
+                                        ký đồ án CNTT2
+                                    </div>
+                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
+                                        <span class="material-icons-outlined m-1">
+                                            schedule
+                                        </span>
+                                        Vào lúc: <strong>19:00</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item p-3" aria-current="true">
+                                    <div
+                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
+                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
+                                    </div>
+                                    <div class="col-12 mb-1 small dropdown-alert-content">
+                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
+                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
+                                        đồ án CNTT2Đăng
+                                        ký đồ án CNTT2
+                                    </div>
+                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
+                                        <span class="material-icons-outlined m-1">
+                                            schedule
+                                        </span>
+                                        Vào lúc: <strong>19:00</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item p-3" aria-current="true">
+                                    <div
+                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
+                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
+                                    </div>
+                                    <div class="col-12 mb-1 small dropdown-alert-content">
+                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
+                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
+                                        đồ án CNTT2Đăng
+                                        ký đồ án CNTT2
+                                    </div>
+                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
+                                        <span class="material-icons-outlined m-1">
+                                            schedule
+                                        </span>
+                                        Vào lúc: <strong>19:00</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item p-3" aria-current="true">
+                                    <div
+                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
+                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
+                                    </div>
+                                    <div class="col-12 mb-1 small dropdown-alert-content">
+                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
+                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
+                                        đồ án CNTT2Đăng
+                                        ký đồ án CNTT2
+                                    </div>
+                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
+                                        <span class="material-icons-outlined m-1">
+                                            schedule
+                                        </span>
+                                        Vào lúc: <strong>19:00</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item p-3" aria-current="true">
+                                    <div
+                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
+                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
+                                    </div>
+                                    <div class="col-12 mb-1 small dropdown-alert-content">
+                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
+                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
+                                        đồ án CNTT2Đăng
+                                        ký đồ án CNTT2
+                                    </div>
+                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
+                                        <span class="material-icons-outlined m-1">
+                                            schedule
+                                        </span>
+                                        Vào lúc: <strong>19:00</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item p-3" aria-current="true">
+                                    <div
+                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
+                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
+                                    </div>
+                                    <div class="col-12 mb-1 small dropdown-alert-content">
+                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
+                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
+                                        đồ án CNTT2Đăng
+                                        ký đồ án CNTT2
+                                    </div>
+                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
+                                        <span class="material-icons-outlined m-1">
+                                            schedule
+                                        </span>
+                                        Vào lúc: <strong>19:00</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item p-3" aria-current="true">
+                                    <div
+                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
+                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
+                                    </div>
+                                    <div class="col-12 mb-1 small dropdown-alert-content">
+                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
+                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
+                                        đồ án CNTT2Đăng
+                                        ký đồ án CNTT2
+                                    </div>
+                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
+                                        <span class="material-icons-outlined m-1">
+                                            schedule
+                                        </span>
+                                        Vào lúc: <strong>19:00</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item p-3" aria-current="true">
+                                    <div
+                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
+                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
+                                    </div>
+                                    <div class="col-12 mb-1 small dropdown-alert-content">
+                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
+                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
+                                        đồ án CNTT2Đăng
+                                        ký đồ án CNTT2
+                                    </div>
+                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
+                                        <span class="material-icons-outlined m-1">
+                                            schedule
+                                        </span>
+                                        Vào lúc: <strong>19:00</strong>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {{!-- Setting options --}}
+                    <div class="btn-group d-flex me-3 align-items-center">
+                        <button type="button" class="btn navbar-action-btn" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <span class="material-icons-outlined" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Cài đặt">
+                                settings
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><button class="dropdown-item" type="button">Another action</button></li>
+                            <li><button class="dropdown-item" type="button">Something else here</button></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item sign-out" href="/logout">Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="btn-group dropdown-menu-start dropdown text-end d-flex">
+                    <a href="#" class="d-block link-light text-decoration-none" id="dropdown-alert"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src='{{#each user}}{{avatar}}{{/each}}' alt="avatar" width="32" height="32"
-                            class="rounded-circle">
-                        {{#each user}}
-                        {{#if username}}
-                        {{username}}
-                        {{else}}
-                        {{fullname}}
-                        {{/if}}
-                        {{/each}}
+
                     </a>
-                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                        <li><a class="dropdown-item" href="#"></a></li>
+                    <ul class="dropdown-menu dropdown-menu-start animate text-small" aria-labelledby="dropdown-alert">
+                        <li>
+                            <div class="dropdown-item list-group list-group-flush border-bottom scrollarea">
+                                <a href="#" class="list-group-item list-group-item-action py-3 lh-tight"
+                                    aria-current="true">
+                                    <div class="d-flex w-100 align-items-center justify-content-between">
+                                        <strong class="mb-1">List group item heading</strong>
+                                        <small>Wed</small>
+                                    </div>
+                                    <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the
+                                        heading
+                                        and
+                                        date.
+                                    </div>
+                                </a>
+
+                            </div>
+
+                        </li>
                         <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item sign-out" href="/logout">Sign out</a></li>
+
                     </ul>
                 </div>
             </div>
@@ -295,139 +555,7 @@
 
         {{!-- Side bar right --}}
         <div class="col-lg-3">
-            <div class="container sb-right d-lg-flex d-none flex-column"
-                style="width: 100%; min-width: 360px; height: 100%">
-                <a href="/"
-                    class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-                    <svg class="bi me-2" width="30" height="24">
-                        <use xlink:href="#bootstrap"></use>
-                    </svg>
-                    <span class="fs-5 fw-semibold">List group</span>
-                </a>
-                <div class="list-group list-group-flush border-bottom scrollarea">
-                    <a href="#" class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">List group item heading</strong>
-                            <small>Wed</small>
-                        </div>
-                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading
-                            and
-                            date.
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">List group item heading</strong>
-                            <small class="text-muted">Tues</small>
-                        </div>
-                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading
-                            and
-                            date.
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">List group item heading</strong>
-                            <small class="text-muted">Mon</small>
-                        </div>
-                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading
-                            and
-                            date.
-                        </div>
-                    </a>
-
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">List group item heading</strong>
-                            <small class="text-muted">Wed</small>
-                        </div>
-                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading
-                            and
-                            date.
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">List group item heading</strong>
-                            <small class="text-muted">Tues</small>
-                        </div>
-                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading
-                            and
-                            date.
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">List group item heading</strong>
-                            <small class="text-muted">Mon</small>
-                        </div>
-                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading
-                            and
-                            date.
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">List group item heading</strong>
-                            <small class="text-muted">Wed</small>
-                        </div>
-                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading
-                            and
-                            date.
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">List group item heading</strong>
-                            <small class="text-muted">Tues</small>
-                        </div>
-                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading
-                            and
-                            date.
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">List group item heading</strong>
-                            <small class="text-muted">Mon</small>
-                        </div>
-                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading
-                            and
-                            date.
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">List group item heading</strong>
-                            <small class="text-muted">Wed</small>
-                        </div>
-                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading
-                            and
-                            date.
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">List group item heading</strong>
-                            <small class="text-muted">Tues</small>
-                        </div>
-                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading
-                            and
-                            date.
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">List group item heading</strong>
-                            <small class="text-muted">Mon</small>
-                        </div>
-                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading
-                            and
-                            date.
-                        </div>
-                    </a>
-                </div>
-            </div>
+            {{> sidebar_right}}
         </div>
     </div>
 </div>
