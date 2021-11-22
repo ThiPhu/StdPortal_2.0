@@ -49,9 +49,16 @@ $('#loginForm').on('submit', e => {
     }),
   })
     .then(res => res.json())
-    .then(({ ok, msg }) => {
+    .then(({ ok, msg, at }) => {
       if (!ok) {
-        return alert(msg);
+        // Reset
+        if($('#loginForm input').hasClass('invalid')){ 
+          $('#loginForm input').removeClass('invalid')
+          $('span.login-msg--error').remove()
+        }
+        $('.' + at).addClass('invalid')
+        $('.' + at).after(`<span class="login-msg--error">${msg}</span>`)
+        return;
       }
       // If auth success, redirect to home
       return (window.location.href = '/home');
