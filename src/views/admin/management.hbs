@@ -1,72 +1,11 @@
-<div class="navbar-header">
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#">Theta</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {{!-- <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li> --}}
-                    {{!-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li> --}}
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </ul>
-
-                {{!-- <div class="text-end">
-                    <button type="button" class="btn btn-outline-light me-2">Login</button>
-                    <button type="button" class="btn btn-warning">Sign-up</button>
-                </div> --}}
-
-                <div class="dropdown text-end d-flex">
-                    <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                    </a>
-                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                        <li><a class="dropdown-item" href="#">New project...</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="/logout">Sign out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
-</div>
-
+{{> header}}
 <div class="container">
     <div class="d-flex row flex-row">
         {{!-- Side bar left --}}
         <div class="col-lg-3">
             {{> sidebar_left}}
         </div>
-    
+
         {{!-- Main post --}}
         <div class="col-lg-9">
             <div class="d-lg-flex flex-column">
@@ -78,6 +17,18 @@
                         </button>
                     </div>
                     <div class="d-flex align-items-center justify-content-center">
+                        <button class="btn" type="button" data-bs-target="#carouselManagement" data-bs-slide="next">
+                            Phòng/Khoa
+                        </button>
+                    </div>
+                </div>
+                <div class="d-none align-items-center justify-content-center d-lg-flex m-3">
+                    <div class="d-flex align-items-center justify-content-center mngt-btn-carousel">
+                        <button class="btn" type="button" data-bs-target="#carouselManagement" data-bs-slide="prev">
+                            Học viên
+                        </button>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center mngt-btn-carousel">
                         <button class="btn" type="button" data-bs-target="#carouselManagement" data-bs-slide="next">
                             Phòng/Khoa
                         </button>
@@ -97,7 +48,7 @@
                             <hr>
                             {{!-- Table if large screen --}}
                             <div class="d-lg-flex d-none table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover" style="overflow: hidden;">
                                     <thead>
                                         <tr class="admin_tr_mgmt">
                                             <th scope="col">Avatar</th>
@@ -109,47 +60,52 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {{#each student}}
                                         <tr class="admin_tr_mgmt" style="font-size: 18px;">
                                             <td>
                                                 <div>
-                                                    <img src="/image/tdt.png" alt="Avatar" class="admin_avatar_mgmt">
+                                                    <img src="{{avatar}}" alt="Avatar" class="admin_avatar_mgmt">
                                                 </div>
                                             </td>
                                             <td>
-                                                <div>Nguyễn Văn A</div>
+                                                <div>{{fullname}}</div>
                                             </td>
                                             <td>
-                                                <div>Phòng/Khoa</div>
+                                                <div>Học viên</div>
                                             </td>
                                             <td class="admin_td_faculty">
-                                                <div>Infomation Technology</div>
+                                                <div>{{faculty}}</div>
                                             </td>
                                             <td class="admin_td_topic">
                                                 <div>
-                                                    18H50201
+                                                    {{class}}
                                                 </div>
                                             </td>
                                             <td>
-                                                <a class="me-3" href="#" style="cursor:pointer; color: green;">
-                                                    <span class="material-icons-outlined" data-bs-toggle="tooltip"
-                                                        title="Profile">
-                                                        account_circle
-                                                    </span>
-                                                </a>
-                                                <a class="me-3" href="#" style="cursor:pointer; color: red">
-                                                    <span class="material-icons-outlined" data-bs-toggle="tooltip"
-                                                        title="Xoá người dùng">
-                                                        delete
-                                                    </span>
-                                                </a>
-                                                <a class="me-3" href="#" style="cursor:pointer; color: coral">
-                                                    <span class="material-icons-outlined" data-bs-toggle="tooltip"
-                                                        title="Cấp quyền chủ đề">
-                                                        topic
-                                                    </span>
-                                                </a>
+                                                <div class="row container">
+                                                    <div class="col-6 mngt-act-btn mngt-profile-user"
+                                                        data-bs-toggle="tooltip" title="Xem trang người dùng">
+                                                        <a class="m-3 d-flex justify-content-center"
+                                                            href="/profile/{{fullname}}">
+                                                            <span class="material-icons-outlined">
+                                                                account_circle
+                                                            </span>
+                                                            <p class="m-0 ms-2">Profile</p>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-6 mngt-act-btn mngt-del-user"
+                                                        data-bs-toggle="tooltip" title="Xoá người dùng">
+                                                        <a class="m-3 d-flex justify-content-center" href="#">
+                                                            <span class="material-icons-outlined">
+                                                                delete
+                                                            </span>
+                                                            <p class="m-0 ms-2">Delete</p>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
+                                        {{/each}}
                                     </tbody>
                                 </table>
                             </div>
@@ -174,11 +130,11 @@
                         {{!-- Faculty Carousel --}}
                         <div class="carousel-item">
                             <div class="row">
-                                <div class="m-2 col-lg-6 col-12">
+                                <div class="col-lg-6 col-12">
                                     <h5>Thông tin các Phòng/Khoa</h5>
                                 </div>
                                 <div class="col-lg-6 col-12 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary btn-create-faculty-account d-flex justify-content-center">
+                                    <button type="button" class="btn btn-primary d-flex">
                                         <span class="material-icons-outlined">
                                             add
                                         </span>
@@ -192,7 +148,7 @@
                                     <thead>
                                         <tr class="admin_tr_mgmt">
                                             <th scope="col">Avatar</th>
-                                            <th scope="col">Họ tên</th>
+                                            <th scope="col">Tên đăng nhập</th>
                                             <th scope="col">Vai trò</th>
                                             <th scope="col">Khoa</th>
                                             <th scope="col">Chủ đề</th>
@@ -200,29 +156,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {{#each faculty}}
                                         <tr class="admin_tr_mgmt" style="font-size: 18px;">
                                             <td>
                                                 <div>
-                                                    <img src="/image/tdt.png" alt="Avatar" class="admin_avatar_mgmt">
+                                                    <img src="{{avatar}}" alt="Avatar" class="admin_avatar_mgmt">
                                                 </div>
                                             </td>
                                             <td>
-                                                <div>Nguyễn Văn A</div>
+                                                <div>{{username}}</div>
                                             </td>
                                             <td>
                                                 <div>Phòng/Khoa</div>
                                             </td>
                                             <td class="admin_td_faculty">
-                                                <div>Faculty of Biology - Medicine</div>
+                                                <div>{{faculty}}</div>
                                             </td>
                                             <td class="admin_td_topic">
                                                 <div>
-                                                    Vể
-                                                    CNTT2CNTT2CNTT2CNTT2CNTT2CNTT2CNTT2CNTT2CNTT2CNTT2CNTT2CNTT2CNTT2
+                                                    {{class}}
                                                 </div>
                                             </td>
                                             <td>
-                                                <a class="me-3" href="#" style="cursor:pointer; color: green;">
+                                                <a class="me-3" href="/profile/{{username}}"
+                                                    style="cursor:pointer; color: green;">
                                                     <span class="material-icons-outlined" data-bs-toggle="tooltip"
                                                         title="Profile">
                                                         account_circle
@@ -242,6 +199,7 @@
                                                 </a>
                                             </td>
                                         </tr>
+                                        {{/each}}
                                     </tbody>
                                 </table>
                             </div>

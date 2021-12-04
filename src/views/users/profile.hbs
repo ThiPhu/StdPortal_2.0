@@ -1,344 +1,226 @@
-<div class="navbar-header">
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="image/theta.png" width="50" height="50" alt="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {{!-- <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li> --}}
-                    {{!-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li> --}}
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn navbar-action-btn d-flex align-items-center" type="submit">
-                            <span class="material-icons-outlined">
-                                search
-                            </span>
-                        </button>
-                    </form>
-                </ul>
-
-                <div class="d-flex flex-row align-items-center">
-                    <div class="d-flex me-3 align-items-center navbar-custom-item">
-                        <a href="#">
-                            <img src='{{#each user}}{{avatar}}{{/each}}' alt="avatar" width="32" height="32"
-                                class="rounded-circle me-2">
-                            {{#each user}}
-                            {{#if username}}
-                            {{username}}
-                            {{else}}
-                            {{fullname}}
-                            {{/if}}
-                            {{/each}}
-                        </a>
-                    </div>
-
-                    {{!-- Alert dropdown --}}
-                    <div class="btn-group d-flex me-3 align-items-center">
-                        <button type="button" class="btn navbar-action-btn" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <span class="material-icons-outlined" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Thông báo">
-                                notifications
-                            </span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-alert p-0">
-                            <li>
-                                <a href="#" class="dropdown-item p-3" aria-current="true">
-                                    <div
-                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
-                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
-                                    </div>
-                                    <div class="col-12 mb-1 small dropdown-alert-content">
-                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
-                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
-                                        đồ án CNTT2Đăng
-                                        ký đồ án CNTT2
-                                    </div>
-                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
-                                        <span class="material-icons-outlined m-1">
-                                            schedule
-                                        </span>
-                                        Vào lúc: <strong>19:00</strong>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item p-3" aria-current="true">
-                                    <div
-                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
-                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
-                                    </div>
-                                    <div class="col-12 mb-1 small dropdown-alert-content">
-                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
-                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
-                                        đồ án CNTT2Đăng
-                                        ký đồ án CNTT2
-                                    </div>
-                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
-                                        <span class="material-icons-outlined m-1">
-                                            schedule
-                                        </span>
-                                        Vào lúc: <strong>19:00</strong>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item p-3" aria-current="true">
-                                    <div
-                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
-                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
-                                    </div>
-                                    <div class="col-12 mb-1 small dropdown-alert-content">
-                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
-                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
-                                        đồ án CNTT2Đăng
-                                        ký đồ án CNTT2
-                                    </div>
-                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
-                                        <span class="material-icons-outlined m-1">
-                                            schedule
-                                        </span>
-                                        Vào lúc: <strong>19:00</strong>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item p-3" aria-current="true">
-                                    <div
-                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
-                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
-                                    </div>
-                                    <div class="col-12 mb-1 small dropdown-alert-content">
-                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
-                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
-                                        đồ án CNTT2Đăng
-                                        ký đồ án CNTT2
-                                    </div>
-                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
-                                        <span class="material-icons-outlined m-1">
-                                            schedule
-                                        </span>
-                                        Vào lúc: <strong>19:00</strong>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item p-3" aria-current="true">
-                                    <div
-                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
-                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
-                                    </div>
-                                    <div class="col-12 mb-1 small dropdown-alert-content">
-                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
-                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
-                                        đồ án CNTT2Đăng
-                                        ký đồ án CNTT2
-                                    </div>
-                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
-                                        <span class="material-icons-outlined m-1">
-                                            schedule
-                                        </span>
-                                        Vào lúc: <strong>19:00</strong>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item p-3" aria-current="true">
-                                    <div
-                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
-                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
-                                    </div>
-                                    <div class="col-12 mb-1 small dropdown-alert-content">
-                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
-                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
-                                        đồ án CNTT2Đăng
-                                        ký đồ án CNTT2
-                                    </div>
-                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
-                                        <span class="material-icons-outlined m-1">
-                                            schedule
-                                        </span>
-                                        Vào lúc: <strong>19:00</strong>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item p-3" aria-current="true">
-                                    <div
-                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
-                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
-                                    </div>
-                                    <div class="col-12 mb-1 small dropdown-alert-content">
-                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
-                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
-                                        đồ án CNTT2Đăng
-                                        ký đồ án CNTT2
-                                    </div>
-                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
-                                        <span class="material-icons-outlined m-1">
-                                            schedule
-                                        </span>
-                                        Vào lúc: <strong>19:00</strong>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item p-3" aria-current="true">
-                                    <div
-                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
-                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
-                                    </div>
-                                    <div class="col-12 mb-1 small dropdown-alert-content">
-                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
-                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
-                                        đồ án CNTT2Đăng
-                                        ký đồ án CNTT2
-                                    </div>
-                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
-                                        <span class="material-icons-outlined m-1">
-                                            schedule
-                                        </span>
-                                        Vào lúc: <strong>19:00</strong>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item p-3" aria-current="true">
-                                    <div
-                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
-                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
-                                    </div>
-                                    <div class="col-12 mb-1 small dropdown-alert-content">
-                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
-                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
-                                        đồ án CNTT2Đăng
-                                        ký đồ án CNTT2
-                                    </div>
-                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
-                                        <span class="material-icons-outlined m-1">
-                                            schedule
-                                        </span>
-                                        Vào lúc: <strong>19:00</strong>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item p-3" aria-current="true">
-                                    <div
-                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
-                                        <strong class="mb-1">Khoa Công Nghệ Thông Tin</strong>
-                                    </div>
-                                    <div class="col-12 mb-1 small dropdown-alert-content">
-                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
-                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
-                                        đồ án CNTT2Đăng
-                                        ký đồ án CNTT2
-                                    </div>
-                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
-                                        <span class="material-icons-outlined m-1">
-                                            schedule
-                                        </span>
-                                        Vào lúc: <strong>19:00</strong>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {{!-- Setting options --}}
-                    <div class="btn-group d-flex me-3 align-items-center">
-                        <button type="button" class="btn navbar-action-btn" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <span class="material-icons-outlined" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Cài đặt">
-                                settings
-                            </span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><button class="dropdown-item" type="button">Another action</button></li>
-                            <li><button class="dropdown-item" type="button">Something else here</button></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item sign-out" href="/logout">Sign out</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-
-                <div class="btn-group dropdown-menu-start dropdown text-end d-flex">
-                    <a href="#" class="d-block link-light text-decoration-none" id="dropdown-alert"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-start animate text-small" aria-labelledby="dropdown-alert">
-                        <li>
-                            <div class="dropdown-item list-group list-group-flush border-bottom scrollarea">
-                                <a href="#" class="list-group-item list-group-item-action py-3 lh-tight"
-                                    aria-current="true">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <strong class="mb-1">List group item heading</strong>
-                                        <small>Wed</small>
-                                    </div>
-                                    <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the
-                                        heading
-                                        and
-                                        date.
-                                    </div>
-                                </a>
-
-                            </div>
-
-                        </li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item sign-out" href="/logout">Sign out</a></li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
-</div>
-
+{{> header}}
 <div class="container">
     <div class="d-flex row flex-row">
-        {{!-- Side bar left --}}
-        <div class="col-lg-3">
+        {{!-- Side bar left info --}}
+        <div class="col-lg-3 col-3">
             {{> sidebar_left}}
         </div>
 
         {{!-- Main post --}}
         <div class="col-lg-9">
             <div class="container d-lg-flex flex-column">
+                <h1>Bootstrap grid examples</h1>
+                <p class="lead">Basic grid layouts to get you familiar with building within the Bootstrap grid
+                    system.
+                </p>
+                <p>In these examples the <code>.themed-grid-col</code> class is added to the columns to add some
+                    theming.
+                    This
+                    is
+                    not a class that is available in Bootstrap by default.</p>
 
+                <h2 class="mt-4">Five grid tiers</h2>
+                <p>There are five tiers to the Bootstrap grid system, one for each range of devices we support.
+                    Each
+                    tier
+                    starts
+                    at
+                    a minimum viewport size and automatically applies to the larger devices unless overridden.
+                </p>
+
+                <div class="row mb-3">
+                    <div class="col-4 themed-grid-col">.col-4</div>
+                    <div class="col-4 themed-grid-col">.col-4</div>
+                    <div class="col-4 themed-grid-col">.col-4</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-sm-4 themed-grid-col">.col-sm-4</div>
+                    <div class="col-sm-4 themed-grid-col">.col-sm-4</div>
+                    <div class="col-sm-4 themed-grid-col">.col-sm-4</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4 themed-grid-col">.col-md-4</div>
+                    <div class="col-md-4 themed-grid-col">.col-md-4</div>
+                    <div class="col-md-4 themed-grid-col">.col-md-4</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-lg-4 themed-grid-col">.col-lg-4</div>
+                    <div class="col-lg-4 themed-grid-col">.col-lg-4</div>
+                    <div class="col-lg-4 themed-grid-col">.col-lg-4</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-xl-4 themed-grid-col">.col-xl-4</div>
+                    <div class="col-xl-4 themed-grid-col">.col-xl-4</div>
+                    <div class="col-xl-4 themed-grid-col">.col-xl-4</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-xxl-4 themed-grid-col">.col-xxl-4</div>
+                    <div class="col-xxl-4 themed-grid-col">.col-xxl-4</div>
+                    <div class="col-xxl-4 themed-grid-col">.col-xxl-4</div>
+                </div>
+
+                <h2 class="mt-4">Three equal columns</h2>
+                <p>Get three equal-width columns <strong>starting at desktops and scaling to large
+                        desktops</strong>. On
+                    mobile
+                    devices, tablets and below, the columns will automatically stack.</p>
+                <div class="row mb-3">
+                    <div class="col-md-4 themed-grid-col">.col-md-4</div>
+                    <div class="col-md-4 themed-grid-col">.col-md-4</div>
+                    <div class="col-md-4 themed-grid-col">.col-md-4</div>
+                </div>
+
+                <h2 class="mt-4">Three equal columns alternative</h2>
+                <p>By using the <code>.row-cols-*</code> classes, you can easily create a grid with equal
+                    columns.
+                </p>
+                <div class="row row-cols-md-3 mb-3">
+                    <div class="col themed-grid-col"><code>.col</code> child of <code>.row-cols-md-3</code>
+                    </div>
+                    <div class="col themed-grid-col"><code>.col</code> child of <code>.row-cols-md-3</code>
+                    </div>
+                    <div class="col themed-grid-col"><code>.col</code> child of <code>.row-cols-md-3</code>
+                    </div>
+                </div>
+
+                <h2 class="mt-4">Three unequal columns</h2>
+                <p>Get three columns <strong>starting at desktops and scaling to large desktops</strong> of
+                    various
+                    widths.
+                    Remember, grid columns should add up to twelve for a single horizontal block. More than
+                    that,
+                    and
+                    columns
+                    start
+                    stacking no matter the viewport.</p>
+                <div class="row mb-3">
+                    <div class="col-md-3 themed-grid-col">.col-md-3</div>
+                    <div class="col-md-6 themed-grid-col">.col-md-6</div>
+                    <div class="col-md-3 themed-grid-col">.col-md-3</div>
+                </div>
+
+                <h2 class="mt-4">Two columns</h2>
+                <p>Get two columns <strong>starting at desktops and scaling to large desktops</strong>.</p>
+                <div class="row mb-3">
+                    <div class="col-md-8 themed-grid-col">.col-md-8</div>
+                    <div class="col-md-4 themed-grid-col">.col-md-4</div>
+                </div>
+
+                <h2 class="mt-4">Full width, single column</h2>
+                <p class="text-warning">
+                    No grid classes are necessary for full-width elements.
+                </p>
+
+                <hr class="my-4">
+
+                <h2 class="mt-4">Two columns with two nested columns</h2>
+                <p>Per the documentation, nesting is easy—just put a row of columns within an existing column.
+                    This
+                    gives
+                    you
+                    two
+                    columns <strong>starting at desktops and scaling to large desktops</strong>, with another
+                    two
+                    (equal
+                    widths)
+                    within the larger column.</p>
+                <p>At mobile device sizes, tablets and down, these columns and their nested columns will stack.
+                </p>
+                <div class="row mb-3">
+                    <div class="col-md-8 themed-grid-col">
+                        <div class="pb-3">
+                            .col-md-8
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 themed-grid-col">.col-md-6</div>
+                            <div class="col-md-6 themed-grid-col">.col-md-6</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 themed-grid-col">.col-md-4</div>
+                </div>
+
+                <hr class="my-4">
+
+                <h2 class="mt-4">Mixed: mobile and desktop</h2>
+                <p>The Bootstrap v4 grid system has five tiers of classes: xs (extra small, this class infix is
+                    not
+                    used),
+                    sm
+                    (small), md (medium), lg (large), and xl (extra large). You can use nearly any combination
+                    of
+                    these
+                    classes
+                    to
+                    create more dynamic and flexible layouts.</p>
+                <p>Each tier of classes scales up, meaning if you plan on setting the same widths for md, lg and
+                    xl,
+                    you
+                    only
+                    need
+                    to specify md.</p>
+                <div class="row mb-3">
+                    <div class="col-md-8 themed-grid-col">.col-md-8</div>
+                    <div class="col-6 col-md-4 themed-grid-col">.col-6 .col-md-4</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6 col-md-4 themed-grid-col">.col-6 .col-md-4</div>
+                    <div class="col-6 col-md-4 themed-grid-col">.col-6 .col-md-4</div>
+                    <div class="col-6 col-md-4 themed-grid-col">.col-6 .col-md-4</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6 themed-grid-col">.col-6</div>
+                    <div class="col-6 themed-grid-col">.col-6</div>
+                </div>
+
+                <hr class="my-4">
+
+                <h2 class="mt-4">Mixed: mobile, tablet, and desktop</h2>
+                <div class="row mb-3">
+                    <div class="col-sm-6 col-lg-8 themed-grid-col">.col-sm-6 .col-lg-8</div>
+                    <div class="col-6 col-lg-4 themed-grid-col">.col-6 .col-lg-4</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6 col-sm-4 themed-grid-col">.col-6 .col-sm-4</div>
+                    <div class="col-6 col-sm-4 themed-grid-col">.col-6 .col-sm-4</div>
+                    <div class="col-6 col-sm-4 themed-grid-col">.col-6 .col-sm-4</div>
+                </div>
+
+                <hr class="my-4">
+
+                <h2 class="mt-4">Gutters</h2>
+                <p>With <code>.gx-*</code> classes, the horizontal gutters can be adjusted.</p>
+                <div class="row row-cols-1 row-cols-md-3 gx-4">
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.gx-4</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.gx-4</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.gx-4</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.gx-4</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.gx-4</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.gx-4</code> gutters</div>
+                </div>
+                <p class="mt-4">Use the <code>.gy-*</code> classes to control the vertical gutters.</p>
+                <div class="row row-cols-1 row-cols-md-3 gy-4">
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.gy-4</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.gy-4</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.gy-4</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.gy-4</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.gy-4</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.gy-4</code> gutters</div>
+                </div>
+                <p class="mt-4">With <code>.g-*</code> classes, the gutters in both directions can be adjusted.
+                </p>
+                <div class="row row-cols-1 row-cols-md-3 g-3">
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.g-3</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.g-3</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.g-3</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.g-3</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.g-3</code> gutters</div>
+                    <div class="col themed-grid-col"><code>.col</code> with <code>.g-3</code> gutters</div>
+                </div>
             </div>
         </div>
     </div>

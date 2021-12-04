@@ -38,5 +38,45 @@
   text-overflow: ellipsis !important;
 }
 
+.mngt-btn-carousel {
+  margin: 0.2rem;
+  transition: 0.3s ease-in-out;
+  background-color: #fff;
+}
+
+.mngt-btn-carousel:hover,
+.mngt-btn-carousel button:hover {
+  transition: 0.3s ease-in-out;
+  background-color: var(--secondary-color-hover);
+  color: white;
+  border-radius: 6px;
+}
+
+.mngt-btn-carousel button {
+  font-size: 20px !important;
+}
+
+.mngt-profile-user a {
+  text-decoration: none;
+  color: #a4b53b;
+}
+
+.mngt-del-user a {
+  text-decoration: none;
+  color: #e22828;
+}
+
+.mngt-edit-user a {
+  text-decoration: none;
+  color: #d6bc2a;
+}
+
+.mngt-act-btn:hover,
+.mngt-act-btn:hover a {
+  color: #fff !important;
+  background-color: var(--third-color);
+  border-radius: 6px;
+}
+
 /* =================== =============== END ADMIN - Management ======================= ===================*/
 /* =================== ============================================================== ===================*/
