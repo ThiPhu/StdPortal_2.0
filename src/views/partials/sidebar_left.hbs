@@ -1,4 +1,4 @@
-<div class="d-lg-flex sb-left d-xm-none d-none flex-column p-3">
+<div class="d-lg-flex sb-left d-xm-none d-none flex-column p-2">
     {{#if isProfilePage}}
     <div>
         <div class="d-flex flex-column align-items-center justify-content-center sb-left-header">
@@ -6,7 +6,8 @@
             <img src='{{#each currentProfile}}{{avatar}}{{/each}}' alt="avatar" width="100" height="100"
                 class="rounded-circle m-3">
             {{else}}
-            <img src='../{{currentProfile.avatar}}' alt="avatar" width="100" height="100" class="rounded-circle m-3">
+            <img src='../../../{{currentProfile.avatar}}' alt="avatar" width="100" height="100"
+                class="rounded-circle m-3">
             {{/if}}
             <p class="text-white"><strong>{{{currentProfile.fullname}}}{{{currentProfile.username}}}</strong></p>
         </div>
@@ -62,8 +63,8 @@
 
     {{else}}
     <div class="d-flex flex-column align-items-center sb-left-header">
-        <img src=' ../{{#each user}}{{avatar}}{{/each}}' alt="avatar" width="100" height="100"
-            class="rounded-circle m-3">
+        <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}' alt="avatar"
+            width="100" height="100" class="rounded-circle m-3">
         <p class="text-white">
             <strong>
                 {{#each user}}
@@ -87,7 +88,7 @@
         {{!-- Nếu là admin sẽ hiện trang quản lý --}}
         {{#if admin}}
         <li class="nav-item sb-left-link">
-            <a href="/management" class="nav-link d-flex justify-content-start" aria-current="page">
+            <a href="/api/user" class="nav-link d-flex justify-content-start" aria-current="page">
                 Quản lý người dùng
             </a>
         </li>

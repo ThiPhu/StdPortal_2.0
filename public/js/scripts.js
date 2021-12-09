@@ -25,15 +25,31 @@ var day = new Date();
 var hour = day.getHours();
 console.log(hour);
 const login_title = document.getElementById('login-card__title');
-if (hour >= 0 && hour < 12) {
-  login_title.innerHTML = 'Chào buổi sáng!';
-} else if (hour >= 12 && hour < 13) {
-  login_title.innerHTML = 'Chào buổi trưa!';
-} else if (hour >= 13 && hour < 18) {
-  login_title.innerHTML = 'Chào buổi chiều!';
-} else {
-  login_title.innerHTML = 'Chào buổi tối!';
+function getHoursLogin() {
+  if (hour >= 0 && hour < 12) {
+    if (!login_title) {
+      return false;
+    }
+    login_title.innerHTML = 'Chào buổi sáng!';
+  } else if (hour >= 12 && hour < 13) {
+    if (!login_title) {
+      return false;
+    }
+    login_title.innerHTML = 'Chào buổi trưa!';
+  } else if (hour >= 13 && hour < 18) {
+    if (!login_title) {
+      return false;
+    }
+    login_title.innerHTML = 'Chào buổi chiều!';
+  } else {
+    if (!login_title) {
+      return false;
+    }
+    login_title.innerHTML = 'Chào buổi tối!';
+  }
 }
+
+getHoursLogin();
 
 // login form post
 $('#loginForm').on('submit', e => {
@@ -58,6 +74,19 @@ $('#loginForm').on('submit', e => {
     });
 });
 
+// Auto resize input in Comments section
+$('.comment_input')
+  .each(function () {
+    this.setAttribute(
+      'style',
+      'height:' + this.scrollHeight + 'px;overflow-y:hidden;'
+    );
+  })
+  .on('input', function () {
+    this.style.height = 'auto';
+    this.style.height = this.scrollHeight + 'px';
+  });
+
 // Login with google
 // $(".btn_google_signin").on("click", (e)=>{
 //   e.preventDefault()
@@ -78,3 +107,31 @@ $('#loginForm').on('submit', e => {
 // })
 
 // ------------------- END LOGOUT --------------------------------------
+
+// ------------------- ERROR COUNTDOWN --------------------------------------
+
+function errorCountdown() {
+  var seconds = 2; // seconds for HTML
+  var foo; // variable for clearInterval() function
+
+  function updateSecs() {
+    document.getElementById('seconds').innerHTML = seconds;
+    seconds--;
+    if (seconds == -1) {
+      clearInterval(foo);
+      window.location.href = '/';
+    }
+  }
+
+  function countdownTimer() {
+    foo = setInterval(function () {
+      updateSecs();
+    }, 1000);
+  }
+
+  countdownTimer();
+}
+
+errorCountdown();
+
+// ------------------- END ERROR COUNTDOWN --------------------------------------

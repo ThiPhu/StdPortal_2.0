@@ -21,7 +21,10 @@ exports.userAuth = async (req, res, next) => {
     return res.redirect('/login');
   } catch (err) {
     // Chuyển về trang đăng nhập nếu không tồn tại session token
-    console.log('Phiên đăng nhập không hợp lệ', err);
-    return res.redirect('/login');
+    console.log('From auth.middleware:', err);
+    return res
+      .clearCookie('access_token')
+      .json({ ok: false, message: 'Phiên đăng nhập không hợp lệ' })
+      .redirect('/login');
   }
 };

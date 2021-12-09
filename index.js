@@ -8,7 +8,6 @@ const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const passport = require('passport');
 const {
   allowInsecurePrototypeAccess,
 } = require('@handlebars/allow-prototype-access'); // This will allow 'own property' in Handlebars data

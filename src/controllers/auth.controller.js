@@ -9,6 +9,7 @@ exports.post = async (req, res) => {
     if (user) {
       const hashedPassword = user.password;
       if (bcrypt.compareSync(loginPassword, hashedPassword)) {
+        console.log('From auth.controller: Đăng nhập từ User');
         return res
           .cookie('access_token', genToken({ id: user['_id'].toString() }), {
             httpOnly: true,
@@ -17,7 +18,7 @@ exports.post = async (req, res) => {
             ok: true,
             msg: 'Đăng nhập thành công!',
           });
-      } 
+      }
       return res.status(401).json({
         ok: false,
         msg: 'Mật khẩu không đúng!',
