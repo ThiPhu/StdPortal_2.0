@@ -18,7 +18,16 @@ $(document).ready(function () {
   });
 });
 
-
+//create_post_option
+const targetDiv = document.getElementById("input_img");
+const btn = document.getElementById("toggle");
+btn.onclick = function () {
+  if (targetDiv.style.display !== "none") {
+    targetDiv.style.display = "none";
+  } else {
+    targetDiv.style.display = "block";
+  }
+};
 
 //login.html
 //catch switch button state
@@ -74,6 +83,8 @@ if(hour >= 21){
 } else if(hour> 6 || hour < 6){
     login_title.innerHTML = "Chào buổi sáng!";
 }
+//
+
 
 
 
