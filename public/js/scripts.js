@@ -20,14 +20,30 @@ $(document).ready(function () {
 
 //create_post_option
 const targetDiv = document.getElementById("input_img");
-const btn = document.getElementById("toggle");
+
+const btn = document.getElementById("btn_gallery");
 btn.onclick = function () {
-  if (targetDiv.style.display !== "none") {
+  if(targetDiv.style.display == "block"){
     targetDiv.style.display = "none";
-  } else {
+  }
+  else {
     targetDiv.style.display = "block";
   }
 };
+//function upload img
+function img_upload() {
+  document.getElementById("file").click();
+};
+//auto resize text area
+const tx = document.getElementsByTagName("textarea");
+for (let i = 0; i < tx.length; i++) {
+  tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+  tx[i].addEventListener("input", OnInput, false);
+}
+function OnInput() {
+  this.style.height = "auto";
+  this.style.height = (this.scrollHeight) + "px";
+}
 
 //login.html
 //catch switch button state

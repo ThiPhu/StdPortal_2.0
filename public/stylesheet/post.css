@@ -12,6 +12,15 @@
     border-radius: 50%;
     margin: 12px;
 }
+.circle_img_create_post{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 12px;
+    margin-right: 5px;
+    margin-left: 3px;
+
+}
 .text_caption{
     margin-left: 12px;
     margin-right: 12px;
@@ -158,13 +167,16 @@ body{
 }
 
 .create_post_body{
-    background: white;
+    background: #fa8072;
     border-radius: 18px;
     margin-bottom: 10px;
     margin-top: 5px;
 }
-.button_post{
+.button_create_post{
     margin-top: 10px;
+    width: 100%;
+    background:#9bddff;
+    color: black;
 
 }
 .input_btn{
@@ -210,6 +222,7 @@ body{
     border-left:1px solid gray;
     height: 300px;
     padding: 5px;
+    display: none;
     border-end-end-radius: 0px;
     border-end-start-radius: 0px;
 }
@@ -226,7 +239,7 @@ body{
     border-end-start-radius: 0px;
     height:290px;
     width: 100%;
-    background: gray;
+    background: #A9A9A9;
     text-align: center;
     object-fit: contain;
     justify-content: center;
@@ -245,9 +258,24 @@ body{
 .modal_text{
     color: white;
 }
+.modal-body{
+    padding-bottom: 0%;
+    padding-top: 0%;
+}
 .black{
     background:	#303030;
 }
 .center{
     margin-top: 100px;
+}
+.add_img_btn{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #696969;
+    border: none;
+}
+.form-control{
+    background:#303030 ;
+    color: white;
 }

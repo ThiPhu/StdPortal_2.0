@@ -42,58 +42,9 @@
 <div class="container">
     <div class="d-flex row flex-row">
         {{!-- Side bar left --}}
-        <div class="col-lg-3">
-            <div class="d-lg-flex sb-left d-xm-none d-none flex-column bg-light"
-                style="width: 100%; max-width:215px;height: 90vh;">
-                <hr>
-                            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="#" class="nav-link text-black">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                    </svg>
-                   <span class="dis-text">Avatar</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-black">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                    <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
-                    </svg>
-                    <span class="dis-text">Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-black">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-app" viewBox="0 0 16 16">
-                    <path d="M11 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h6zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z"/>
-                    </svg>
-                    <span class="dis-text">Nofication</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-black">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                    </svg>
-                    <span class="dis-text">Student portal</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-black">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
-                    <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
-                    </svg>
-                    <span class="dis-text">logout</span>
-                    </a>
-                </li>
-                </ul>
-            </div>
+        <div class="col-lg-3 ">
+            
         </div>
-
         {{!-- Main post --}}
         <div class="col-lg-6 fit">
             <div>
@@ -106,45 +57,6 @@
 
         {{!-- Side bar right --}}
         <div class="col-lg-3">
-            <div class="container sb-right d-lg-flex d-none flex-column"
-                style="width: 100%; min-width: 360px; height: 100%">
-                
-                 <a href="/"
-                    class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-                    <svg class="bi me-2" width="30" height="24">
-                        <use xlink:href="#bootstrap"></use>
-                    </svg>
-                    <span class="fs-5 fw-semibold">Thông báo</span>
-                </a>
-                <div class="list-group list-group-flush border-bottom scrollarea">
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">Phòng ban</strong>
-                            <small class="text-muted">Ngày:</small>
-                        </div>
-                            <div class="col-10 mb-1 small">Tiêu đề:
-                            <p>Nội dung</p>
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">Phòng ban</strong>
-                            <small class="text-muted">Ngày:</small>
-                        </div>
-                            <div class="col-10 mb-1 small">Tiêu đề:
-                            <p>Nội dung</p>
-                        </div>
-                    </a>
-                     <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">Phòng ban</strong>
-                            <small class="text-muted">Ngày:</small>
-                        </div>
-                            <div class="col-10 mb-1 small">Tiêu đề:
-                            <p>Nội dung</p>
-                        </div>
-                    </a>
-            </div>
         </div>
     </div>
 </div>
