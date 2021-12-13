@@ -137,6 +137,7 @@
   position: fixed;
   top: 5.5em;
   bottom: 0;
+  left: 0;
   overflow: auto;
   max-width: 280px;
   height: 90vh;
@@ -194,10 +195,10 @@
 .sb-right {
   border-radius: 5px;
   position: fixed;
-  width: 100%;
   max-width: 420px;
   height: auto;
   top: 5.5em;
+  right: 0;
   bottom: 0;
   overflow: auto;
 }

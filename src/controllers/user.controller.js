@@ -12,7 +12,7 @@ exports.getUserDetail = async (req, res, next) => {
       username: req.params.user,
     });
     if (!student && !faculty) return res.status(404).render('error');
-    if (req.params.user === 'admin') return res.status(404).render('error');
+    if (req.params.user !== 'admin') return res.status(404).render('error');
     res.render('users/profile', {
       user: req.user, // Current user logging in
       isUserAvatar: '../' + req.user,
