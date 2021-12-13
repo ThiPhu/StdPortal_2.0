@@ -1,5 +1,5 @@
 {{> header}}
-<div class="container">
+<div class="container-fluid">
     <div class="d-flex row flex-row">
         {{!-- Side bar left --}}
         <div class="col-lg-3">
@@ -134,8 +134,9 @@
                                     <h5>Thông tin các Phòng/Khoa</h5>
                                 </div>
                                 <div class="col-lg-6 col-12 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary btn-create-faculty-account d-flex justify-content-center"
-                                            data-bs-toggle="modal" data-bs-target="#createFacultyAccountModal">
+                                    <button type="button"
+                                        class="btn btn-primary btn-create-faculty-account d-flex justify-content-center"
+                                        data-bs-toggle="modal" data-bs-target="#createFacultyAccountModal">
                                         <span class="material-icons-outlined">
                                             add
                                         </span>
@@ -161,14 +162,15 @@
                                         <tr class="admin_tr_mgmt" style="font-size: 18px;">
                                             <td>
                                                 <div>
-                                                    <img src="{{avatar}}" alt="Avatar" class="admin_avatar_mgmt">
+                                                    <img src="../../../{{avatar}}" alt="Avatar"
+                                                        class="admin_avatar_mgmt">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div>{{username}}</div>
                                             </td>
                                             <td>
-                                                <div>Phòng/Khoa</div>
+                                                <div>Học viên</div>
                                             </td>
                                             <td class="admin_td_faculty">
                                                 <div>{{faculty}}</div>
@@ -179,25 +181,27 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <a class="me-3" href="/api/user/{{username}}"
-                                                    style="cursor:pointer; color: green;">
-                                                    <span class="material-icons-outlined" data-bs-toggle="tooltip"
-                                                        title="Profile">
-                                                        account_circle
-                                                    </span>
-                                                </a>
-                                                <a class="me-3" href="#" style="cursor:pointer; color: red">
-                                                    <span class="material-icons-outlined" data-bs-toggle="tooltip"
-                                                        title="Xoá người dùng">
-                                                        delete
-                                                    </span>
-                                                </a>
-                                                <a class="me-3" href="#" style="cursor:pointer; color: coral">
-                                                    <span class="material-icons-outlined" data-bs-toggle="tooltip"
-                                                        title="Cấp quyền chủ đề">
-                                                        topic
-                                                    </span>
-                                                </a>
+                                                <div class="row container">
+                                                    <div class="col-6 mngt-act-btn mngt-profile-user"
+                                                        data-bs-toggle="tooltip" title="Xem trang người dùng">
+                                                        <a class="m-3 d-flex justify-content-center"
+                                                            href="/api/user/{{username}}">
+                                                            <span class="material-icons-outlined">
+                                                                account_circle
+                                                            </span>
+                                                            <p class="m-0 ms-2">Profile</p>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-6 mngt-act-btn mngt-del-user"
+                                                        data-bs-toggle="tooltip" title="Xoá người dùng">
+                                                        <a class="m-3 d-flex justify-content-center" href="#">
+                                                            <span class="material-icons-outlined">
+                                                                delete
+                                                            </span>
+                                                            <p class="m-0 ms-2">Delete</p>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                         {{/each}}
@@ -211,7 +215,8 @@
         </div>
     </div>
     {{!-- Faculty account create modal --}}
-    <div class="modal fade" id="createFacultyAccountModal" tabindex="-1" aria-labelledby="createFacultyAccountModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createFacultyAccountModal" tabindex="-1"
+        aria-labelledby="createFacultyAccountModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -246,7 +251,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-primary btn-submit" form="createFacultyAccount">Lưu thay đổi</button>
+                    <button type="submit" class="btn btn-primary btn-submit" form="createFacultyAccount">Lưu thay
+                        đổi</button>
                 </div>
             </div>
         </div>

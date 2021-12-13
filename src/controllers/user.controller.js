@@ -11,8 +11,12 @@ exports.getUserDetail = async (req, res, next) => {
     const faculty = await User.findOne({
       username: req.params.user,
     });
-    if (!student && !faculty) return res.status(404).render('error');
-    if (req.params.user !== 'admin') return res.status(404).render('error');
+
+    // Nếu truy cập vào xem trang cá nhân của admin thì sẽ quay về home
+    if (req.user.role !== 'admin') {
+      if (req.params.user === 'admin') return res.redirect('/');
+    }
+
     res.render('users/profile', {
       user: req.user, // Current user logging in
       isUserAvatar: '../' + req.user,
@@ -46,23 +50,19 @@ exports.get = async (req, res, next) => {
 
 // Create user
 exports.create = async (req, res, next) => {
-
   // Generate salt
   const salt = await bcrypt.genSalt();
   // Hash password with bcrypt
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-  // Generate avatar
-  
-
   try {
     const user = await User.create({
-      username: req.body.email ? req.body.email.split("@")[0] : null ,
+      username: req.body.email ? req.body.email.split('@')[0] : null,
       email: req.body.email ? req.body.email : null,
       password: hashedPassword,
       role: req.body.role,
       unit: req.body.unit ? req.body.unit : null,
-      topics: req.body.topics ? req.body.topics: null
+      topics: req.body.topics ? req.body.topics : null,
     });
     return res.json({
       ok: true,

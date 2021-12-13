@@ -19,28 +19,3 @@ $(document).ready(function () {
 });
 
 // ------------------- LOGIN --------------------------------------
-
-
-
-
-
-// Login with google
-// $(".btn_google_signin").on("click", (e)=>{
-//   e.preventDefault()
-
-//   fetch("/api/auth/google")
-//     .then(data => data.json())
-//      .then(json => console.log("FROM CLIENT", json))
-// })
-
-// ------------------- END LOGIN --------------------------------------
-
-// ------------------- LOGOUT --------------------------------------
-
-// $(".sign-out").on("click", (e)=>{
-//   e.preventDefault()
-
-//   fetch("/logout")
-// })
-
-// ------------------- END LOGOUT --------------------------------------

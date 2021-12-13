@@ -14,7 +14,7 @@ Router.use(userAuth);
 Router.use('/user', userRouter);
 
 // /api/section
-Router.use('/section', sectionRouter)
+Router.use('/section', sectionRouter);
 
 Router.use((req, res) =>
   res.status(404).json({
@@ -22,8 +22,6 @@ Router.use((req, res) =>
     msg: 'Không thể giải quyết yêu cầu!',
   })
 );
-
-
 
 // Handle error
 Router.use((err, req, res) => {
