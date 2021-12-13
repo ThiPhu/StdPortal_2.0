@@ -1,11 +1,20 @@
 const Router = require('express').Router();
 const authRouter = require('./auth.routes');
 const userRouter = require('./user.routes');
+const sectionRouter = require('./section.routes');
+const { userAuth } = require('../middlewares/auth.middleware');
 
 // /api/auth
 Router.use('/auth', authRouter);
+
+// Kiem tra token session
+Router.use(userAuth);
+
 // /api/user
 Router.use('/user', userRouter);
+
+// /api/section
+Router.use('/section', sectionRouter)
 
 Router.use((req, res) =>
   res.status(404).json({
@@ -13,6 +22,8 @@ Router.use((req, res) =>
     msg: 'Không thể giải quyết yêu cầu!',
   })
 );
+
+
 
 // Handle error
 Router.use((err, req, res) => {

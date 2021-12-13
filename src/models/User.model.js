@@ -30,7 +30,7 @@ const UserSchema = new Schema({
     type: String,
     default: null
   },
-  faculty: {
+  unit: {
     type: String,
     default: null
   },

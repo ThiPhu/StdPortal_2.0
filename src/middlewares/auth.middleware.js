@@ -18,10 +18,10 @@ exports.userAuth = async (req, res, next) => {
         }
       }
     }
-    return res.redirect('/login');
+    return res.clearCookie("access_token").redirect('/login');
   } catch (err) {
     // Chuyển về trang đăng nhập nếu không tồn tại session token
     console.log('Phiên đăng nhập không hợp lệ', err);
-    return res.redirect('/login');
+    return res.clearCookie("access_token").redirect(500,'/login');
   }
 };

@@ -5,18 +5,23 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 // Create user
 exports.create = async (req, res, next) => {
-  const { username, password, role } = req.body;
 
   // Generate salt
   const salt = await bcrypt.genSalt();
   // Hash password with bcrypt
-  const hashedPassword = await bcrypt.hash(password, salt);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+  // Generate avatar
+  
 
   try {
     const user = await User.create({
-      username,
+      username: req.body.email ? req.body.email.split("@")[0] : null ,
+      email: req.body.email ? req.body.email : null,
       password: hashedPassword,
-      role,
+      role: req.body.role,
+      unit: req.body.unit ? req.body.unit : null,
+      topics: req.body.topics ? req.body.topics: null
     });
     return res.json({
       ok: true,
