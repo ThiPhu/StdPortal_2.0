@@ -88,8 +88,8 @@
     border: none;
     height: 45px;
     background:  #f0f2f5;
-    margin-right: 20px;
-
+    align-items: center;
+    display: flex;
 }
 .post_comments{
     margin-top: 5px;
@@ -170,7 +170,7 @@ body{
     background: #fa8072;
     border-radius: 18px;
     margin-bottom: 10px;
-    margin-top: 5px;
+    margin-top: 3px;
 }
 .button_create_post{
     margin-top: 10px;
@@ -190,6 +190,8 @@ body{
 .save_post{
     width: 100%;
     background: dodgerblue;
+    margin-left: 0%;
+    margin-right: 0%;
 }
 .set_margin{
     margin-top: 10px;
@@ -252,6 +254,10 @@ body{
 .modal-header,.modal-footer{
     border: none;
 }
+.modal-footer{
+    padding-left: 0%;
+    padding-right: 0%;
+}
 .modal-content{
     background:	#303030;
 }
@@ -278,4 +284,7 @@ body{
 .form-control{
     background:#303030 ;
     color: white;
+}
+.bg{
+    background: #f2f2f2;
 }
