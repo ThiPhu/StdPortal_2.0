@@ -1,13 +1,7 @@
-const Router = require('express').Router();
-const userController = require('../controllers/user.controller');
+const Router = require("express").Router()
+const userController = require("../controllers/user.controller")
+const userValidation = require("../validations/user.validation")
+// Create new user
+Router.post("/", userValidation ,userController.create )
 
-// Tạo user mới
-Router.post('/', userController.create);
-
-// Lấy user theo ID (Xem trang cá nhân)
-Router.get('/:user', userController.getUserDetail);
-
-// Lấy hết tất cả user (quản lý của admin)
-Router.get('/', userController.get);
-
-module.exports = Router;
+module.exports = Router

@@ -134,7 +134,8 @@
                                     <h5>Thông tin các Phòng/Khoa</h5>
                                 </div>
                                 <div class="col-lg-6 col-12 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary d-flex">
+                                    <button type="button" class="btn btn-primary btn-create-faculty-account d-flex justify-content-center"
+                                            data-bs-toggle="modal" data-bs-target="#createFacultyAccountModal">
                                         <span class="material-icons-outlined">
                                             add
                                         </span>
@@ -203,14 +204,54 @@
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {{!-- Faculty account create modal --}}
+    <div class="modal fade" id="createFacultyAccountModal" tabindex="-1" aria-labelledby="createFacultyAccountModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createFacultyAccountModalLabel">Tạo tài khoản Phòng/khoa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createFacultyAccount">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control inputEmail" placeholder="d" required>
+                            <label for="exampleInputEmail1" class="form-label">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control inputPassword" placeholder="d" required>
+                            <label for="exampleInputPassword1" class="form-label">Mật Khẩu</label>
+                        </div>
+                        <div class="mb-3">
+                            {{!-- <label for="unit-select" class="form-label">Chọn</label> --}}
+                            <select class="form-select" id="unit-select" aria-label="Unit-select" required>
+                                <option selected hidden>Chọn đơn vị</option>
+                                <option value="central">Phòng ban trung tâm</option>
+                                <option value="faculty">Khoa</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" id="section-select" aria-label="section-select" required>
+                                <option selected hidden>Chọn chuyên mục</option>
+                                <option disabled>Hãy chọn một đơn vị!</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary btn-submit" form="createFacultyAccount">Lưu thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/management.script.js"></script>
 </div>
 
 {{!-- <div class="row">
@@ -269,3 +310,5 @@
         </table>
     </div>
 </div> --}}
+
+<script src="/js/admin.js"></script>

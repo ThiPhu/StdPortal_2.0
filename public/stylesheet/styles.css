@@ -436,9 +436,23 @@ body {
   padding-left: 0.5rem;
 }
 
-/* .login-card__form .btn_signIn>i::after{
-content: "Sign in with student mail";
-} */
+/* LOGIN VALIDATION */
+
+.invalid{
+  border: 2px solid #dc3545 !important;
+}
+
+.invalid:focus{
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 .25rem rgba(220,53,69,.25) !important;
+}
+
+.login-msg--error{
+  color: #dc3545;
+}
+
+
+/* END LOGIN VALIDATION */
 
 .login-card__footer {
   padding-top: 2rem;
