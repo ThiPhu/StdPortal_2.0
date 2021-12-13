@@ -284,6 +284,13 @@ body{
 .form-control{
     background:#303030 ;
     color: white;
+    resize: none;
+    align-items: center;
+    justify-content: center;
+    margin: 3px;
+}
+.color{
+    color: black;
 }
 .bg{
     background: #f2f2f2;
