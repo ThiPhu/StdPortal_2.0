@@ -1,15 +1,19 @@
 <div class="create_post_body">
-    <div class="head_comment">
+      <div class="head_comment">
         <div class="display">
             <img  class="circle_img_comment p-2 bd-highlight" src="image/school.jpg">
         </div>
-        <div class="display input_btn">
+        <div class="display input_bar">
+            <textarea  type="text" placeholder="Bạn muốn viết gì?" class="form-control bg color"></textarea>
+        </div>
+    </div>  
+    <div class="d-flex justify-content-start input_btn ">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary button_create_post" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Tạo bài Post
+                <img class="small" src="image/gallery.png">
+               <small>Ảnh/Video</small>
             </button>
-        </div>
-    </div> 
+    </div>
 </div>
 
 <!-- Modal -->
@@ -28,9 +32,6 @@
                         <div class="modal_text">
                             Trang Sinh Viên
                         </div>
-                        <div>
-                            <p>Public</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -40,7 +41,7 @@
           <div class="input_img" id="input_img">
               <div class="input_body">
                       <div class="center">
-                        <input type="file" id="file" style="display:none;" accept="image/*,video/*"/>
+                        <input type="file" id="file" class="hide" accept="image/*,video/*" onchange="loadFile(event)"/>
                         <button class="add_img_btn" onclick="img_upload();">
                             <span class="material-icons-outlined">
                             add_photo_alternate
@@ -50,15 +51,9 @@
                       </div>
               </div>
           </div>
-          <div class="options_post">
-            <div class="d-flex bd-highlight mb-3">
-            <div class="me-auto p-2 bd-highlight modal_text">Thêm ảnh vô Post của bạn</div>
-            <div class="p-2 bd-highlight">
-                <div class="d-flex justify-content-evenly">
-                    <button  id="btn_gallery" class="btn_option"><img class="small" src="image/gallery.png"></button>
-            </div>
-            </div>
-        </div>
+          <div>
+              <img class="img_post" id="review_img" onclick="remove(this)">
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary save_post modal_text">Post</button>

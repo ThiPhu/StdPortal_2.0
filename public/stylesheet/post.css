@@ -5,6 +5,10 @@
 }
 .post_header{
     margin-right: 12px;
+    margin-left: 12px;
+}
+.create_post_header{
+    margin-right: 12px;
 }
 .circle_img{
     width: 60px;
@@ -167,21 +171,23 @@ body{
 }
 
 .create_post_body{
-    background: #fa8072;
+    background: white;
     border-radius: 18px;
     margin-bottom: 10px;
     margin-top: 3px;
 }
 .button_create_post{
-    margin-top: 10px;
+    margin-top: 0%;
     width: 100%;
-    background:#9bddff;
+    background:dodgerblue;
     color: black;
+    margin-bottom: 8px;
+    margin-left: 12px;
 
 }
 .input_btn{
-    align-items: center;
-    width: 100%;
+    width: 30%;
+    margin-left: 12px;
 }
 .modal-title{
     width: 100%;
@@ -212,6 +218,7 @@ body{
 .form-control{
     outline: none;
     border: none;
+    padding: 0%;
 }
 .createpostheader{
     margin-bottom: 5px;
@@ -224,7 +231,7 @@ body{
     border-left:1px solid gray;
     height: 300px;
     padding: 5px;
-    display: none;
+    display: block;
     border-end-end-radius: 0px;
     border-end-start-radius: 0px;
 }
@@ -245,6 +252,7 @@ body{
     text-align: center;
     object-fit: contain;
     justify-content: center;
+    display: block;
 
 }
 .big{
@@ -257,6 +265,8 @@ body{
 .modal-footer{
     padding-left: 0%;
     padding-right: 0%;
+    margin-left: 16px;
+    margin-right: 16px;
 }
 .modal-content{
     background:	#303030;
@@ -285,13 +295,24 @@ body{
     background:#303030 ;
     color: white;
     resize: none;
-    align-items: center;
     justify-content: center;
-    margin: 3px;
+    text-align: left;
+    margin-top: 8px;
+    height: 45px;
 }
 .color{
     color: black;
 }
 .bg{
     background: #f2f2f2;
+}
+.write_post{
+    border: none;
+    border-radius: 25px;
+    width: 100%;
+    margin-top: 8px;
+    height: 45px;
+}
+.hide{
+    display: none;
 }

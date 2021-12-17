@@ -19,21 +19,23 @@ $(document).ready(function () {
 });
 
 //create_post_option
-const targetDiv = document.getElementById("input_img");
-
-const btn = document.getElementById("btn_gallery");
-btn.onclick = function () {
-  if(targetDiv.style.display == "block"){
-    targetDiv.style.display = "none";
-  }
-  else {
-    targetDiv.style.display = "block";
-  }
-};
 //function upload img
 function img_upload() {
   document.getElementById("file").click();
 };
+var loadFile = function(event) {
+  var reader = new FileReader();
+  reader.onload = function(){
+    var output = document.getElementById('review_img');
+    output.src = reader.result;
+  };
+  reader.readAsDataURL(event.target.files[0]);
+};
+//remove img
+function remove(el) {
+  var element = el;
+  element.remove();
+}
 //auto resize text area
 const tx = document.getElementsByTagName("textarea");
 for (let i = 0; i < tx.length; i++) {
