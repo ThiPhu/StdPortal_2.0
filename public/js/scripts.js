@@ -23,6 +23,9 @@ $(document).ready(function () {
 function img_upload() {
   document.getElementById("file").click();
 };
+input_img=document.getElementById('input_img')
+
+console.log(input_img)
 var loadFile = function(event) {
   var reader = new FileReader();
   reader.onload = function(){
@@ -30,12 +33,9 @@ var loadFile = function(event) {
     output.src = reader.result;
   };
   reader.readAsDataURL(event.target.files[0]);
+  input_img.style.display='none'
 };
 //remove img
-function remove(el) {
-  var element = el;
-  element.remove();
-}
 //auto resize text area
 const tx = document.getElementsByTagName("textarea");
 for (let i = 0; i < tx.length; i++) {

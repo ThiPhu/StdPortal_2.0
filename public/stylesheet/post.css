@@ -178,12 +178,15 @@ body{
 }
 .button_create_post{
     margin-top: 0%;
-    width: 100%;
     background:dodgerblue;
     color: black;
     margin-bottom: 8px;
     margin-left: 12px;
+    display: flex;
 
+}
+.h{
+    width: 100%;
 }
 .input_btn{
     width: 30%;
