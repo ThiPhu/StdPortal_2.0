@@ -1,6 +1,6 @@
 <div class="container d-lg-flex flex-column">
     {{#each post}}
-    <div class="p-3 mb-4" style="background-color: rgb(212, 212, 212);">
+    <div class="post_id p-3 mb-4" data-postid="{{_id}}" style="background-color: rgb(212, 212, 212);">
         {{!-- Post header --}}
         <div class="row">
             {{!-- Show name and date post --}}
@@ -58,8 +58,7 @@
             {{!-- Comment section --}}
             <div class="row col-12">
                 <div class="col-6 d-flex justify-content-start align-items-center">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#a{{_id}}"
-                        aria-expanded="false" aria-controls="collapseComment">
+                    <button class="btn btn-primary comments_expand" type="button">
                         Comments
                     </button>
                 </div>
@@ -69,8 +68,13 @@
             </div>
         </div>
         <div class="col-12 mt-2 mb-2" style="border-bottom: 2px solid black;"></div>
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border d-none" id="comment_loading_{{_id}}" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
         {{!-- Collapse interative comments --}}
-        <div class="col-12 collapse" id="a{{_id}}">
+        <div class="col-12 comment_container d-none" id="comment_{{_id}}">
             <div class="card card-body" style="background-color: rgb(212, 212, 212);">
                 <div class="input-group mb-3">
                     <textarea class="form-control comment_input" aria-label="With textarea"
