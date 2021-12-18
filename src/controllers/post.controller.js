@@ -1,5 +1,6 @@
 const User = require('../models/User.model');
 const Post = require('../models/Post.model');
+const Comment = require('../models/Comment.model');
 const months = [
   'Jan',
   'Feb',
@@ -52,15 +53,15 @@ exports.create = async (req, res, next) => {
   const { caption } = req.body;
   const image = req.file.filename;
   const user = req.user;
-  const date = new Date();
   try {
     const userId = await User.findById(req.user.id);
+    const date = new Date();
     const create_date =
       date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
     const create_time =
       date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-    // Nếu không phải là người dùng của trang này thì không cho
-    // tạo bài viết
+    // Nếu không phải là người dùng đăng nhập được trên trang này hay
+    // không có tài khoản đăng nhập thì không cho tạo bài viết
     if (!userId) {
       // return res.render('posts/post');
       return res.json({
@@ -76,7 +77,9 @@ exports.create = async (req, res, next) => {
       create_date,
       create_time,
     });
-
+    console.log(
+      'From post.controller.js at create function: Tạo bài viết thành công'
+    );
     return res.json({
       ok: true,
       msg: 'Tạo bài bài viết thành công!',
@@ -94,13 +97,17 @@ exports.update = async (req, res, next) => {
   try {
     const userId = await User.findById(req.user.id);
     const postId = await Post.findById(req.params.id);
-
+    const date = new Date();
+    const create_date =
+      date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
+    const create_time =
+      date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
     // Nếu không phải là chủ bài viết hoặc không có bài viết
     // hay user không login, thì không cho cập nhật
     if (
       !userId ||
       !postId ||
-      postId.userId.toString() !== userId.id.toString()
+      postId.user[0]._id.toString() !== userId._id.toString()
     ) {
       // return res.render('posts/post');
       return res.json({
@@ -112,9 +119,11 @@ exports.update = async (req, res, next) => {
     let newPost = {
       caption,
       image,
+      create_date,
+      create_time,
     };
     newPost = await Post.findByIdAndUpdate(postId, newPost, { new: true });
-    res.json({
+    return res.json({
       ok: true,
       msg: 'Cập nhật bài viết thành công!',
       post: newPost,

@@ -22,7 +22,8 @@
                             </strong>
                         </div>
                         <div class="col-12 mb-1 small">
-                            {{create_date}}
+                            {{create_date}} at {{create_time}}
+                            {{#if isUpdated}}updated{{/if}}
                         </div>
                     </a>
                 </div>
@@ -79,9 +80,15 @@
                 </div>
             </div>
             <div class="card card-body" style="background-color: rgb(212, 212, 212);">
-                Some placeholder content for the collapse component. This panel is hidden by default but
-                revealed
-                when the user activates the relevant trigger.
+                <ul>
+                    {{#each comments}}
+                    <li>
+                        {{#each user}}{{username}}{{fullname}}{{/each}}
+                        {{content}}
+                    </li>
+                    {{/each}}
+                </ul>
+
             </div>
         </div>
     </div>

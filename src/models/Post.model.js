@@ -11,6 +11,7 @@ const PostSchema = new Schema(
     create_date: String,
     create_time: String,
     user: [Object],
+    comments: [Object],
   },
   { timestamps: true }
 );

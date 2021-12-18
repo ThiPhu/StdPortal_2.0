@@ -11,7 +11,7 @@ const CommentSchema = new Schema(
       type: Date,
       default: Date.now,
     },
-    userId: [Object],
+    user: [Object],
     postId: [Object],
   },
   { timestamps: true }

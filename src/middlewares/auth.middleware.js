@@ -5,7 +5,6 @@ const { genToken, verifyToken } = require('../utils/jwt');
 
 exports.userAuth = async (req, res, next) => {
   const { access_token } = req.cookies;
-
   try {
     if (access_token) {
       const { id } = verifyToken(access_token);
