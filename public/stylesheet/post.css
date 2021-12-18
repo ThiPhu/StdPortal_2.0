@@ -14,7 +14,7 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    margin: 12px;
+    margin-top: 10px;
 }
 .circle_img_create_post{
     width: 60px;
@@ -318,4 +318,15 @@ body{
 }
 .hide{
     display: none;
+}
+.text_area_border{
+    border-radius: 25px;
+    margin-left: 3px;
+    margin-bottom: 8px;
+    padding: 8px;
+    display: flex;
+}
+.review{
+    margin-top: 3px;
+    height: auto;
 }
