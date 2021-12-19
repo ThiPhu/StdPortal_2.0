@@ -1,3 +1,11 @@
+{{!-- Display the comments data --}}
+<script id="comment_data_template" type="text/x-handlebars-template">
+        {{#each post}}
+            {{#each comments}}
+                {{content}}
+            {{/each}}
+        {{/each}}
+</script>
 <div class="container d-lg-flex flex-column">
     {{#each post}}
     <div class="post_id p-3 mb-4" data-postid="{{_id}}" style="background-color: rgb(212, 212, 212);">
@@ -84,15 +92,14 @@
                 </div>
             </div>
             <div class="card card-body" style="background-color: rgb(212, 212, 212);">
-                <ul>
+                {{!-- <ul>
                     {{#each comments}}
                     <li>
                         {{#each user}}{{username}}{{fullname}}{{/each}}
                         {{content}}
                     </li>
                     {{/each}}
-                </ul>
-
+                </ul> --}}
             </div>
         </div>
     </div>
