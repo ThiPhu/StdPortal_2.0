@@ -1,14 +1,29 @@
 {{!-- Display the comments data --}}
-<script id="comment_data_template" type="text/x-handlebars-template">
-        {{#each post}}
-            {{#each comments}}
-                {{content}}
-            {{/each}}
-        {{/each}}
-</script>
 <div class="container d-lg-flex flex-column">
     {{#each post}}
     <div class="post_id p-3 mb-4" data-postid="{{_id}}" style="background-color: rgb(212, 212, 212);">
+        <script class="comment_data_template_{{_id}}" type="text/template">
+            <div class="card card-body" style="background-color: rgb(212, 212, 212);">
+                <div class="input-group mb-3">
+                    <textarea class="form-control comment_input" aria-label="With textarea"
+                        placeholder="Comments"></textarea>
+                    <button class="d-none btn btn-outline-secondary comment_btn" type="button"
+                        id="button-addon2">Button</button>
+                </div>
+                <div class="card card-body" style="background-color: rgb(212, 212, 212);">
+                    <ul>
+                        {{#comments}}
+                        <li>
+                            {{#each user}}
+                                {{username}}{{fullname}}
+                            {{/each}}
+                            {{content}}
+                            </li>
+                        {{/comments}}
+                    </ul>
+                </div>
+            </div>
+        </script>
         {{!-- Post header --}}
         <div class="row">
             {{!-- Show name and date post --}}
@@ -82,24 +97,12 @@
             </div>
         </div>
         {{!-- Collapse interative comments --}}
-        <div class="col-12 comment_container d-none" id="comment_{{_id}}">
-            <div class="card card-body" style="background-color: rgb(212, 212, 212);">
-                <div class="input-group mb-3">
-                    <textarea class="form-control comment_input" aria-label="With textarea"
-                        placeholder="Comments"></textarea>
-                    <button class="d-none btn btn-outline-secondary comment_btn" type="button"
-                        id="button-addon2">Button</button>
-                </div>
-            </div>
-            <div class="card card-body" style="background-color: rgb(212, 212, 212);">
-                {{!-- <ul>
-                    {{#each comments}}
-                    <li>
-                        {{#each user}}{{username}}{{fullname}}{{/each}}
-                        {{content}}
-                    </li>
-                    {{/each}}
-                </ul> --}}
+        <div class="col-12 comment_container_{{_id}} d-none" id="comment_{{_id}}">
+            <div class="input-group mb-3">
+                <textarea class="form-control comment_input" aria-label="With textarea"
+                    placeholder="Comments"></textarea>
+                <button class="d-none btn btn-outline-secondary comment_btn" type="button"
+                    id="button-addon2">Button</button>
             </div>
         </div>
     </div>
