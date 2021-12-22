@@ -4,10 +4,10 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 // View user
-exports.read = async (req, res, next) => {   
+exports.read = async (req, res) => {   
   const {role} = req.query
   try{
-    const user = await User.find({"role":role}).populate('unit','name')
+    const user = await User.find({"role":role}).populate('unit','name').populate('topics','name')
 
     return user ? res.json({
       ok: true,
@@ -22,6 +22,28 @@ exports.read = async (req, res, next) => {
     console.log(err)
   }
 }
+
+// View user detail
+exports.readDetail = async (req, res) => {   
+  const {userId} = req.params
+  try{
+    const user = await User.find({"_id":userId}).populate('unit').populate('topics','name')
+
+    return user ? res.json({
+      ok: true,
+      user
+    }) :
+    res.status(404).json({
+      ok: false,
+      msg: "Không tìm thấy người dùng!"
+    })
+  } catch (err){
+    res.status(500)
+    console.log(err)
+  }
+}
+
+
 
 // Create user
 exports.create = async (req, res, next) => {
@@ -55,9 +77,51 @@ exports.create = async (req, res, next) => {
 
 // Update user
 exports.update = async (req, res, next) => {
-  
+  const {userId} = req.params
+  const update = req.body
+
+  try{
+    const user = await User.findByIdAndUpdate(
+      {_id: userId}, 
+      update,
+      {new: true}
+    )
+
+    if(user){
+      return res.json({
+        ok: true,
+        msg: "Cập nhật người dùng thành công!"
+      })
+    } else{
+      return res.json({
+        ok: false,
+        msg: "Không tìm thấy người dùng"
+      })
+    }
+
+  }catch (err){
+    next(err)
+  }
 }
 
+// Delete user
+exports.delete = async (req, res, next) => {
+  const {userId} = req.params;
+
+  const user = await User.findByIdAndDelete({_id: userId})
+
+  if(user){
+    return res.json({
+      ok: true,
+      msg: "Xóa người dùng thành công!"
+    })
+  } else{
+    return ré.json({
+      ok: false,
+      msg: "Không tìm thấy thông tin người dùng!"
+    })
+  }
+}
 // exports.createFromGoogleAuth = async (req, res, next) =>{
 //     passport.use(
 //         new GoogleStrategy({

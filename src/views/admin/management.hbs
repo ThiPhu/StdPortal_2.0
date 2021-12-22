@@ -1,6 +1,4 @@
 {{> header}}
-{{!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
 <div class="container">
     <div class="d-flex row flex-row">
         {{!-- Side bar left --}}
@@ -40,7 +38,7 @@
                         <div class="carousel-item active">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h5>Thông tin các Học viên</h5>
+                                    <h5>Thông tin Học viên</h5>
                                 </div>
                             </div>
                             <hr>
@@ -130,7 +128,7 @@
                         <div class="carousel-item">
                             <div class="row">
                                 <div class="col-lg-6 col-12">
-                                    <h5>Thông tin các Phòng/Khoa</h5>
+                                    <h5>Thông tin Phòng/Khoa</h5>
                                 </div>
                                 <div class="col-lg-6 col-12 d-flex justify-content-end">
                                     <button type="button" class="btn btn-primary btn-create-faculty-account d-flex justify-content-center"
@@ -151,7 +149,6 @@
                                             <th scope="col">Tên đăng nhập</th>
                                             <th scope="col">Vai trò</th>
                                             <th scope="col">Khoa</th>
-                                            <th scope="col">Chủ đề</th>
                                             <th scope="col">Tương tác</th>
                                         </tr>
                                     </thead>
@@ -212,7 +209,7 @@
     </div>
     {{!-- Faculty account create modal --}}
     <div class="modal fade" id="createFacultyAccountModal" tabindex="-1" aria-labelledby="createFacultyAccountModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createFacultyAccountModalLabel">Tạo tài khoản Phòng/khoa</h5>
@@ -236,16 +233,16 @@
                                 <option value="faculty">Khoa</option>
                             </select>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <select class="form-select" id="section-select" aria-label="section-select" required>
                                 <option selected hidden>Chọn chuyên mục</option>
                                 <option disabled>Hãy chọn một đơn vị!</option>
                             </select>
                         </div>
                         <div class="mb-3">    
-                            <fieldset class="topic-select">
-                                <legend>Chọn chủ đề quản lí</legend>
-                            </fieldset>
+                            <div class="topic-select">
+                                <span class="topic-select__title">Chọn chủ đề quản lí</span>
+                            </div>
                         </div>
                     </form>
                 </div>

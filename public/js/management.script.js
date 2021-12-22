@@ -2,15 +2,32 @@
 
 // Window ready get sutdent list
 $(window).ready(()=>{
+    $(".btn-sw--student").addClass("btn--active")
     getUserList("student")
 })
 // Get faculty list on button click
 // one: only execute function once
-$(".btn-sw--faculty").one("click", (event) =>{
+$(".btn-sw--faculty").one("click", (event) => {
     // $(".btn-sw--faculty").toggleClass("btn--active").prop("disabled",true)
     // $(".btn-userType-switch")
     getUserList("faculty")
 })
+
+$(".btn-sw--student").on("click", (event) => {
+    if($(".btn-sw--faculty").hasClass("btn--active"))
+        $(".btn-sw--faculty").removeClass("btn--active")
+    $(event.target).addClass("btn--active")
+})
+
+$(".btn-sw--faculty").on("click", (event) => {
+    if($(".btn-sw--student").hasClass("btn--active"))
+        $(".btn-sw--student").removeClass("btn--active")
+    $(event.target).addClass("btn--active")
+})
+
+// $(".btn-sw--faculty").on("click", (event) =>{
+//     $(".btn-sw--faculty").toggleClass("btn--active")
+// })
 // Get user list
  function getUserList(role){
     fetch(`/api/user?role=${role}`)
@@ -79,7 +96,7 @@ $(".btn-sw--faculty").one("click", (event) =>{
                 json.user.map((user)=>{
                     // Get faculty list
                     $(".table-faculty").find("tbody").append(`
-                        <tr class="admin_tr_mgmt" style="font-size: 18px;">
+                        <tr class="admin_tr_mgmt" style="font-size: 18px;" data-id="${user._id}">
                             <td>
                                 <div>
                                     <img src="${user.avatar}" alt="Avatar" class="admin_avatar_mgmt">
@@ -94,11 +111,6 @@ $(".btn-sw--faculty").one("click", (event) =>{
                             <td class="admin_td_faculty">
                                 <div>${user.unit.name}</div>
                             </td>
-                            <td class="admin_td_topic">
-                                <div>
-                                    ${user.class}
-                                </div>
-                            </td>
                             <td>
                                 <a class="me-3" href="/profile/${user.username}"
                                     style="cursor:pointer; color: green;">
@@ -107,15 +119,16 @@ $(".btn-sw--faculty").one("click", (event) =>{
                                         account_circle
                                     </span>
                                 </a>
-                                <a class="me-3" href="#" style="cursor:pointer; color: red">
+                                <a class="me-3 btn-delete" style="cursor:pointer; color: red">
                                     <span class="material-icons-outlined" data-bs-toggle="tooltip"
-                                        title="Xoá người dùng">
+                                        title="Xoá người dùng" style="pointer-events: none">
                                         delete
                                     </span>
                                 </a>
-                                <a class="me-3" href="#" style="cursor:pointer; color: coral">
+                                <a class="me-3 btn-update" style="cursor:pointer; color: coral"
+                                    data-bs-toggle="modal" data-bs-target="#createFacultyAccountModal">
                                     <span class="material-icons-outlined" data-bs-toggle="tooltip"
-                                        title="Cấp quyền chủ đề">
+                                        title="Cập nhật thông tin người dùng" style="pointer-events: none">
                                         topic
                                     </span>
                                 </a>
@@ -137,7 +150,7 @@ $("#createFacultyAccountModal").find("select#unit-select").on("change",(event) =
 
     // reset
     $(sectionSelect).html("")
-    $(topicSelect).html("").append("<legend>Chọn chủ đề quản lí</legend>")
+    $(topicSelect).html("").append("<span class='topic-select__title'>Chọn chủ đề quản lí</span>")
     fetch(`/api/section?unit=${unitSelectVal}`)
         .then((res) => res.json())
         .then(({ok,sections})=>{
@@ -159,62 +172,122 @@ $("#createFacultyAccountModal").find("select#unit-select").on("change",(event) =
                     </div>
                 `)
             })
-    })
-
-    // Form submit handler
-    $("#createFacultyAccount").on("submit", (event) => {
-        event.preventDefault()
-
-        const inputEmail = $(".inputEmail").val()
-        const inputPassword = $(".inputPassword").val()
-        const sectionSelect = $("#section-select").val()
-        const topicSelect= $("#createFacultyAccountModal").find(".topic-select")
-
-        // get checked checkbox
-        let selectedTopic = []
-        $(topicSelect).find("input[type=checkbox]:checked").each((index,item)=>{
-            selectedTopic.push($(item).val())
         })
-        console.log(selectedTopic)
-
-        fetch("/api/user",{
-            method: "POST",
-            body: new URLSearchParams({
-                email: inputEmail,
-                password: inputPassword,
-                role: "faculty",
-                unit: sectionSelect,
-                topics: selectedTopic
-            })
-        })
-        .then((res) => res.json())
-        .then(({ok,msg,data}) => {
-            if(!ok){
-                console.log("error",msg)
-                return;
-            }
-            getUserList("faculty")
-        })
-        .finally(()=>{
-            // Reset form
-            document.getElementById("createFacultyAccount").reset()
-        })
-    })
-
 });
 
-// $(document).ready(function() {
-//     // Select2
-//     $('#topic-select').select2({
-//         // attach dropdown to modal rather than body
-//         dropdownParent: $("#createFacultyAccountModal"),
-//         ajax: {
-//             url: "/api/section?section?unit='central'",
-//             dataType: "json",
-//             type: "GET",
-//         },
-//         placeholder: "Chọn chủ đề"
-//     });
+// Form submit handler
+$("#createFacultyAccount").on("submit", (event) => {
+    event.preventDefault()
+
+    const inputEmail = $(".inputEmail").val()
+    const inputPassword = $(".inputPassword").val()
+    const sectionSelect = $("#section-select").val()
+    const topicSelect= $("#createFacultyAccountModal").find(".topic-select")
+
+    // get checked checkbox
+    let selectedTopic = []
+    $(topicSelect).find("input[type=checkbox]:checked").each((index,item)=>{
+        selectedTopic.push($(item).val())
+    })
+    console.log(selectedTopic)
+
+    fetch("/api/user",{
+        method: "POST",
+        body: new URLSearchParams({
+            email: inputEmail,
+            password: inputPassword,
+            role: "faculty",
+            unit: sectionSelect,
+            topics: selectedTopic
+        })
+    })
+    .then((res) => res.json())
+    .then(({ok,msg,data}) => {
+        if(!ok){
+            console.log("error",msg)
+            return;
+        }
+        getUserList("faculty")
+    })
+    .finally(()=>{
+        // Reset form
+        document.getElementById("createFacultyAccount").reset()
+    })
+})
+
+// Render update user modal
+$(document).on("click", ".btn-update",  (event) =>{
+    const userId = $(event.target).closest(".admin_tr_mgmt").attr("data-id")
+
+    $("#createFacultyAccountModal").find(".modal-title").text("Cập nhật người dùng")
+
+    fetch(`/api/user/${userId}`)
+    .then(res => res.json())
+    .then((json) =>{
+        console.log(json)
+        if(!json.ok)
+            alert(json.msg)
+        json.user.map((usr)=>{
+            $("#createFacultyAccountModal").find(".inputEmail").val(usr.email)
+            console.log(usr.unit.unit)
+            $("#createFacultyAccountModal").find("#unit-select").val(usr.unit.unit)
+            var event = new Event('change');
+
+            // Dispatch it.
+            document.querySelector("#createFacultyAccountModal").dispatchEvent(event);
+            // $("#createFacultyAccountModal").find("#section-select").val(usr.email)
+
+        })
+    })
+
+
+})
+
+
+
+
+//  Update user
+// $(document).on("click", ".btn-update", (event) =>{
+//     event.preventDefault();
+
+//     const userId = $(event.target).closest(".admin_tr_mgmt").attr("data-id")
+
+//     console.log(userId)
+//     fetch(`/api/user/${userId}`,{
+//         method: "PUT",
+//         body: new URLSearchParams({
+
+//         })
+//     })
+//     .then(res => res.json())
+//     .then(({ok,msg})=>{
+//         if(!ok) 
+//             alert(msg)
+//         else{
+//             getUserList("faculty")
+//         }
+//     })
 // })
+
+// Delete user
+$(document).on("click", ".btn-delete", (event) =>{
+    event.preventDefault();
+
+    const userId = $(event.target).closest(".admin_tr_mgmt").attr("data-id")
+    console.log(userId)
+    fetch(`/api/user/${userId}`,{
+        method: "DELETE",
+    })
+    .then(res => res.json())
+    .then(({ok,msg})=>{
+        if(!ok) 
+            alert(msg)
+        else{
+            getUserList("faculty")
+        }
+    })
+})
+
+
 
 
