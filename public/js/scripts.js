@@ -33,9 +33,18 @@ var loadFile = function(event) {
     output.src = reader.result;
   };
   reader.readAsDataURL(event.target.files[0]);
+  re_img.style.display='block'
   input_img.style.display='none'
 };
 //remove img
+var re_img=document.getElementById('review_img')
+function remove(){
+  re_img.removeAttribute('src');
+  document.getElementById("file").value=null
+  re_img.style.display='none'
+  input_img.style.display='block'
+}
+//input_img.style.display='block'
 //auto resize text area
 const tx = document.getElementsByTagName("textarea");
 for (let i = 0; i < tx.length; i++) {
