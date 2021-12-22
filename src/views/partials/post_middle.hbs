@@ -1,16 +1,20 @@
 {{!-- Display the comments data --}}
 <div class="container d-lg-flex flex-column">
     {{#each post}}
-    <div class="post_id p-3 mb-4" data-postid="{{_id}}" style="background-color: rgb(212, 212, 212);">
+    <div class="post_id p-3 mb-4" data-postid="{{_id}}">
         <script class="comment_data_template_{{_id}}" type="text/template">
-            <div class="input-group mt-3">
-                <a class="col-2 d-flex align-items-start justify-content-start"
+            <div class="input-group row mt-3">
+                <div class="d-flex justify-content-end col-2">
+                    <a class="d-flex align-items-start justify-content-start post-comments_avatar"
                         href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
                         <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
                             alt="avatar" width="50" height="50" class="rounded-circle">
                     </a>
-                <textarea class="form-control comment_input" aria-label="With textarea"
+                </div>
+                <div class="d-flex col-10 justify-content-center align-items-center">
+                    <textarea class="form-control post-comment_input" rows="1" aria-label="With textarea"
                     placeholder="Comments"></textarea>
+                </div>
                 <button class="d-none btn btn-outline-secondary comment_btn" type="button"
                     id="button-addon2">Button</button>
             </div>
@@ -19,7 +23,7 @@
                     {{#comments}}
                     <p>
                         <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
-                        alt="avatar" width="50" height="50" class="rounded-circle">
+                        alt="avatar" width="50" height="50" class="rounded-circle post-comments_avatar">
                         {{#each user}}
                             {{username}}{{fullname}}
                         {{/each}}
@@ -37,7 +41,7 @@
                     <a class="col-2 d-flex align-items-start justify-content-start"
                         href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
                         <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
-                            alt="avatar" width="50" height="50" class="rounded-circle">
+                            alt="avatar" width="50" height="50" class="rounded-circle post-comments_avatar">
                     </a>
                     <a class="row col-10 d-flex align-items-center justify-content-center ps-4"
                         href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
@@ -101,14 +105,18 @@
         </div>
         {{!-- Collapse interative comments --}}
         <div class="col-12 comment_container_{{_id}} d-none" id="comment_{{_id}}">
-            <div class="input-group mt-3">
-                <a class="col-2 d-flex align-items-start justify-content-start"
-                    href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
-                    <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
-                        alt="avatar" width="50" height="50" class="rounded-circle">
-                </a>
-                <textarea class="form-control comment_input" aria-label="With textarea"
-                    placeholder="Comments"></textarea>
+            <div class="input-group row mt-3">
+                <div class="d-flex justify-content-end col-2">
+                    <a class="d-flex align-items-start justify-content-start post-comments_avatar"
+                        href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                        <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
+                            alt="avatar" width="50" height="50" class="rounded-circle">
+                    </a>
+                </div>
+                <div class="d-flex col-10 justify-content-center align-items-center">
+                    <textarea class="form-control post-comment_input" rows="1" aria-label="With textarea"
+                        placeholder="Comments"></textarea>
+                </div>
                 <button class="d-none btn btn-outline-secondary comment_btn" type="button"
                     id="button-addon2">Button</button>
             </div>

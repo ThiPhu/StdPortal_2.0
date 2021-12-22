@@ -21,7 +21,6 @@ $(document).ready(function () {
             comments: data.post.comments[i],
           };
           var template = commentsTemplate(dataStamp);
-          console.log(dataStamp.comments);
           $('.comment_container_' + postId).html(template);
         }
         $('#comment_' + postId).removeClass('d-none');
@@ -32,4 +31,36 @@ $(document).ready(function () {
       },
     });
   });
+
+  //create_post_option
+  //function upload img
+  function img_upload() {
+    document.getElementById('file').click();
+  }
+  input_img = document.getElementById('input_img');
+
+  var loadFile = function (event) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var output = document.getElementById('review_img');
+      output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+    input_img.style.display = 'none';
+  };
+
+  //remove img
+  //auto resize text area
+  const tx = document.getElementsByClassName('comment_input');
+  for (let i = 0; i < tx.length; i++) {
+    tx[i].setAttribute(
+      'style',
+      'height:' + tx[i].scrollHeight + 'px;overflow-y:hidden;'
+    );
+    tx[i].addEventListener('input', OnInput, false);
+  }
+  function OnInput() {
+    this.style.height = 'auto';
+    this.style.height = this.scrollHeight + 'px';
+  }
 });
