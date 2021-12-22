@@ -1,6 +1,13 @@
 /* =================== ============================================================== ===================*/
 /* =================== =============== ADMIN - Management =========================== ===================*/
 
+/* =================== Common class */
+.btn--active{
+  background-color: var(--secondary-color-hover);
+  color: #fff;
+}
+
+
 /* =================== Sidebar - Left */
 .admin_avatar_mgmt {
   vertical-align: middle;

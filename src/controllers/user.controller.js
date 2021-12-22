@@ -3,6 +3,26 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
+// View user
+exports.read = async (req, res, next) => {
+  const {role} = req.query
+  try{
+    const user = await User.find({"role":role})
+
+    return user ? res.json({
+      ok: true,
+      user
+    }) :
+    res.status(404).json({
+      ok: false,
+      msg: "Không tìm thấy người dùng!"
+    })
+  } catch (err){
+    res.status(500)
+    console.log(err)
+  }
+}
+
 // Create user
 exports.create = async (req, res, next) => {
 

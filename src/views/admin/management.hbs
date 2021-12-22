@@ -10,29 +10,25 @@
         <div class="col-lg-9">
             <div class="d-lg-flex flex-column">
                 <h1 class="d-flex align-items-center justify-content-center">Quản lý người dùng</h1>
-                <div class="d-flex align-items-center justify-content-center d-lg-none m-3">
+                {{!-- <div class="d-flex align-items-center justify-content-center d-lg-none m-3">
                     <div class="d-flex align-items-center justify-content-center">
-                        <button class="btn" type="button" data-bs-target="#carouselManagement" data-bs-slide="prev">
+                        <button class="btn btn-sw--student" type="button" data-bs-target="#carouselManagement" data-bs-slide="prev">
                             Học viên
                         </button>
                     </div>
                     <div class="d-flex align-items-center justify-content-center">
-                        <button class="btn" type="button" data-bs-target="#carouselManagement" data-bs-slide="next">
+                        <button class="btn btn-sw--faculty" type="button" data-bs-target="#carouselManagement" data-bs-slide="next">
                             Phòng/Khoa
                         </button>
                     </div>
-                </div>
-                <div class="d-none align-items-center justify-content-center d-lg-flex m-3">
-                    <div class="d-flex align-items-center justify-content-center mngt-btn-carousel">
-                        <button class="btn" type="button" data-bs-target="#carouselManagement" data-bs-slide="prev">
-                            Học viên
-                        </button>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center mngt-btn-carousel">
-                        <button class="btn" type="button" data-bs-target="#carouselManagement" data-bs-slide="next">
-                            Phòng/Khoa
-                        </button>
-                    </div>
+                </div> --}}
+                <div class="btn-userType-switch d-none align-items-center justify-content-center d-lg-flex m-3">
+                    <button class="btn btn-sw--student mngt-btn-carousel" type="button" data-bs-target="#carouselManagement" data-bs-slide="prev">
+                        Học viên
+                    </button>
+                    <button class="btn btn-sw--faculty mngt-btn-carousel" type="button" data-bs-target="#carouselManagement" data-bs-slide="next">
+                        Phòng/Khoa
+                    </button>
                 </div>
                 {{!-- Carousel --}}
                 <div id="carouselManagement" data-bs-wrap="false" data-bs-interval="false" class="carousel slide"
@@ -48,7 +44,7 @@
                             <hr>
                             {{!-- Table if large screen --}}
                             <div class="d-lg-flex d-none table-responsive">
-                                <table class="table table-hover" style="overflow: hidden;">
+                                <table class="table table-hover table-student" style="overflow: hidden;">
                                     <thead>
                                         <tr class="admin_tr_mgmt">
                                             <th scope="col">Avatar</th>
@@ -60,8 +56,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{#each student}}
-                                        <tr class="admin_tr_mgmt" style="font-size: 18px;">
+                                        {{!-- {{#each student}} --}}
+                                        {{!-- <tr class="admin_tr_mgmt" style="font-size: 18px;">
                                             <td>
                                                 <div>
                                                     <img src="{{avatar}}" alt="Avatar" class="admin_avatar_mgmt">
@@ -104,8 +100,9 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                        </tr>
-                                        {{/each}}
+                                        </tr> --}}
+
+                                        {{!-- {{/each}} --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -145,7 +142,7 @@
                             </div>
                             <hr>
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table table-faculty">
                                     <thead>
                                         <tr class="admin_tr_mgmt">
                                             <th scope="col">Avatar</th>
@@ -157,8 +154,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{#each faculty}}
-                                        <tr class="admin_tr_mgmt" style="font-size: 18px;">
+                                        {{!-- {{#each faculty}} --}}
+                                        {{!-- <tr class="admin_tr_mgmt" style="font-size: 18px;">
                                             <td>
                                                 <div>
                                                     <img src="{{avatar}}" alt="Avatar" class="admin_avatar_mgmt">
@@ -199,8 +196,9 @@
                                                     </span>
                                                 </a>
                                             </td>
-                                        </tr>
-                                        {{/each}}
+                                        </tr> --}}
+                                        {{!-- {{/each}} --}}
+
                                     </tbody>
                                 </table>
                             </div>
