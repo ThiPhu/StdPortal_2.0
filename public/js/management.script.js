@@ -5,14 +5,14 @@ $(window).ready(()=>{
     getUserList("student")
 })
 // Get faculty list on button click
-$(".btn-sw--faculty").on("click",(event) =>{
-    // $(".btn-sw--faculty").toggleClass("btn--active").attr("disabled",true)
+// one: only execute function once
+$(".btn-sw--faculty").one("click", (event) =>{
+    // $(".btn-sw--faculty").toggleClass("btn--active").prop("disabled",true)
     // $(".btn-userType-switch")
     getUserList("faculty")
-
 })
 // Get user list
-function getUserList(role){
+ function getUserList(role){
     fetch(`/api/user?role=${role}`)
         .then((res)=> res.json())
         .then((json)=>{
@@ -92,7 +92,7 @@ function getUserList(role){
                                 <div>Phòng/Khoa</div>
                             </td>
                             <td class="admin_td_faculty">
-                                <div>${user.faculty}</div>
+                                <div>${user.unit.name}</div>
                             </td>
                             <td class="admin_td_topic">
                                 <div>
@@ -127,53 +127,94 @@ function getUserList(role){
         })
 }
 
-
-// createFacultyAccountModal select
+// createFacultyAccountModal map section-select based on unit-select value
 $("#createFacultyAccountModal").find("select#unit-select").on("change",(event) =>{
     const unitSelect = $("#createFacultyAccountModal").find("select#unit-select")
     const sectionSelect= $("#createFacultyAccountModal").find("select#section-select")
+    const topicSelect= $("#createFacultyAccountModal").find(".topic-select")
     let unitSelectVal = $(unitSelect).val()
     console.log(unitSelectVal)
 
     // reset
     $(sectionSelect).html("")
+    $(topicSelect).html("").append("<legend>Chọn chủ đề quản lí</legend>")
     fetch(`/api/section?unit=${unitSelectVal}`)
         .then((res) => res.json())
         .then(({ok,sections})=>{
             console.log(sections)
+            // sections
             sections.map((item)=>{
                 $(sectionSelect).append(`
                 <option value=${item._id}>${item.name}</option>
             `)
             })
+            // topics
+            sections.map((item,index)=>{
+                $(topicSelect).append(`
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="${item._id}" id="cb${index}">
+                        <label class="form-check-label" for="cb${index}">
+                        ${item.name}
+                        </label>
+                    </div>
+                `)
+            })
+    })
+
+    // Form submit handler
+    $("#createFacultyAccount").on("submit", (event) => {
+        event.preventDefault()
+
+        const inputEmail = $(".inputEmail").val()
+        const inputPassword = $(".inputPassword").val()
+        const sectionSelect = $("#section-select").val()
+        const topicSelect= $("#createFacultyAccountModal").find(".topic-select")
+
+        // get checked checkbox
+        let selectedTopic = []
+        $(topicSelect).find("input[type=checkbox]:checked").each((index,item)=>{
+            selectedTopic.push($(item).val())
         })
+        console.log(selectedTopic)
 
-})
-
-// Form submit handler
-$("#createFacultyAccount").on("submit", (event) => {
-    const inputEmail = $(".inputEmail").val()
-    const inputPassword = $(".inputPassword").val()
-    const sectionSelect = $("#section-select").val()
-    console.log(sectionSelect)
-
-    fetch("/api/user",{
-        method: "POST",
-        body: new URLSearchParams({
-            email: inputEmail,
-            password: inputPassword,
-            role: "faculty",
-            unit: sectionSelect,
-            topics: [sectionSelect]
+        fetch("/api/user",{
+            method: "POST",
+            body: new URLSearchParams({
+                email: inputEmail,
+                password: inputPassword,
+                role: "faculty",
+                unit: sectionSelect,
+                topics: selectedTopic
+            })
+        })
+        .then((res) => res.json())
+        .then(({ok,msg,data}) => {
+            if(!ok){
+                console.log("error",msg)
+                return;
+            }
+            getUserList("faculty")
+        })
+        .finally(()=>{
+            // Reset form
+            document.getElementById("createFacultyAccount").reset()
         })
     })
-    .then((res) => res.json())
-    .then(({ok,msg,data}) => {
-        if(!ok){
-            console.log("error",msg)
-        }
-    })
-})
 
+});
+
+// $(document).ready(function() {
+//     // Select2
+//     $('#topic-select').select2({
+//         // attach dropdown to modal rather than body
+//         dropdownParent: $("#createFacultyAccountModal"),
+//         ajax: {
+//             url: "/api/section?section?unit='central'",
+//             dataType: "json",
+//             type: "GET",
+//         },
+//         placeholder: "Chọn chủ đề"
+//     });
+// })
 
 

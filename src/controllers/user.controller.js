@@ -4,10 +4,10 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 // View user
-exports.read = async (req, res, next) => {
+exports.read = async (req, res, next) => {   
   const {role} = req.query
   try{
-    const user = await User.find({"role":role})
+    const user = await User.find({"role":role}).populate('unit','name')
 
     return user ? res.json({
       ok: true,
@@ -32,7 +32,6 @@ exports.create = async (req, res, next) => {
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
   // Generate avatar
-  
 
   try {
     const user = await User.create({
@@ -41,7 +40,8 @@ exports.create = async (req, res, next) => {
       password: hashedPassword,
       role: req.body.role,
       unit: req.body.unit ? req.body.unit : null,
-      topics: req.body.topics ? req.body.topics: null
+      //  Since URLSearchParams transform value into string, format it to array
+      topics: req.body.topics ? req.body.topics.split(","): null
     });
     return res.json({
       ok: true,

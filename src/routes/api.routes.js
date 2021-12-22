@@ -23,8 +23,6 @@ Router.use((req, res) =>
   })
 );
 
-
-
 // Handle error
 Router.use((err, req, res) => {
   console.log(err);

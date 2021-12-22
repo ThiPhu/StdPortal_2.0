@@ -2,7 +2,7 @@ const User = require('../models/User.model');
 const bcrypt = require('bcrypt');
 const { genToken } = require('../utils/jwt.js');
 
-exports.post = async (req, res) => {
+exports.post = async (req, res, next) => {
   const { loginUsername, loginPassword } = req.body;
   try {
     const user = await User.findOne({ username: loginUsername }).lean();
