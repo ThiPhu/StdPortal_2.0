@@ -36,7 +36,6 @@ const route = app => {
     const date = new Date();
     console.log('From index.routes: Role đang đăng nhập:', req.user.role);
     console.log('From index.routes: ID đang đăng nhập:', req.user.id);
-    console.log(posts);
     res.render('home', {
       user: req.user,
       post: posts,
