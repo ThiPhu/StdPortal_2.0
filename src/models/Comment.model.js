@@ -7,10 +7,8 @@ const CommentSchema = new Schema(
   {
     content: String, // body
     // reaction: String, Optional
-    create_date: {
-      type: Date,
-      default: Date.now,
-    },
+    create_date: String,
+    create_time: String,
     user: [Object],
     postId: [Object],
   },

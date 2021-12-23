@@ -19,7 +19,7 @@ const months = [
 // Lấy tất cả bài viết
 exports.getPosts = async (req, res, next) => {
   try {
-    const posts = await Post.find({}).lean();
+    const posts = await Post.find().lean().populate('comments');
     // return res.render('posts/post', { post });
     res.json({
       ok: true,

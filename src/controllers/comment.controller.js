@@ -38,10 +38,10 @@ exports.getCommentId = async (req, res, next) => {
 
 // Tạo bình luận
 exports.create = async (req, res, next) => {
+  // Đầu vào là postId sẽ là ẩn, và nội dung bình luận
   const { content, postId } = req.body;
 
   const user = req.user;
-  console.log(req.body);
   try {
     const post = await Post.findById(postId);
 
@@ -65,13 +65,16 @@ exports.create = async (req, res, next) => {
       date,
     });
 
+    // Đẩy bình luận vào bài viết người dùng mới nhập vào
     post.comments.push(newComment);
 
+    // Lưu lại bài viết có bình luận đó
     await post.save();
 
     console.log(
       'From comment.controller.js at create function: Tạo bình luận thành công'
     );
+
     return res.json({
       ok: true,
       msg: 'Tạo bình luận thành công!',
@@ -87,12 +90,34 @@ exports.update = async (req, res, next) => {};
 
 // Xoá bình luận
 exports.delete = async (req, res, next) => {
-  const id = req.params.id;
+  // Đầu vào là postId sẽ là ẩn
+  const { postId } = req.body;
+  const commentId = req.params.id;
   try {
-    const comment = await Comment.findByIdAndDelete(id);
+    const post = await Post.findById(postId);
+    // Xoá comment trong database
+    const comment = await Comment.findById(commentId);
+
+    // Trả về 404 nếu không tìm thấy bình luận
     if (!comment) {
       return res.json({ ok: false, msg: 'Không tìm thấy bình luận' });
     }
+
+    // Tìm bình luận bên trong comments array của bài viết
+    const removeIndex = post.comments.findIndex(
+      c => c._id.toString() === commentId
+    );
+
+    if (!comment.user[0]._id.toString() === req.user.id) {
+      return res.json({
+        ok: false,
+        msg: 'Không thể xoá bình luận !',
+      });
+    }
+
+    await Comment.findByIdAndDelete(commentId);
+    post.comments.splice(removeIndex, 1);
+    await post.save();
     return res.json({
       ok: true,
       msg: 'Xoá bình luận thành công',

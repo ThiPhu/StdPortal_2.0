@@ -32,7 +32,7 @@ const route = app => {
   // Các route yêu cầu phiên đăng nhập của user
 
   app.get('/home', async (req, res) => {
-    const posts = await Post.find({}).sort({ createdAt: -1 }).lean(); // Lấy hết tất cả các post
+    const posts = await Post.find().sort({ createdAt: -1 }).lean(); // Lấy hết tất cả các post
     const date = new Date();
     console.log('From index.routes: Role đang đăng nhập:', req.user.role);
     console.log('From index.routes: ID đang đăng nhập:', req.user.id);
@@ -58,7 +58,7 @@ const route = app => {
       err = e;
     }
     if (err) {
-      console.log('From index.routes: Error', req.url);
+      console.log('From index.routes: Error', err);
       return res.redirect('/error');
     }
     next();
