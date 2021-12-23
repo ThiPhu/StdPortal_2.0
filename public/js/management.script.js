@@ -25,6 +25,10 @@ $(".btn-sw--faculty").on("click", (event) => {
     $(event.target).addClass("btn--active")
 })
 
+$(".btn-create-faculty-account").on("click", (event) => {
+
+})
+
 // $(".btn-sw--faculty").on("click", (event) =>{
 //     $(".btn-sw--faculty").toggleClass("btn--active")
 // })
@@ -126,7 +130,7 @@ $(".btn-sw--faculty").on("click", (event) => {
                                     </span>
                                 </a>
                                 <a class="me-3 btn-update" style="cursor:pointer; color: coral"
-                                    data-bs-toggle="modal" data-bs-target="#createFacultyAccountModal">
+                                    data-bs-toggle="modal" data-bs-target="#updateFacultyAccountModal">
                                     <span class="material-icons-outlined" data-bs-toggle="tooltip"
                                         title="Cập nhật thông tin người dùng" style="pointer-events: none">
                                         topic
@@ -141,39 +145,23 @@ $(".btn-sw--faculty").on("click", (event) => {
 }
 
 // createFacultyAccountModal map section-select based on unit-select value
-$("#createFacultyAccountModal").find("select#unit-select").on("change",(event) =>{
-    const unitSelect = $("#createFacultyAccountModal").find("select#unit-select")
-    const sectionSelect= $("#createFacultyAccountModal").find("select#section-select")
-    const topicSelect= $("#createFacultyAccountModal").find(".topic-select")
-    let unitSelectVal = $(unitSelect).val()
-    console.log(unitSelectVal)
+setModal("#createFacultyAccountModal")
+setModal("#updateFacultyAccountModal")
 
-    // reset
-    $(sectionSelect).html("")
-    $(topicSelect).html("").append("<span class='topic-select__title'>Chọn chủ đề quản lí</span>")
-    fetch(`/api/section?unit=${unitSelectVal}`)
-        .then((res) => res.json())
-        .then(({ok,sections})=>{
-            console.log(sections)
-            // sections
-            sections.map((item)=>{
-                $(sectionSelect).append(`
-                <option value=${item._id}>${item.name}</option>
-            `)
-            })
-            // topics
-            sections.map((item,index)=>{
-                $(topicSelect).append(`
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="${item._id}" id="cb${index}">
-                        <label class="form-check-label" for="cb${index}">
-                        ${item.name}
-                        </label>
-                    </div>
-                `)
-            })
-        })
-});
+function setModal(element){
+    $(element).find("select#unit-select").on("change",(event) =>{
+        const unitSelect = $(element).find("select#unit-select")
+        const sectionSelect= $(element).find("select#section-select")
+        const topicSelect= $(element).find(".topic-select")
+        let unitSelectVal = $(unitSelect).val()
+        console.log(unitSelectVal)
+        // reset
+        $(sectionSelect).html("")
+        $(topicSelect).html("").append("<span class='topic-select__title'>Chọn chủ đề quản lí</span>")
+
+        mapSection(unitSelectVal,sectionSelect,topicSelect)
+    });
+}
 
 // Form submit handler
 $("#createFacultyAccount").on("submit", (event) => {
@@ -210,64 +198,100 @@ $("#createFacultyAccount").on("submit", (event) => {
         getUserList("faculty")
     })
     .finally(()=>{
+        $("#createFacultyAccountModal").modal("hide")
         // Reset form
         document.getElementById("createFacultyAccount").reset()
     })
 })
 
 // Render update user modal
-$(document).on("click", ".btn-update",  (event) =>{
+$(document).on("click", ".btn-update", (event) =>{
     const userId = $(event.target).closest(".admin_tr_mgmt").attr("data-id")
 
-    $("#createFacultyAccountModal").find(".modal-title").text("Cập nhật người dùng")
+    $("#updateFacultyAccountModal").find(".modal-title").text("Cập nhật người dùng")
 
     fetch(`/api/user/${userId}`)
     .then(res => res.json())
     .then((json) =>{
-        console.log(json)
+        console.log("json",json)
         if(!json.ok)
             alert(json.msg)
-        json.user.map((usr)=>{
-            $("#createFacultyAccountModal").find(".inputEmail").val(usr.email)
+        json.user.map(async (usr)=>{
+            $("#updateFacultyAccountModal").attr("data-id", usr._id)
+            $("#updateFacultyAccountModal").find(".inputEmail").val(usr.email)
             console.log(usr.unit.unit)
-            $("#createFacultyAccountModal").find("#unit-select").val(usr.unit.unit)
-            var event = new Event('change');
+            $("#updateFacultyAccountModal").find("#unit-select").val(usr.unit.unit)
 
-            // Dispatch it.
-            document.querySelector("#createFacultyAccountModal").dispatchEvent(event);
-            // $("#createFacultyAccountModal").find("#section-select").val(usr.email)
+            const sectionSelect= $("#updateFacultyAccountModal").find("select#section-select")
+            const topicSelect= $("#updateFacultyAccountModal").find(".topic-select")
+            
+            // reset
+            $(topicSelect).html("").append("<span class='topic-select__title'>Chọn chủ đề quản lí</span>")
 
+            await mapSection(usr.unit.unit,sectionSelect,topicSelect)
+
+            $(sectionSelect).val(usr.unit._id)
+            console.log("sectionSelect COMPELTE!")
+
+            console.log("TOPIC", usr.topics)
+
+            $(topicSelect).find(".form-check .form-check-input").each((index,item)=>{
+                usr.topics.forEach((topic)=>{
+                    if($(item).val() === topic._id){
+                        $(item).prop("checked",true)
+                    }
+                })
+            })
         })
     })
-
-
 })
 
 
 
 
 //  Update user
-// $(document).on("click", ".btn-update", (event) =>{
-//     event.preventDefault();
+$(document).on("click", "#updateFacultyAccountModal .btn-submit", (event) =>{
+    event.preventDefault();
+    const updateModal = $(event.target).closest("#updateFacultyAccountModal")
+    const userId = $(updateModal).attr("data-id")
 
-//     const userId = $(event.target).closest(".admin_tr_mgmt").attr("data-id")
+    const inputEmail = $(updateModal).find(".inputEmail").val()
+    const inputPassword = $(updateModal).find(".inputPassword").val()
+    const sectionSelect = $(updateModal).find("#section-select").val()
+    const topicSelect= $(updateModal).find(".topic-select")
 
-//     console.log(userId)
-//     fetch(`/api/user/${userId}`,{
-//         method: "PUT",
-//         body: new URLSearchParams({
+    let selectedTopic = []
+    $(topicSelect).find("input[type=checkbox]:checked").each((index,item)=>{
+        selectedTopic.push($(item).val())
+    })
 
-//         })
-//     })
-//     .then(res => res.json())
-//     .then(({ok,msg})=>{
-//         if(!ok) 
-//             alert(msg)
-//         else{
-//             getUserList("faculty")
-//         }
-//     })
-// })
+    console.log("ITEMS",inputEmail)
+    console.log((inputPassword).length)
+    console.log(sectionSelect)
+    console.log(topicSelect)
+    console.log(selectedTopic)
+
+    fetch(`/api/user/${userId}`,{
+        method: "PUT",
+        body: new URLSearchParams({
+            email: inputEmail,
+            password: inputPassword.length == 0 ? null : inputPassword,
+            unit: sectionSelect,
+            topics: selectedTopic
+        })
+    })
+    .then(res => res.json())
+    .then(({ok,msg})=>{
+        if(!ok) 
+            alert(msg)
+        else{
+            getUserList("faculty")
+        }
+    })
+    .finally(()=>{
+        $("#updateFacultyAccountModal").modal("hide")
+    })
+})
 
 // Delete user
 $(document).on("click", ".btn-delete", (event) =>{
@@ -287,6 +311,34 @@ $(document).on("click", ".btn-delete", (event) =>{
         }
     })
 })
+
+// Map section function
+async function mapSection(unit,sectionSelect,topicSelect){ 
+    //  return a promise
+    return fetch(`/api/section?unit=${unit}`)
+    .then((res) => res.json())
+    .then(({ok,sections})=>{
+        console.log(sections)
+        // sections
+        sections.map((item)=>{
+            $(sectionSelect).append(`
+            <option value=${item._id}>${item.name}</option>
+        `)
+        })
+        // topics
+        sections.map((item,index)=>{
+            $(topicSelect).append(`
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="${item._id}" id="cb${index}">
+                    <label class="form-check-label" for="cb${index}">
+                    ${item.name}
+                    </label>
+                </div>
+            `)
+        })
+    })
+    .then(()=>{console.log("mapSection COMPLETE")})
+}
 
 
 

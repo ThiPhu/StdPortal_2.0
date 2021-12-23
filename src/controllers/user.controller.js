@@ -2,6 +2,7 @@ const User = require('../models/User.model');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const { findByIdAndUpdate } = require('../models/User.model');
 
 // View user
 exports.read = async (req, res) => {   
@@ -27,7 +28,7 @@ exports.read = async (req, res) => {
 exports.readDetail = async (req, res) => {   
   const {userId} = req.params
   try{
-    const user = await User.find({"_id":userId}).populate('unit').populate('topics','name')
+    const user = await User.find({"_id":userId}).populate('unit').populate('topics')
 
     return user ? res.json({
       ok: true,
@@ -80,6 +81,24 @@ exports.update = async (req, res, next) => {
   const {userId} = req.params
   const update = req.body
 
+  // username
+  update.username = update.email.split("@")[0]
+
+  // password
+  if(update.password === 'null'){
+    delete update.password
+  }else{
+    // Generate salt
+    const salt = await bcrypt.genSalt();
+    // Hash password with bcrypt
+    const hashedPassword = await bcrypt.hash(update.password, salt);
+    update.password = hashedPassword
+  }
+
+  // topics
+  update.topics = update.topics.split(",")
+
+
   try{
     const user = await User.findByIdAndUpdate(
       {_id: userId}, 
@@ -122,6 +141,7 @@ exports.delete = async (req, res, next) => {
     })
   }
 }
+
 // exports.createFromGoogleAuth = async (req, res, next) =>{
 //     passport.use(
 //         new GoogleStrategy({

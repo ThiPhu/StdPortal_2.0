@@ -148,7 +148,7 @@
                                             <th scope="col">Avatar</th>
                                             <th scope="col">Tên đăng nhập</th>
                                             <th scope="col">Vai trò</th>
-                                            <th scope="col">Khoa</th>
+                                            <th scope="col">Phòng/Khoa</th>
                                             <th scope="col">Tương tác</th>
                                         </tr>
                                     </thead>
@@ -208,51 +208,12 @@
         </div>
     </div>
     {{!-- Faculty account create modal --}}
-    <div class="modal fade" id="createFacultyAccountModal" tabindex="-1" aria-labelledby="createFacultyAccountModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createFacultyAccountModalLabel">Tạo tài khoản Phòng/khoa</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="createFacultyAccount">
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control inputEmail" placeholder="d" required>
-                            <label for="exampleInputEmail1" class="form-label">Email</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control inputPassword" placeholder="d" required>
-                            <label for="exampleInputPassword1" class="form-label">Mật Khẩu</label>
-                        </div>
-                        <div class="mb-3">
-                            {{!-- <label for="unit-select" class="form-label">Chọn</label> --}}
-                            <select class="form-select" id="unit-select" aria-label="Unit-select" required>
-                                <option selected hidden>Chọn đơn vị</option>
-                                <option value="central">Phòng ban trung tâm</option>
-                                <option value="faculty">Khoa</option>
-                            </select>
-                        </div>
-                        <div class="mb-4">
-                            <select class="form-select" id="section-select" aria-label="section-select" required>
-                                <option selected hidden>Chọn chuyên mục</option>
-                                <option disabled>Hãy chọn một đơn vị!</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">    
-                            <div class="topic-select">
-                                <span class="topic-select__title">Chọn chủ đề quản lí</span>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-primary btn-submit" form="createFacultyAccount" data-bs-dismiss="modal">Lưu thay đổi</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    {{> modals/facultyAccountCreateModal }}
+
+    {{!-- Faculty account update modal --}}
+    {{> modals/facultyAccountUpdateModal }}
+
+
     <script src="/js/management.script.js"></script>
 </div>
 
