@@ -5,22 +5,16 @@ let Schema = mongoose.Schema;
 
 const PostSchema = new Schema(
   {
-    title: String, // Header
-    caption: String, // caption
-    images: String,
+    caption: String, // caption (The content of the post)
+    image: String,
     // reaction: String, Optional
-    create_date: {
-      type: Date,
-      default: Date.now,
-    },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Users',
-    },
+    create_date: String,
+    create_time: String,
+    user: [Object],
   },
   { timestamps: true }
 );
 
 const Post = mongoose.model('Posts', PostSchema);
 
-module.exports = Post
+module.exports = Post;

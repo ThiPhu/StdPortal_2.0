@@ -1,8 +1,8 @@
 const Router = require('express').Router();
-const authRouter = require('./auth.routes');
 const userRouter = require('./user.routes');
 const sectionRouter = require('./section.routes');
 const { userAuth } = require('../middlewares/auth.middleware');
+const authRouter = require('./auth.routes')
 
 // /api/auth
 Router.use('/auth', authRouter);
@@ -31,5 +31,11 @@ Router.use((err, req, res) => {
     msg: 'Đã có lỗi xảy ra!',
   });
 });
+const postRouter = require('./post.routes');
+
+// /api/user
+Router.use('/user', userRouter);
+// /api/post
+Router.use('/post', postRouter);
 
 module.exports = Router;

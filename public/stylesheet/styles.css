@@ -24,7 +24,8 @@
 
 .navbar-custom-item {
   transition: 0.1s ease-in-out;
-  padding: 0.2rem;
+  padding: 0.4em;
+  font-weight: 600;
 }
 
 .navbar-brand img {
@@ -41,13 +42,21 @@
 
 .navbar-action-btn {
   transition: 0.1s ease-in-out;
+  border-radius: 100% !important;
   color: white;
+  padding: 0.6em;
+  box-shadow: 1px 1px 2px var(--secondary-color);
+  background-color: var(--alert-board);
+}
+
+.navbar-action-btn.active {
+  background-color: var(--primary-color);
 }
 
 .navbar-action-btn:hover {
   transition: 0.1s ease-in-out;
   color: white;
-  border-radius: 100% !important;
+  border-radius: 50% !important;
   box-shadow: 1px 1px 2px var(--secondary-color);
   background-color: var(--secondary-color-hover);
 }
@@ -74,7 +83,8 @@
   width: 400px;
   border-radius: 10px;
   top: 5em;
-  bottom: 0;
+  height: auto !important;
+  max-height: 92vh !important;
   overflow: auto;
 }
 
@@ -106,7 +116,7 @@
 .dropdown-menu-setting {
   position: fixed;
   top: 4.8em !important;
-  right: 20rem !important;
+  right: 18rem !important;
   background-color: white;
   border-radius: 6px;
 }
@@ -122,13 +132,12 @@
 }
 
 .sb-left {
-  box-shadow: 2px 0px 1px rgb(221, 221, 221);
   border-radius: 6px;
   width: 100%;
   position: fixed;
-  width: 100%;
   top: 5.5em;
   bottom: 0;
+  left: 0;
   overflow: auto;
   max-width: 280px;
   height: 90vh;
@@ -153,7 +162,7 @@
   font-weight: 600;
   text-decoration: none !important;
   color: var(--primary-color) !important;
-  border-bottom: 1px solid var(--primary-color);
+  border-bottom: 1px solid var(--third-color-hover) !important;
   margin-bottom: 0.2em;
   font-size: 18px;
 }
@@ -184,13 +193,12 @@
 }
 
 .sb-right {
-  box-shadow: -2px 0px 1px rgb(221, 221, 221);
   border-radius: 5px;
   position: fixed;
-  width: 100%;
   max-width: 420px;
   height: auto;
   top: 5.5em;
+  right: 0;
   bottom: 0;
   overflow: auto;
 }
@@ -226,6 +234,19 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.sb-right-list-item {
+  transition: 0.2s ease-in-out;
+  border-bottom: 1px solid var(--third-color-hover) !important;
+  border-radius: 6px !important;
+}
+
+.sb-right-list-item:hover {
+  transition: 0.2s ease-in-out;
+  color: white !important;
+  background-color: var(--third-color-hover);
+  border-radius: 6px;
 }
 
 /*---------------------------------------Login-----------------------------------------------*/

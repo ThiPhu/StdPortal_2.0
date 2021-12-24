@@ -11,18 +11,12 @@ const CommentSchema = new Schema(
       type: Date,
       default: Date.now,
     },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Users',
-    },
-    postId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Posts',
-    },
+    userId: [Object],
+    postId: [Object],
   },
   { timestamps: true }
 );
 
 const Comment = mongoose.model('Comments', CommentSchema);
 
-module.exports = Comment
+module.exports = Comment;

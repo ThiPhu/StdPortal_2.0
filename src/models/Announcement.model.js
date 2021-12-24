@@ -5,21 +5,18 @@ let Schema = mongoose.Schema;
 
 const AnnouncementSchema = new Schema(
   {
-    title: String, // header
-    content: String, // body
+    title: String, // header for the announcement from faculty
+    content: String, // body (can be use at header if it post from regular user)
     file: [String],
     create_date: {
       type: Date,
       default: Date.now,
     },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Users',
-    },
+    userId: [Object],
   },
   { timestamps: true }
 );
 
 const Announcement = mongoose.model('Announcements', AnnouncementSchema);
 
-module.exports = Announcement
+module.exports = Announcement;
