@@ -43,6 +43,24 @@ const route = app => {
     });
   });
 
+  app.get('/manage', async (req, res) => {
+    try {
+      const studentRole = await User.find({ role: 'student' }).lean();
+      const facultyRole = await User.find({ role: 'faculty' }).lean();
+      if (req.user.role === 'admin') {
+        return res.render('admin/management', {
+          user: req.user, // For showing who is logging in session
+          student: studentRole, // Show all of Student from database for admin to manage
+          faculty: facultyRole, // Show all of Faculty from database for admin to manage
+          exampleAvatar: '../../public/image/tdt.jpg',
+        });
+      }
+      res.redirect('/home');
+    } catch (err) {
+      next(err);
+    }
+  });
+
   // Các route api
   app.use('/api', apiRouter);
 

@@ -29,25 +29,6 @@ exports.getUserDetail = async (req, res, next) => {
   }
 };
 
-// Get all user (for admin)
-exports.get = async (req, res, next) => {
-  try {
-    const studentRole = await User.find({ role: 'student' }).lean();
-    const facultyRole = await User.find({ role: 'faculty' }).lean();
-    if (req.user.role === 'admin') {
-      return res.render('admin/management', {
-        user: req.user, // For showing who is logging in session
-        student: studentRole, // Show all of Student from database for admin to manage
-        faculty: facultyRole, // Show all of Faculty from database for admin to manage
-        exampleAvatar: '../../public/image/tdt.jpg',
-      });
-    }
-    res.redirect('/home');
-  } catch (err) {
-    next(err);
-  }
-};
-
 // Create user
 exports.create = async (req, res, next) => {
   // Generate salt
