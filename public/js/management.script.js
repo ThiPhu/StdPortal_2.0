@@ -110,7 +110,7 @@ $(".btn-create-faculty-account").on("click", (event) => {
                                 <div>${user.username}</div>
                             </td>
                             <td>
-                                <div>Phòng/Khoa</div>
+                                <div>${user.unit.unit == "central" ? "Phòng" : "Khoa" }</div>
                             </td>
                             <td class="admin_td_faculty">
                                 <div>${user.unit.name}</div>
@@ -149,9 +149,9 @@ setModal("#createFacultyAccountModal")
 setModal("#updateFacultyAccountModal")
 
 function setModal(element){
-    $(element).find("select#unit-select").on("change",(event) =>{
-        const unitSelect = $(element).find("select#unit-select")
-        const sectionSelect= $(element).find("select#section-select")
+    $(element).find("select.unit-select").on("change",(event) =>{
+        const unitSelect = $(element).find("select.unit-select")
+        const sectionSelect= $(element).find("select.section-select")
         const topicSelect= $(element).find(".topic-select")
         let unitSelectVal = $(unitSelect).val()
         console.log(unitSelectVal)
@@ -169,7 +169,7 @@ $("#createFacultyAccount").on("submit", (event) => {
 
     const inputEmail = $(".inputEmail").val()
     const inputPassword = $(".inputPassword").val()
-    const sectionSelect = $("#section-select").val()
+    const sectionSelect = $(".section-select").val()
     const topicSelect= $("#createFacultyAccountModal").find(".topic-select")
 
     // get checked checkbox
@@ -201,6 +201,9 @@ $("#createFacultyAccount").on("submit", (event) => {
         $("#createFacultyAccountModal").modal("hide")
         // Reset form
         document.getElementById("createFacultyAccount").reset()
+        // Reset section select and topic select
+        $(sectionSelect).html("")
+        $(topicSelect).html("").append("<span class='topic-select__title'>Chọn chủ đề quản lí</span>")
     })
 })
 
@@ -220,9 +223,9 @@ $(document).on("click", ".btn-update", (event) =>{
             $("#updateFacultyAccountModal").attr("data-id", usr._id)
             $("#updateFacultyAccountModal").find(".inputEmail").val(usr.email)
             console.log(usr.unit.unit)
-            $("#updateFacultyAccountModal").find("#unit-select").val(usr.unit.unit)
+            $("#updateFacultyAccountModal").find(".unit-select").val(usr.unit.unit)
 
-            const sectionSelect= $("#updateFacultyAccountModal").find("select#section-select")
+            const sectionSelect= $("#updateFacultyAccountModal").find("select.section-select")
             const topicSelect= $("#updateFacultyAccountModal").find(".topic-select")
             
             // reset
@@ -257,7 +260,7 @@ $(document).on("click", "#updateFacultyAccountModal .btn-submit", (event) =>{
 
     const inputEmail = $(updateModal).find(".inputEmail").val()
     const inputPassword = $(updateModal).find(".inputPassword").val()
-    const sectionSelect = $(updateModal).find("#section-select").val()
+    const sectionSelect = $(updateModal).find(".section-select").val()
     const topicSelect= $(updateModal).find(".topic-select")
 
     let selectedTopic = []

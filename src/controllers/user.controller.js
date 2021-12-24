@@ -8,7 +8,7 @@ const { findByIdAndUpdate } = require('../models/User.model');
 exports.read = async (req, res) => {   
   const {role} = req.query
   try{
-    const user = await User.find({"role":role}).populate('unit','name').populate('topics','name')
+    const user = await User.find({"role":role}).populate('unit').populate('topics','name')
 
     return user ? res.json({
       ok: true,
