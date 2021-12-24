@@ -7,22 +7,14 @@ const CommentSchema = new Schema(
   {
     content: String, // body
     // reaction: String, Optional
-    create_date: {
-      type: Date,
-      default: Date.now,
-    },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Users',
-    },
-    postId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Posts',
-    },
+    create_date: String,
+    create_time: String,
+    user: [Object],
+    postId: [Object],
   },
   { timestamps: true }
 );
 
 const Comment = mongoose.model('Comments', CommentSchema);
 
-module.exports = Comment
+module.exports = Comment;

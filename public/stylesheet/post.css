@@ -1,0 +1,19 @@
+body {
+  background-color: rgba(0, 0, 0, 0.055);
+}
+
+.post_id {
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+}
+.post-comment_input {
+  resize: none;
+  border-radius: 12px;
+  height: 0;
+  width: 100%;
+}
+
+.post-comments_avatar {
+  border: 2px solid black !important;
+  border-radius: 50%;
+}

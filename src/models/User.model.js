@@ -7,28 +7,28 @@ const UserSchema = new Schema({
   username: String,
   email: {
     type: String,
-    default: null
+    default: null,
   },
-  fullname:{
+  fullname: {
     type: String,
-    default: null
+    default: null,
   },
   password: String,
   avatar: {
     type: String,
-    default: null
+    default: null,
   },
   googleId: {
     type: String,
-    default: null
+    default: null,
   },
   role: {
     type: String,
-    default: "student"
+    default: 'student',
   },
   class: {
     type: String,
-    default: null
+    default: null,
   },
   unit: 
     {type: Schema.Types.ObjectId, ref: 'Sections'},
@@ -39,7 +39,6 @@ const UserSchema = new Schema({
   },
 });
 
-
 const User = mongoose.model('Users', UserSchema);
 
-module.exports = User
+module.exports = User;

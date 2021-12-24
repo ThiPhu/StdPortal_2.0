@@ -345,4 +345,15 @@ async function mapSection(unit,sectionSelect,topicSelect){
 
 
 
+// Button click sẽ chèn class active
+let mngt_btn_student = $('.mngt_btn_student');
+let mngt_btn_faculty = $('.mngt_btn_faculty');
+$('.mngt_btn_student').on('click', e => {
+  mngt_btn_faculty.removeClass('active');
+  mngt_btn_student.addClass('active');
+});
 
+$('.mngt_btn_faculty').on('click', e => {
+  mngt_btn_student.removeClass('active');
+  mngt_btn_faculty.addClass('active');
+});

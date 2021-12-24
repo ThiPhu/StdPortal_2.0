@@ -1,6 +1,8 @@
 const Router = require('express').Router();
 const authRouter = require('./auth.routes');
 const userRouter = require('./user.routes');
+const postRouter = require('./post.routes');
+const commentRouter = require('./comment.routes');
 const sectionRouter = require('./section.routes');
 const { userAuth } = require('../middlewares/auth.middleware');
 
@@ -13,8 +15,14 @@ Router.use(userAuth);
 // /api/user
 Router.use('/user', userRouter);
 
+// /api/post
+Router.use('/post', postRouter);
+
+// /api/comment
+Router.use('/comment', commentRouter);
+
 // /api/section
-Router.use('/section', sectionRouter)
+Router.use('/section', sectionRouter);
 
 Router.use((req, res) =>
   res.status(404).json({

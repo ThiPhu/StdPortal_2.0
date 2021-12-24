@@ -5,7 +5,6 @@ const { genToken, verifyToken } = require('../utils/jwt');
 
 exports.userAuth = async (req, res, next) => {
   const { access_token } = req.cookies;
-
   try {
     if (access_token) {
       const { id } = verifyToken(access_token);
@@ -18,10 +17,13 @@ exports.userAuth = async (req, res, next) => {
         }
       }
     }
-    return res.clearCookie("access_token").redirect('/login');
+    return res.redirect('/login');
   } catch (err) {
     // Chuyển về trang đăng nhập nếu không tồn tại session token
-    console.log('Phiên đăng nhập không hợp lệ', err);
-    return res.clearCookie("access_token").redirect(500,'/login');
+    console.log('From auth.middleware:', err);
+    return res
+      .clearCookie('access_token')
+      .json({ ok: false, message: 'Phiên đăng nhập không hợp lệ' })
+      .redirect('/login');
   }
 };

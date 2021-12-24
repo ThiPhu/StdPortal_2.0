@@ -1,8 +1,8 @@
 {{> header}}
-<div class="container">
+<div class="container-fluid">
     <div class="d-flex row flex-row">
         {{!-- Side bar left --}}
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-3 d-flex justify-content-center align-items-center">
             {{> sidebar_left}}
         </div>
 
@@ -50,8 +50,7 @@
                                             <th scope="col">Avatar</th>
                                             <th scope="col">Họ tên</th>
                                             <th scope="col">Vai trò</th>
-                                            <th scope="col">Khoa</th>
-                                            <th scope="col">Lớp</th>
+                                            <th scope="col">MSSV</th>
                                             <th scope="col">Tương tác</th>
                                         </tr>
                                     </thead>
@@ -67,22 +66,33 @@
                                                 <div>{{fullname}}</div>
                                             </td>
                                             <td>
-                                                <div>Học viên</div>
+                                                <div>{{#if role}}Học viên{{/if}}</div>
                                             </td>
                                             <td class="admin_td_faculty">
-                                                <div>{{faculty}}</div>
-                                            </td>
-                                            <td class="admin_td_topic">
-                                                <div>
-                                                    {{class}}
-                                                </div>
+                                                <div>{{email}}</div>
                                             </td>
                                             <td>
-                                                <div class="row container">
+                                                <div class="btn-group dropstart">
+                                                    <button type="button"
+                                                        class="btn mngt-act-btn d-flex justify-content-center align-items-center"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <span class="material-icons-outlined"
+                                                            style="font-size: 24px !important">
+                                                            more_horiz
+                                                        </span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="mngt-act-btn mngt-profile-user dropdown-item"
+                                                                href="/api/user/{{fullname}}">Profile</a></li>
+                                                        <li><a class="mngt-act-btn dropdown-item" href="#">Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                {{!-- <div class="row container">
                                                     <div class="col-6 mngt-act-btn mngt-profile-user"
                                                         data-bs-toggle="tooltip" title="Xem trang người dùng">
                                                         <a class="m-3 d-flex justify-content-center"
-                                                            href="/profile/{{fullname}}">
+                                                            href="/api/user/{{fullname}}">
                                                             <span class="material-icons-outlined">
                                                                 account_circle
                                                             </span>
@@ -98,7 +108,7 @@
                                                             <p class="m-0 ms-2">Delete</p>
                                                         </a>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </td>
                                         </tr> --}}
 
@@ -131,8 +141,9 @@
                                     <h5>Thông tin Phòng/Khoa</h5>
                                 </div>
                                 <div class="col-lg-6 col-12 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary btn-create-faculty-account d-flex justify-content-center"
-                                            data-bs-toggle="modal" data-bs-target="#createFacultyAccountModal">
+                                    <button type="button"
+                                        class="btn btn-primary btn-create-faculty-account d-flex justify-content-center"
+                                        data-bs-toggle="modal" data-bs-target="#createFacultyAccountModal">
                                         <span class="material-icons-outlined">
                                             add
                                         </span>
@@ -157,14 +168,20 @@
                                         {{!-- <tr class="admin_tr_mgmt" style="font-size: 18px;">
                                             <td>
                                                 <div>
-                                                    <img src="{{avatar}}" alt="Avatar" class="admin_avatar_mgmt">
+                                                    {{#if avatar}}
+                                                    <img src="../../../{{avatar}}" alt="Avatar"
+                                                        class="admin_avatar_mgmt">
+                                                    {{else}}
+                                                    <img src="../../../image/tdt.png" alt="Avatar"
+                                                        class="admin_avatar_mgmt">
+                                                    {{/if}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div>{{username}}</div>
                                             </td>
                                             <td>
-                                                <div>Phòng/Khoa</div>
+                                                <div>{{#if role}}Phòng/Khoa{{/if}}</div>
                                             </td>
                                             <td class="admin_td_faculty">
                                                 <div>{{faculty}}</div>
@@ -175,25 +192,23 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <a class="me-3" href="/profile/{{username}}"
-                                                    style="cursor:pointer; color: green;">
-                                                    <span class="material-icons-outlined" data-bs-toggle="tooltip"
-                                                        title="Profile">
-                                                        account_circle
-                                                    </span>
-                                                </a>
-                                                <a class="me-3" href="#" style="cursor:pointer; color: red">
-                                                    <span class="material-icons-outlined" data-bs-toggle="tooltip"
-                                                        title="Xoá người dùng">
-                                                        delete
-                                                    </span>
-                                                </a>
-                                                <a class="me-3" href="#" style="cursor:pointer; color: coral">
-                                                    <span class="material-icons-outlined" data-bs-toggle="tooltip"
-                                                        title="Cấp quyền chủ đề">
-                                                        topic
-                                                    </span>
-                                                </a>
+                                                <div class="btn-group dropstart">
+                                                    <button type="button"
+                                                        class="btn mngt-act-btn d-flex justify-content-center align-items-center"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <span class="material-icons-outlined">
+                                                            more_horiz
+                                                        </span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="mngt-act-btn dropdown-item"
+                                                                href="/api/user/{{username}}">Profile</a>
+                                                        </li>
+                                                        <li><a class="mngt-act-btn dropdown-item" href="#">Edit</a></li>
+                                                        <li><a class="mngt-act-btn dropdown-item" href="#">Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </td>
                                         </tr> --}}
                                         {{!-- {{/each}} --}}

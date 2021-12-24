@@ -1,0 +1,130 @@
+{{!-- Display the comments data --}}
+<div class="container d-lg-flex flex-column">
+    {{#each post}}
+    <div class="post_id p-3 mb-4" data-postid="{{_id}}">
+        <script class="comment_data_template_{{_id}}" type="text/template">
+            <div class="input-group row mt-3">
+                <div class="d-flex justify-content-end col-2">
+                    <a class="d-flex align-items-start justify-content-start post-comments_avatar"
+                        href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                        <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
+                            alt="avatar" width="50" height="50" class="rounded-circle">
+                    </a>
+                </div>
+                <div class="d-flex col-10 justify-content-center align-items-center">
+                    <textarea class="form-control post-comment_input" rows="1" aria-label="With textarea"
+                    placeholder="Comments"></textarea>
+                </div>
+                <button class="d-none btn btn-outline-secondary comment_btn" type="button"
+                    id="button-addon2">Button</button>
+            </div>
+            <div class="card card-body">
+                <div class="card card-body">
+                    {{#comments}}
+                    <p>
+                        <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
+                        alt="avatar" width="50" height="50" class="rounded-circle post-comments_avatar">
+                        {{#each user}}
+                            {{username}}{{fullname}}
+                        {{/each}}
+                        <div class="col-12 mb-1 small">
+                            {{create_date}}
+                        </div>
+                        {{_id}}
+                        {{content}}
+                    </p>
+                    {{/comments}}
+                </div>
+            </div>
+        </script>
+        {{!-- Post header --}}
+        <div class="row">
+            {{!-- Show name and date post --}}
+            <div class="col-lg-6">
+                <div class="row d-flex align-items-center">
+                    <a class="col-2 d-flex align-items-start justify-content-start"
+                        href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                        <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
+                            alt="avatar" width="50" height="50" class="rounded-circle post-comments_avatar">
+                    </a>
+                    <a class="row col-10 d-flex align-items-center justify-content-center ps-4"
+                        href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                        <div class="col-12 mb-1 small">
+                            <strong>
+                                {{#each user}}
+                                {{username}}
+                                {{fullname}}
+                                {{/each}}
+                            </strong>
+                        </div>
+                        <div class="col-12 mb-1 small">
+                            {{create_date}} at {{create_time}}
+                            {{#if isUpdated}}updated{{/if}}
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {{!-- Post action --}}
+            <div class="col-lg-6 d-flex align-items-center justify-content-end pe-5">
+                <div class="dropdown">
+                    <span class="material-icons-two-tone" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        more_horiz
+                    </span>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {{!-- Post body --}}
+        <div class="row">
+            <div class="col-12 mt-3">
+                {{caption}}
+            </div>
+            <div class="col-12 p-0 mt-3">
+                <img src="../../../image/{{image}}" alt="image" class="img-fluid">
+            </div>
+        </div>
+        {{!-- Post footer --}}
+        <div class="row">
+            {{!-- Comment section --}}
+            <div class="row col-12 mt-3">
+                <div class="col-6 d-flex justify-content-start align-items-center">
+                    <button class="btn btn-primary comments_expand" type="button">
+                        Comments
+                    </button>
+                </div>
+                <div class="col-6 d-flex justify-content-end align-items-center">
+                    +99 comments
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border d-none" id="comment_loading_{{_id}}" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        {{!-- Collapse interative comments --}}
+        <div class="col-12 comment_container_{{_id}} d-none" id="comment_{{_id}}">
+            <div class="input-group row mt-3">
+                <div class="d-flex justify-content-end col-2">
+                    <a class="d-flex align-items-start justify-content-start post-comments_avatar"
+                        href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                        <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
+                            alt="avatar" width="50" height="50" class="rounded-circle">
+                    </a>
+                </div>
+                <div class="d-flex col-10 justify-content-center align-items-center">
+                    <textarea class="form-control post-comment_input" rows="1" aria-label="With textarea"
+                        placeholder="Comments"></textarea>
+                </div>
+                <button class="d-none btn btn-outline-secondary comment_btn" type="button"
+                    id="button-addon2">Button</button>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
