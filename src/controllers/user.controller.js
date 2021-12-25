@@ -1,9 +1,11 @@
 const User = require('../models/User.model');
+const Post = require('../models/Post.model');
 const bcrypt = require('bcrypt');
 
 // Get user ID (profile)
 exports.getUserDetail = async (req, res, next) => {
-  console.log('From user.controller: Trang cá nhân của ', req.params);
+  console.log('From user.controller: Trang cá nhân của', req.params);
+
   try {
     const student = await User.findOne({
       fullname: req.params.user,
@@ -11,6 +13,18 @@ exports.getUserDetail = async (req, res, next) => {
     const faculty = await User.findOne({
       username: req.params.user,
     });
+
+    const posts = await Post.find({
+      username: req.params,
+      fullname: req.params,
+    })
+      .sort({ createdAt: -1 })
+      .lean();
+    // for (let i = 0; i < posts.length; i++) {
+    //   const getUserIndex = posts.findIndex(c =>
+    //     console.log(c._id.toString() === req.params.id)
+    //   );
+    // }
 
     // Nếu truy cập vào xem trang cá nhân của admin thì sẽ quay về home
     if (req.user.role !== 'admin') {
@@ -23,6 +37,7 @@ exports.getUserDetail = async (req, res, next) => {
       isProfilePage: true,
       currentProfile: student ? !faculty && student : faculty,
       admin: req.user.role === 'admin' ? true : false,
+      post: posts,
     });
   } catch (err) {
     next(err);
