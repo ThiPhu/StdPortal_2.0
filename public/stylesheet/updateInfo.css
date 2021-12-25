@@ -1,0 +1,32 @@
+.form-container{
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    width: 100%; 
+    max-width:575px; 
+    background-color: white
+}
+
+.user-avatar{
+    position: relative;
+}
+
+.user-avatar > img{
+    width: 96px;
+    height: 96px;
+}
+
+.avatar-upload-button{
+    position: absolute;
+    right: -10px;
+    bottom: -5px;
+    padding: 5px;
+    font-size: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    cursor: pointer;
+}
+
+.avatar-upload-button:hover{
+    color: rgb(65, 82, 238);
+}

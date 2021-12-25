@@ -1,6 +1,7 @@
 const apiRouter = require('./api.routes');
 const { userAuth } = require('../middlewares/auth.middleware');
 const authRouter = require('./auth.routes');
+const profileRouter = require('./profile.routes')
 const User = require('../models/User.model');
 const Post = require('../models/Post.model');
 const Comment = require('../models/Comment.model');
@@ -42,52 +43,13 @@ const route = app => {
       user: req.user,
       post: posts,
       admin: req.user.role === 'admin' ? true : false,
+      currentProfile: req.user
     });
   });
 
-  // Các route api
-  app.use('/api', apiRouter);
+  app.use("/profile", profileRouter)
 
-  app.get('/profile/:user', async (req, res) => {
-    const student = await User.findOne({
-      fullname: req.params.user,
-    });
-    const faculty = await User.findOne({
-      username: req.params.user,
-    });
-
-    // Check is owner by check validate token
-    const {access_token} = req.cookies
-    let isOwner = false;
-
-    const {id} = verifyToken(access_token)
-    console.log("TOKEN ID",id)
-
-    if(id && mongoose.isValidObjectId(id)){
-      if(id == req.user._id.toString()){
-        isOwner = true;
-      }
-    }
-
-    console.log(mongoose.isValidObjectId(id))
-
-    console.log(id == req.user._id.toString())
-
-    console.log("USER INFO",req.user)
-
-    console.log("USER ID", req.user._id.toString())
-
-    console.log("IS OWNER", isOwner)
-
-    res.render('user/profile', {
-      user: req.user, // Current user logging in
-      isProfilePage: true,
-      isOwner: isOwner,
-      currentProfile: student ? !faculty && student : faculty,
-      admin: req.user.role === 'admin' ? true : false,
-    });
-  });
-
+  //  ADMIN
   app.get('/management', async (req, res) => {
     const studentRole = await User.find({ role: 'student' }).lean();
     const facultyRole = await User.find({ role: 'faculty' }).lean();
@@ -104,6 +66,8 @@ const route = app => {
     return res.redirect('/home');
   });
 
+  // Các route api
+  app.use('/api', apiRouter);
 
 
   app.get('*', (req, res) => {

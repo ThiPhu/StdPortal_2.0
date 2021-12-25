@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="/stylesheet/updateInfo.css">
+{{> header}}
+<div class="container">
+    <div class="d-flex row flex-row">
+        <div class="container">
+            <div class="form-container border rounded">
+                <h3 class="form__title mb-3" style="text-align: center">Cập nhật thông tin</h3>
+                <form id="updateUserInfo" class="d-flex flex-column justify-content-center w-100">
+                    {{#if isStudent}}
+                    <div class="mb-3 d-flex justify-content-center align-items-center">
+                        <div class="user-avatar d-flex justify-content-center">
+                            <img src="{{#each user}}{{avatar}}{{/each}}" alt="avatar" style="border-radius: 50%;">
+                            <span class="avatar-upload-button me-2 material-icons-outlined">
+                                edit
+                            </span>
+                            <input type="file" class="avatar_upload" hidden>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="user-userName" class="form-label">Tên hiển thị</label>
+                        <input type="email" class="form-control" id="user-userName" value="{{#each user}}{{fullname}}{{/each}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="user-class" class="form-label">Lớp</label>
+                        <input type="email" class="form-control" id="user-class" value="{{#each user}}{{class}}{{/each}}">
+                    </div>
+                    <div class="mb-5">
+                        <label for="section-select" class="form-label">Khoa</label>
+                        <select class="form-select section-select" id="section-select">
+                            <option selected hidden>Chọn chuyên mục</option>
+                        </select>
+                    </div>
+                    {{else}}
+                    <div class="mb-3">
+                        <label for="user-password" class="form-label">Mật khẩu</label>
+                        <input type="password" class="form-control" id="user-password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="user-password-repeat" class="form-label">Nhập lại mật khẩu</label>
+                        <input type="password" class="form-control" id="user-password-repeat">
+                    </div>
+                    {{/if}}
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/user_updateInfo.js"></script>
+

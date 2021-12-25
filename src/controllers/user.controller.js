@@ -44,52 +44,52 @@ exports.readDetail = async (req, res) => {
   }
 }
 
-// Get user ID (profile)
-exports.getUserDetail = async (req, res, next) => {
-  console.log('From user.controller: Trang cá nhân của ', req.params);
-  try {
-    const student = await User.findOne({
-      fullname: req.params.user,
-    });
-    const faculty = await User.findOne({
-      username: req.params.user,
-    });
+// // Get user ID (profile)
+// exports.getUserDetail = async (req, res, next) => {
+//   console.log('From user.controller: Trang cá nhân của ', req.params);
+//   try {
+//     const student = await User.findOne({
+//       fullname: req.params.user,
+//     });
+//     const faculty = await User.findOne({
+//       username: req.params.user,
+//     });
 
-    // Nếu truy cập vào xem trang cá nhân của admin thì sẽ quay về home
-    if (req.user.role !== 'admin') {
-      if (req.params.user === 'admin') return res.redirect('/');
-    }
+//     // Nếu truy cập vào xem trang cá nhân của admin thì sẽ quay về home
+//     if (req.user.role !== 'admin') {
+//       if (req.params.user === 'admin') return res.redirect('/');
+//     }
 
-    res.render('users/profile', {
-      user: req.user, // Current user logging in
-      isUserAvatar: '../' + req.user,
-      isProfilePage: true,
-      currentProfile: student ? !faculty && student : faculty,
-      admin: req.user.role === 'admin' ? true : false,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
+//     res.render('users/profile', {
+//       user: req.user, // Current user logging in
+//       isUserAvatar: '../' + req.user,
+//       isProfilePage: true,
+//       currentProfile: student ? !faculty && student : faculty,
+//       admin: req.user.role === 'admin' ? true : false,
+//     });
+//   } catch (err) {
+//     next(err);
+//   }
+// };
 
-// Get all user (for admin)
-exports.get = async (req, res, next) => {
-  try {
-    const studentRole = await User.find({ role: 'student' }).lean();
-    const facultyRole = await User.find({ role: 'faculty' }).lean();
-    if (req.user.role === 'admin') {
-      return res.render('admin/management', {
-        user: req.user, // For showing who is logging in session
-        student: studentRole, // Show all of Student from database for admin to manage
-        faculty: facultyRole, // Show all of Faculty from database for admin to manage
-        exampleAvatar: '../../public/image/tdt.jpg',
-      });
-    }
-    res.redirect('/home');
-  } catch (err) {
-    next(err);
-  }
-};
+// // Get all user (for admin)
+// exports.get = async (req, res, next) => {
+//   try {
+//     const studentRole = await User.find({ role: 'student' }).lean();
+//     const facultyRole = await User.find({ role: 'faculty' }).lean();
+//     if (req.user.role === 'admin') {
+//       return res.render('admin/management', {
+//         user: req.user, // For showing who is logging in session
+//         student: studentRole, // Show all of Student from database for admin to manage
+//         faculty: facultyRole, // Show all of Faculty from database for admin to manage
+//         exampleAvatar: '../../public/image/tdt.jpg',
+//       });
+//     }
+//     res.redirect('/home');
+//   } catch (err) {
+//     next(err);
+//   }
+// };
 
 // Create user
 exports.create = async (req, res, next) => {
@@ -162,7 +162,7 @@ exports.update = async (req, res, next) => {
       })
     }
 
-  }catch (err){
+  } catch (err){
     next(err)
   }
 }
