@@ -6,6 +6,10 @@
   --alert-board: #055772;
 }
 
+body {
+  background-color: rgba(0, 0, 0, 0.055);
+}
+
 /* Styling phần Header - Navbar - Sidebar - Footer*/
 
 .navbar-header {

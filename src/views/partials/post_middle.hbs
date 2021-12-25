@@ -1,73 +1,76 @@
-{{!-- Display the comments data --}}
-<div class="container d-lg-flex flex-column">
-    {{#each post}}
-    <div class="post_id p-3 mb-4" data-postid="{{_id}}">
-        <script class="comment_data_template_{{_id}}" type="text/template">
-            <div class="input-group row mt-3">
-                <div class="d-flex justify-content-end col-2">
-                    <a class="d-flex align-items-start justify-content-start post-comments_avatar"
-                        href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
-                        <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
-                            alt="avatar" width="50" height="50" class="rounded-circle">
-                    </a>
-                </div>
-                <div class="d-flex col-10 justify-content-center align-items-center">
-                    <textarea class="form-control post-comment_input" rows="1" aria-label="With textarea"
-                    placeholder="Comments"></textarea>
-                </div>
-                <button class="d-none btn btn-outline-secondary comment_btn" type="button"
-                    id="button-addon2">Button</button>
+{{!-- Hiển thị bài viết --}}
+{{#each post}}
+<div class="post_id bg-white container d-lg-flex flex-column p-0 mb-4" data-postid="{{_id}}">
+    {{!-- Script render phần bình luận cho handlebars --}}
+    <script class="comment_data_template_{{_id}}" type="text/template">
+        <div class="input-group row mt-3 head_comment">
+            <div class="d-flex justify-content-end col-2">
+                <a class="d-flex align-items-start justify-content-start post-comments_avatar"
+                    href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                    <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
+                        alt="avatar" width="50" height="50" class="rounded-circle">
+                </a>
             </div>
-            <div class="card card-body">
-                <div class="card card-body">
-                    {{#comments}}
-                    <p>
-                        <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
-                        alt="avatar" width="50" height="50" class="rounded-circle post-comments_avatar">
+            <div class="display col-10 input_bar">
+                <textarea type="text" placeholder="Write a comment in scripts..."
+                    class="form-control modal-style comment_box bg color" oninput="onChangeTextArea()"></textarea>
+            </div>
+        </div>
+        {{!-- ----------------- --}}
+        {{#comments}}
+        <div class="post_header">
+            <div class="d-flex bd-highlight mb-1 mt-1">
+                <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
+                    alt="avatar" width="50" height="50" class="circle_img rounded-circle post-comments_avatar">
+                <div class="p-2 bd-highlight color">
+                    <div class="underline">
                         {{#each user}}
                             {{username}}{{fullname}}
                         {{/each}}
-                        <div class="col-12 mb-1 small">
-                            {{create_date}}
-                        </div>
+                    </div>
+                    <div>
                         {{_id}}
                         {{content}}
-                    </p>
-                    {{/comments}}
+                    </div>
                 </div>
             </div>
-        </script>
-        {{!-- Post header --}}
-        <div class="row">
-            {{!-- Show name and date post --}}
-            <div class="col-lg-6">
-                <div class="row d-flex align-items-center">
-                    <a class="col-2 d-flex align-items-start justify-content-start"
-                        href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
-                        <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
-                            alt="avatar" width="50" height="50" class="rounded-circle post-comments_avatar">
-                    </a>
-                    <a class="row col-10 d-flex align-items-center justify-content-center ps-4"
-                        href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
-                        <div class="col-12 mb-1 small">
-                            <strong>
-                                {{#each user}}
-                                {{username}}
-                                {{fullname}}
-                                {{/each}}
-                            </strong>
-                        </div>
-                        <div class="col-12 mb-1 small">
-                            {{create_date}} at {{create_time}}
-                            {{#if isUpdated}}updated{{/if}}
-                        </div>
-                    </a>
-                </div>
+            <div class="comment__links">
+                <small class="underline">20 Phút</small>
             </div>
+        </div>
+        {{/comments}}
+        {{!-- ----------------------------- --}}
+    </script>
+
+    {{!-- Post header - Hiển thị tên chủ bài viết và ngày đăng --}}
+    <div class="post_header">
+        <div class="d-flex row bd-highlight">
+            <a class="col-2 d-flex align-items-start justify-content-end"
+                href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
+                    alt="avatar" width="50" height="50" class="circle_img p-2 bd-highlight post-comments_avatar">
+            </a>
+            <a class="row col-8 d-flex align-items-center justify-content-center"
+                href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                <div class="p-2 bd-highlight set_margin">
+                    <div class="underline">
+                        <strong>
+                            {{#each user}}
+                            {{username}}
+                            {{fullname}}
+                            {{/each}}
+                        </strong>
+                    </div>
+                    <div class="underline">
+                        {{create_date}} at {{create_time}}
+                        {{#if isUpdated}}updated{{/if}}
+                    </div>
+                </div>
+            </a>
             {{!-- Post action --}}
-            <div class="col-lg-6 d-flex align-items-center justify-content-end pe-5">
+            <div class="col-lg-2 d-flex align-items-center justify-content-end">
                 <div class="dropdown">
-                    <span class="material-icons-two-tone" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                    <span class="material-icons-two-tone option" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         more_horiz
                     </span>
@@ -79,26 +82,33 @@
                 </div>
             </div>
         </div>
+    </div>
+    {{!-- Phần hiển thị nội dung bài viết --}}
+    <div class="d-flex flex-column justify-content-center post-content">
         {{!-- Post body --}}
         <div class="row">
-            <div class="col-12 mt-3">
+            <div class="d-flex justify-content-start ms-4 bd-highlight col-12 mt-3">
                 {{caption}}
             </div>
-            <div class="col-12 p-0 mt-3">
-                <img src="../../../image/{{image}}" alt="image" class="img-fluid">
+            <div class="col-12 mt-3">
+                <img src="../../../image/{{image}}" alt="image" class="img-post img-fluid">
             </div>
         </div>
-        {{!-- Post footer --}}
-        <div class="row">
-            {{!-- Comment section --}}
-            <div class="row col-12 mt-3">
-                <div class="col-6 d-flex justify-content-start align-items-center">
-                    <button class="btn btn-primary comments_expand" type="button">
-                        Comments
-                    </button>
-                </div>
-                <div class="col-6 d-flex justify-content-end align-items-center">
-                    +99 comments
+
+        <div class="d-flex justify-content-end">
+            <div class="comment underline">
+                16K Bình Luận
+            </div>
+        </div>
+        <div class="button_post container">
+            <div class="row">
+                <div type="button" class="btn btn-secondary btn_comment comments_expand col">
+                    <div class="d-flex justify-content-center">
+                        <div class="material-icons-outlined  icon">
+                            chat_bubble_outline
+                        </div>
+                        <div>Bình Luận</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -107,24 +117,56 @@
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
-        {{!-- Collapse interative comments --}}
-        <div class="col-12 comment_container_{{_id}} d-none" id="comment_{{_id}}">
-            <div class="input-group row mt-3">
-                <div class="d-flex justify-content-end col-2">
-                    <a class="d-flex align-items-start justify-content-start post-comments_avatar"
-                        href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
-                        <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
-                            alt="avatar" width="50" height="50" class="rounded-circle">
-                    </a>
+    </div>
+
+    <div class="col-12 post_comments comment_container_{{_id}} d-none" id="comment_{{_id}}">
+        <div class="input-group row mt-3">
+            <div class="head_comment mb-1">
+                <div class="display">
+                    {{!-- <img class="circle_img_comment p-2 bd-highlight" src="image/tdt.jpg"> --}}
+                    <div class="d-flex justify-content-end col-2">
+                        <a class="d-flex align-items-start justify-content-start post-comments_avatar"
+                            href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                            <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
+                                alt="avatar" width="50" height="50" class="rounded-circle">
+                        </a>
+                    </div>
                 </div>
-                <div class="d-flex col-10 justify-content-center align-items-center">
-                    <textarea class="form-control post-comment_input" rows="1" aria-label="With textarea"
-                        placeholder="Comments"></textarea>
+                <div class="display input_bar">
+                    <textarea type="text" placeholder="Write a comment at col..."
+                        class="form-control modal-style comment_box bg color"></textarea>
                 </div>
-                <button class="d-none btn btn-outline-secondary comment_btn" type="button"
-                    id="button-addon2">Button</button>
             </div>
         </div>
+
+        <div class="head_comment mb-1">
+            <div class="display">
+                <img class="circle_img_comment p-2 bd-highlight" src="image/tdt.jpg">
+            </div>
+            <div class="display input_bar">
+                <textarea type="text" placeholder="Write a comment..."
+                    class="form-control modal-style comment_box bg color"></textarea>
+            </div>
+        </div>
+
     </div>
-    {{/each}}
 </div>
+{{/each}}
+
+<script type="text/javascript">
+    function onChangeTextArea() {
+        const tx = $('.comment_box');
+        for (let i = 0; i < tx.length; i++) {
+            tx[i].setAttribute(
+                'style',
+                'height:' + tx[i].scrollHeight + 'px;overflow-y:hidden;'
+            );
+            tx[i].addEventListener('input', OnInput, false);
+        }
+        function OnInput() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        }
+    }
+
+</script>
