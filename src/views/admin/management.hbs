@@ -2,12 +2,12 @@
 <div class="container-fluid">
     <div class="d-flex row flex-row">
         {{!-- Side bar left --}}
-        <div class="col-lg-3 col-3 d-flex justify-content-center align-items-center">
+        <div class="d-sm-block col-md-3 col-lg-2 d-flex justify-content-center align-items-center">
             {{> sidebar_left}}
         </div>
 
         {{!-- Main post --}}
-        <div class="col-lg-9">
+        <div class="col-sm-12 col-md-9 col-lg-10">
             <div class="d-lg-flex flex-column">
                 <h1 class="d-flex align-items-center justify-content-center">Quản lý người dùng</h1>
                 {{!-- <div class="d-flex align-items-center justify-content-center d-lg-none m-3">
@@ -31,8 +31,7 @@
                     </button>
                 </div>
                 {{!-- Carousel --}}
-                <div id="carouselManagement" data-bs-wrap="false" data-bs-interval="false" class="carousel slide"
-                    data-bs-ride="carousel">
+                <div id="carouselManagement" data-bs-wrap="false" data-bs-interval="false" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         {{!-- Student Carousel --}}
                         <div class="carousel-item active">
@@ -43,81 +42,24 @@
                             </div>
                             <hr>
                             {{!-- Table if large screen --}}
-                            <div class="d-lg-flex d-none table-responsive">
+                            <div class="d-flex table-responsive">
                                 <table class="table table-hover table-student" style="overflow: hidden;">
                                     <thead>
                                         <tr class="admin_tr_mgmt">
                                             <th scope="col">Avatar</th>
                                             <th scope="col">Họ tên</th>
-                                            <th scope="col">Vai trò</th>
                                             <th scope="col">MSSV</th>
+                                            <th scope="col">Lớp</th>
+                                            <th scope="col">Khoa</th>
                                             <th scope="col">Tương tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{!-- {{#each student}} --}}
-                                        {{!-- <tr class="admin_tr_mgmt" style="font-size: 18px;">
-                                            <td>
-                                                <div>
-                                                    <img src="{{avatar}}" alt="Avatar" class="admin_avatar_mgmt">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div>{{fullname}}</div>
-                                            </td>
-                                            <td>
-                                                <div>{{#if role}}Học viên{{/if}}</div>
-                                            </td>
-                                            <td class="admin_td_faculty">
-                                                <div>{{email}}</div>
-                                            </td>
-                                            <td>
-                                                <div class="btn-group dropstart">
-                                                    <button type="button"
-                                                        class="btn mngt-act-btn d-flex justify-content-center align-items-center"
-                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <span class="material-icons-outlined"
-                                                            style="font-size: 24px !important">
-                                                            more_horiz
-                                                        </span>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="mngt-act-btn mngt-profile-user dropdown-item"
-                                                                href="/api/user/{{fullname}}">Profile</a></li>
-                                                        <li><a class="mngt-act-btn dropdown-item" href="#">Delete</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                {{!-- <div class="row container">
-                                                    <div class="col-6 mngt-act-btn mngt-profile-user"
-                                                        data-bs-toggle="tooltip" title="Xem trang người dùng">
-                                                        <a class="m-3 d-flex justify-content-center"
-                                                            href="/api/user/{{fullname}}">
-                                                            <span class="material-icons-outlined">
-                                                                account_circle
-                                                            </span>
-                                                            <p class="m-0 ms-2">Profile</p>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-6 mngt-act-btn mngt-del-user"
-                                                        data-bs-toggle="tooltip" title="Xoá người dùng">
-                                                        <a class="m-3 d-flex justify-content-center" href="#">
-                                                            <span class="material-icons-outlined">
-                                                                delete
-                                                            </span>
-                                                            <p class="m-0 ms-2">Delete</p>
-                                                        </a>
-                                                    </div>
-                                                </div> --}}
-                                            </td>
-                                        </tr> --}}
-
-                                        {{!-- {{/each}} --}}
                                     </tbody>
                                 </table>
                             </div>
                             {{!-- Using card for mobile --}}
-                            <div class="d-lg-none d-flex">
+                            {{!-- <div class="d-lg-none d-flex">
                                 <div class="card-group">
                                     <div class="card mb-3">
                                         <img src="/image/stu.png" class="img-fluid card-img-top" alt="...">
@@ -126,14 +68,12 @@
                                             <p class="card-text">This is a wider card with supporting text below as a
                                                 natural lead-in to additional content. This content is a little bit
                                                 longer.</p>
-                                            <p class="card-text"><small class="text-muted">Last updated 3 mins
-                                                    ago</small></p>
+                                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
-
                         {{!-- Faculty Carousel --}}
                         <div class="carousel-item">
                             <div class="row">
@@ -164,55 +104,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{!-- {{#each faculty}} --}}
-                                        {{!-- <tr class="admin_tr_mgmt" style="font-size: 18px;">
-                                            <td>
-                                                <div>
-                                                    {{#if avatar}}
-                                                    <img src="../../../{{avatar}}" alt="Avatar"
-                                                        class="admin_avatar_mgmt">
-                                                    {{else}}
-                                                    <img src="../../../image/tdt.png" alt="Avatar"
-                                                        class="admin_avatar_mgmt">
-                                                    {{/if}}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div>{{username}}</div>
-                                            </td>
-                                            <td>
-                                                <div>{{#if role}}Phòng/Khoa{{/if}}</div>
-                                            </td>
-                                            <td class="admin_td_faculty">
-                                                <div>{{faculty}}</div>
-                                            </td>
-                                            <td class="admin_td_topic">
-                                                <div>
-                                                    {{class}}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="btn-group dropstart">
-                                                    <button type="button"
-                                                        class="btn mngt-act-btn d-flex justify-content-center align-items-center"
-                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <span class="material-icons-outlined">
-                                                            more_horiz
-                                                        </span>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="mngt-act-btn dropdown-item"
-                                                                href="/api/user/{{username}}">Profile</a>
-                                                        </li>
-                                                        <li><a class="mngt-act-btn dropdown-item" href="#">Edit</a></li>
-                                                        <li><a class="mngt-act-btn dropdown-item" href="#">Delete</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr> --}}
-                                        {{!-- {{/each}} --}}
-
                                     </tbody>
                                 </table>
                             </div>

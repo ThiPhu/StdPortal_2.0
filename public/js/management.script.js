@@ -57,15 +57,19 @@ $(".btn-create-faculty-account").on("click", (event) => {
                             <td>
                                 <div>${user.fullname}</div>
                             </td>
-                            <td>
-                                <div>Học viên</div>
+                            <td class="admin_td_studentId">
+                                <div>
+                                    ${user.email.split("@")[0]}
+                                </div>
+                            </td>
+                            <td class="admin_td_class">
+                                <div>
+                                    ${user.email.class ? user.email.class : "-" }
+                                </div>
                             </td>
                             <td class="admin_td_faculty">
-                                <div>${user.faculty}</div>
-                            </td>
-                            <td class="admin_td_topic">
                                 <div>
-                                    ${user.class}
+                                    ${user.email.unit ? user.email.unit : "-"}
                                 </div>
                             </td>
                             <td>
@@ -103,7 +107,7 @@ $(".btn-create-faculty-account").on("click", (event) => {
                         <tr class="admin_tr_mgmt" style="font-size: 18px;" data-id="${user._id}">
                             <td>
                                 <div>
-                                    <img src="${user.avatar}" alt="Avatar" class="admin_avatar_mgmt">
+                                    <img src="${user.avatar ? user.avatar : "../../image/tdt.jpg"}" alt="Avatar" class="admin_avatar_mgmt">
                                 </div>  
                             </td>
                             <td>
@@ -115,8 +119,8 @@ $(".btn-create-faculty-account").on("click", (event) => {
                             <td class="admin_td_faculty">
                                 <div>${user.unit.name}</div>
                             </td>
-                            <td>
-                                <a class="me-3" href="/profile/${user.username}"
+                            <td class="tools">
+                                <a class="me-3 btn-profile" href="/profile/${user.username}"
                                     style="cursor:pointer; color: green;">
                                     <span class="material-icons-outlined" data-bs-toggle="tooltip"
                                         title="Profile">

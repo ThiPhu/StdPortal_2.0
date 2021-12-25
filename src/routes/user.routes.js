@@ -7,9 +7,6 @@ Router.get("/", userController.read)
 
 // Get user detail
 Router.get("/:userId", userController.readDetail)
-const Router = require('express').Router();
-const userController = require('../controllers/user.controller');
-const userValidation = require('../validations/user.validation');
 
 // Lấy user theo ID (Xem trang cá nhân)
 // Router.get('/:user', userController.getUserDetail);

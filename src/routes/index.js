@@ -4,6 +4,8 @@ const authRouter = require('./auth.routes');
 const User = require('../models/User.model');
 const Post = require('../models/Post.model');
 const Comment = require('../models/Comment.model');
+const {verifyToken} = require('../utils/jwt');
+const mongoose = require('mongoose');
 
 const route = app => {
   // Các route không yêu cầu phiên đăng nhập của user
@@ -45,6 +47,64 @@ const route = app => {
 
   // Các route api
   app.use('/api', apiRouter);
+
+  app.get('/profile/:user', async (req, res) => {
+    const student = await User.findOne({
+      fullname: req.params.user,
+    });
+    const faculty = await User.findOne({
+      username: req.params.user,
+    });
+
+    // Check is owner by check validate token
+    const {access_token} = req.cookies
+    let isOwner = false;
+
+    const {id} = verifyToken(access_token)
+    console.log("TOKEN ID",id)
+
+    if(id && mongoose.isValidObjectId(id)){
+      if(id == req.user._id.toString()){
+        isOwner = true;
+      }
+    }
+
+    console.log(mongoose.isValidObjectId(id))
+
+    console.log(id == req.user._id.toString())
+
+    console.log("USER INFO",req.user)
+
+    console.log("USER ID", req.user._id.toString())
+
+    console.log("IS OWNER", isOwner)
+
+    res.render('user/profile', {
+      user: req.user, // Current user logging in
+      isProfilePage: true,
+      isOwner: isOwner,
+      currentProfile: student ? !faculty && student : faculty,
+      admin: req.user.role === 'admin' ? true : false,
+    });
+  });
+
+  app.get('/management', async (req, res) => {
+    const studentRole = await User.find({ role: 'student' }).lean();
+    const facultyRole = await User.find({ role: 'faculty' }).lean();
+    if (req.user.role === 'admin') {
+      return res.render('admin/management', {
+        // Check for role
+        admin: req.user.role === 'admin' ? true : false,
+        user: req.user, // For showing who is logging in session
+        student: studentRole, // Show all of Student from database for admin to manage
+        faculty: facultyRole, // Show all of Faculty from database for admin to manage
+        exampleAvatar: '../../public/image/tdt.jpg',
+      });
+    }
+    return res.redirect('/home');
+  });
+
+
 
   app.get('*', (req, res) => {
     res.status(404).render('error');
