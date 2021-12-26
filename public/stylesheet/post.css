@@ -22,7 +22,6 @@
 .post_header_comment {
   margin-right: 24px;
   margin-left: 80px;
-  
 }
 .create_post_header {
   margin-right: 12px;
@@ -34,7 +33,7 @@
   margin-top: 10px;
   margin-right: 10px;
 }
-.avt_create_post{
+.avt_create_post {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -107,7 +106,7 @@
 .post-comments_input_bar {
   width: 100%;
 }
-.input_bar{
+.input_bar {
   width: 100%;
   margin-right: 12px;
   margin-top: 8px;
@@ -319,12 +318,7 @@ body {
   margin-top: 8px;
   height: 45px;
 }
-.color {
-  color: black;
-}
-.bg {
-  background: #f2f2f2;
-}
+
 .write_post {
   border: none;
   border-radius: 25px;
@@ -336,12 +330,21 @@ body {
   display: none;
 }
 .text_area_border {
+  transition: 0.1s ease-in-out;
+  background: #f2f2f2;
+  color: black;
   border-radius: 25px;
   margin-left: 3px;
   margin-bottom: 8px;
   padding: 8px;
   display: flex;
 }
+
+.text_area_border:hover {
+  transition: 0.1s ease-in-out;
+  background: #d4d4d4;
+}
+
 .review {
   margin-top: 3px;
   height: auto;
