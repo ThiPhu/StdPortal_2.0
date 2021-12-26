@@ -34,6 +34,11 @@
   margin-top: 10px;
   margin-right: 10px;
 }
+.avt_create_post{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
 .circle_img_create_post {
   width: 60px;
   height: 60px;
@@ -41,6 +46,7 @@
   margin: 12px;
   margin-right: 5px;
   margin-left: 3px;
+  margin-top: 5px;
 }
 .text_caption {
   margin-left: 12px;
@@ -93,6 +99,7 @@
   height: 60px;
   border-radius: 50%;
   margin-left: 12px;
+  margin-top: 0px;
 }
 .display {
   display: flex;
@@ -252,7 +259,7 @@ body {
   border: none;
 }
 .input_body {
-  border-radius: 18px;
+  border-radius: 12px;
   border-top: 1px solid gray;
   border-right: 1px solid gray;
   border-left: 1px solid gray;
@@ -351,6 +358,7 @@ body {
   margin: 5px;
   padding: 3px;
   position: absolute;
+  float: left;
 }
 .icon_remove {
   color: gray;

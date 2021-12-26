@@ -1,7 +1,7 @@
 <div class="create_post_body">
       <div class="head_comment">
         <div class="display">
-            <img  class="circle_img_comment p-2 bd-highlight" src="image/tdt.jpg">
+            <img  class="avt_create_post p-2 bd-highlight" src="image/tdt.jpg">
             <div class="input_bar">
                 <div  type="text"  class="form-control bg color text_area_border" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <span class="text">Bạn muốn viết gì?</span>
@@ -46,9 +46,13 @@
                       </div>
               </div>
           </div>
-          <div class="review">
+          <div class="review" id="review">
+              <button type="button" class=" btn_remove_img modal_text" onclick="remove();">
+                <span class="material-icons-outlined icon_remove">
+                  clear
+                </span>
+              </button>
               <img class="img_post" id="review_img">
-              <button type="button" class="btn btn-primary save_post modal_text" onclick="remove();">xoa</button>
           </div>
       </div>
       <div class="modal-footer">
