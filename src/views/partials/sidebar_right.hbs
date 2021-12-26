@@ -1,68 +1,21 @@
 <div class="container sb-right d-lg-flex d-none flex-column p-2">
     <div class="d-flex align-items-center sb-right-header justify-content-center p-1">
-        <span>Thông báo quan trọng <strong class="text-danger">*</strong></span>
+        <span>Thông báo từ Phòng/Khoa<strong class="text-danger">*</strong></span>
     </div>
 
     <div class="list-group list-group-flush border-bottom scrollarea">
+        {{#each announcements}}
         <a href="#" class="list-group-item list-group-item-action p-3 mt-1 sb-right-list-item" aria-current="true">
             <div class="d-flex w-100 align-items-center justify-content-between">
-                <strong class="mb-1">Khoa Công Nghệ Thông Tin<strong class="text-danger">*</strong></strong>
+                <strong class="mb-1">{{#each user}}{{fullname}}{{/each}}<strong class="text-danger">*</strong></strong>
             </div>
             <div class="col-12 mb-1 sb-right-content small">
-                Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 -
-                Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2
+                <strong>Tiêu đề: </strong>{{title}}
             </div>
             <div class="col-12 mb-1 small">
-                <strong>Ngày đăng thông báo:</strong> 19/11/2021
+                <strong>Ngày đăng:</strong> {{create_date}} lúc {{create_time}}
             </div>
         </a>
-        <a href="#" class="list-group-item list-group-item-action p-3 mt-1 sb-right-list-item" aria-current="true">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-                <strong class="mb-1">Khoa Công Nghệ Thông Tin<strong class="text-danger">*</strong></strong>
-            </div>
-            <div class="col-12 mb-1 sb-right-content small">
-                Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 -
-                Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2
-            </div>
-            <div class="col-12 mb-1 small">
-                <strong>Ngày đăng thông báo:</strong> 19/11/2021
-            </div>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action p-3 mt-1 sb-right-list-item" aria-current="true">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-                <strong class="mb-1">Khoa Công Nghệ Thông Tin<strong class="text-danger">*</strong></strong>
-            </div>
-            <div class="col-12 mb-1 sb-right-content small">
-                Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 -
-                Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2
-            </div>
-            <div class="col-12 mb-1 small">
-                <strong>Ngày đăng thông báo:</strong> 19/11/2021
-            </div>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action p-3 mt-1 sb-right-list-item" aria-current="true">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-                <strong class="mb-1">Khoa Công Nghệ Thông Tin<strong class="text-danger">*</strong></strong>
-            </div>
-            <div class="col-12 mb-1 sb-right-content small">
-                Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 -
-                Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2
-            </div>
-            <div class="col-12 mb-1 small">
-                <strong>Ngày đăng thông báo:</strong> 19/11/2021
-            </div>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action p-3 mt-1 sb-right-list-item" aria-current="true">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-                <strong class="mb-1">Khoa Công Nghệ Thông Tin<strong class="text-danger">*</strong></strong>
-            </div>
-            <div class="col-12 mb-1 sb-right-content small">
-                Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 -
-                Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2 - Bàn luận về Dự án CNTT2
-            </div>
-            <div class="col-12 mb-1 small">
-                <strong>Ngày đăng thông báo:</strong> 19/11/2021
-            </div>
-        </a>
+        {{/each}}
     </div>
 </div>
