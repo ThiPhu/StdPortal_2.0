@@ -12,20 +12,32 @@
 .post-comments_avatar {
   border: 2px solid black !important;
   border-radius: 50%;
+  height: min-content;
 }
 
 .post_header {
   margin-right: 12px;
   margin-left: 12px;
 }
+.post_header_comment {
+  margin-right: 24px;
+  margin-left: 80px;
+  
+}
 .create_post_header {
   margin-right: 12px;
 }
 .circle_img {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   margin-top: 10px;
+  margin-right: 10px;
+}
+.avt_create_post{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 .circle_img_create_post {
   width: 60px;
@@ -34,6 +46,7 @@
   margin: 12px;
   margin-right: 5px;
   margin-left: 3px;
+  margin-top: 5px;
 }
 .text_caption {
   margin-left: 12px;
@@ -86,12 +99,18 @@
   height: 60px;
   border-radius: 50%;
   margin-left: 12px;
+  margin-top: 0px;
 }
 .display {
-  display: inline-block;
+  display: flex;
 }
 .post-comments_input_bar {
   width: 100%;
+}
+.input_bar{
+  width: 100%;
+  margin-right: 12px;
+  margin-top: 8px;
 }
 .input_bar_text {
   margin-top: 5px;
@@ -106,10 +125,7 @@
 .post_comments {
   margin-top: 5px;
 }
-.head_comment {
-  display: flex;
-  margin-right: 12px;
-}
+
 .show_comment {
   display: flex;
 }
@@ -208,9 +224,7 @@ body {
   margin-left: 0%;
   margin-right: 0%;
 }
-.set_margin {
-  margin-top: 10px;
-}
+
 .options_post {
   margin-top: 5px;
   height: 57px;
@@ -245,7 +259,7 @@ body {
   border: none;
 }
 .input_body {
-  border-radius: 18px;
+  border-radius: 12px;
   border-top: 1px solid gray;
   border-right: 1px solid gray;
   border-left: 1px solid gray;
@@ -344,6 +358,7 @@ body {
   margin: 5px;
   padding: 3px;
   position: absolute;
+  float: left;
 }
 .icon_remove {
   color: gray;

@@ -46,31 +46,32 @@ $(document).ready(function () {
     this.style.height = 'auto';
     this.style.height = this.scrollHeight + 'px';
   }
-
-  function img_upload() {
-    document.getElementById('file').click();
-  }
-  input_img = document.getElementById('input_img');
-  var review = document.getElementById('review');
-
-  var loadFile = function (event) {
-    var reader = new FileReader();
-    reader.onload = function () {
-      var output = document.getElementById('review_img');
-      output.src = reader.result;
-    };
-    reader.readAsDataURL(event.target.files[0]);
-    review.style.display = 'block';
-    re_img.style.display = 'block';
-    input_img.style.display = 'none';
-  };
-  //remove img
-  var re_img = document.getElementById('review_img');
-  function remove() {
-    re_img.removeAttribute('src');
-    document.getElementById('file').value = null;
-    re_img.style.display = 'none';
-    review.style.display = 'none';
-    input_img.style.display = 'block';
-  }
+  
 });
+//review img before post
+function img_upload() {
+  document.getElementById("file").click();
+};
+input_img=document.getElementById('input_img')
+var re_img=document.getElementById('review_img')
+var show_img=document.getElementById('review')
+console.log(input_img)
+var loadFile = function(event) {
+  var reader = new FileReader();
+  reader.onload = function(){
+    var output = document.getElementById('review_img');
+    output.src = reader.result;
+  };
+  reader.readAsDataURL(event.target.files[0]);
+  re_img.style.display='block'
+  show_img.style.display='block'
+  input_img.style.display='none'
+};
+//remove img
+function remove(){
+  re_img.removeAttribute('src');
+  document.getElementById("file").value=null
+  re_img.style.display='none'
+  show_img.style.display='none'
+  input_img.style.display='block'
+}
