@@ -100,6 +100,11 @@
 .post-comments_input_bar {
   width: 100%;
 }
+.input_bar{
+  width: 100%;
+  margin-right: 12px;
+  margin-top: 8px;
+}
 .input_bar_text {
   margin-top: 5px;
   width: 100%;

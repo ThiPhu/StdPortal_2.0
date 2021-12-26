@@ -1,0 +1,62 @@
+<div class="create_post_body">
+      <div class="head_comment">
+        <div class="display">
+            <img  class="circle_img_comment p-2 bd-highlight" src="image/tdt.jpg">
+            <div class="input_bar">
+                <div  type="text"  class="form-control bg color text_area_border" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <span class="text">Bạn muốn viết gì?</span>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title modal_text" id="exampleModalLabel">Create Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="post_header">
+            <div class="d-flex bd-highlight mb-2 ">
+                    <img  class="circle_img_create_post p-2 bd-highlight " src="image/tdt.jpg">
+                    <div class="p-2 bd-highlight set_margin">
+                        <div class="modal_text">
+                            Trang Sinh Viên
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class=" black">
+            <textarea class="form-control modal-style comment_box black" id="message-text" placeholder="Bạn muốn viết gì ?"></textarea>
+          </div>
+          <div class="input_img" id="input_img">
+              <div class="input_body">
+                      <div class="center">
+                        <input type="file" id="file" class="hide" accept="image/*,video/*" onchange="loadFile(event)"/>
+                        <button class="add_img_btn" onclick="img_upload();">
+                            <span class="material-icons-outlined">
+                            add_photo_alternate
+                            </span>
+                        </button>
+                        <div>Thêm ảnh hoặc video</div>
+                      </div>
+              </div>
+          </div>
+          <div class="review">
+              <img class="img_post" id="review_img">
+              <button type="button" class="btn btn-primary save_post modal_text" onclick="remove();">xoa</button>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary save_post modal_text">Post</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+</script>
