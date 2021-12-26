@@ -6,6 +6,9 @@ const User = require('../models/User.model');
 // Xem chi tiết thông báo qua Id
 
 // Tạo thông báo
+exports.create = async (req, res, next) => {
+    
+}
 
 // Cập nhật thông báo
 

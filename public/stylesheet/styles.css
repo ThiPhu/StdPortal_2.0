@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: rgba(0, 0, 0, 0.055);
+  background-color: rgb(238, 238, 238);
 }
 
 /* Styling phần Header - Navbar - Sidebar - Footer*/
@@ -79,7 +79,7 @@ body {
 .dropdown-menu-alert {
   position: fixed;
   right: 14rem !important;
-  top: 3.5rem !important;
+  top: 4rem !important;
   background-color: white;
   max-width: 400px;
   width: 400px;
@@ -116,7 +116,9 @@ body {
 
 .dropdown-menu-setting {
   position: fixed;
-  top: 3.5em !important;
+  max-width: 300px;
+  width: 100%;
+  top: 4em !important;
   right: 12rem !important;
   background-color: white;
   border-radius: 6px;
