@@ -1,10 +1,10 @@
 <div class="create_post_body">
   <div class="head_comment">
-    <div class="display">
+    <div class="d-flex">
       <img class="avt_create_post p-2 bd-highlight mt-1"
         src="{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}">
       <div class="input_bar">
-        <div type="text" class="form-control text_area_border" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <div type="text" class="form-control text_area_border" data-bs-toggle="modal" data-bs-target="#createPostModal">
           <span>Bạn muốn viết gì?</span>
         </div>
       </div>
@@ -13,11 +13,11 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title modal_text" id="exampleModalLabel">Create Post</h5>
+        <h5 class="modal-title modal_text" id="exampleModalLabel">Tạo bài viết</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -32,14 +32,15 @@
             </div>
           </div>
         </div>
-        <div class=" black">
-          <textarea class="form-control modal-style comment_box black" id="message-text"
+        <div class="">
+          <textarea class="form-control modal-style create_post-input" id="message-text"
             placeholder="Bạn muốn viết gì ?"></textarea>
         </div>
         <div class="input_img" id="input_img">
-          <div class="input_body">
-            <div class="center">
-              <input type="file" id="file" class="hide" accept="image/*,video/*" onchange="loadFile(event)" />
+          <div class="input_body d-flex flex-column align-items-center justify-content-center">
+            <div class="d-flex flex-column align-items-center ">
+              <input type="file" id="file" name="image" class="create_post-image d-none" accept="image/*,video/*"
+                onchange="loadFile(event)" />
               <button class="add_img_btn" onclick="img_upload();">
                 <span class="material-icons-outlined">
                   add_photo_alternate
@@ -49,7 +50,7 @@
             </div>
           </div>
         </div>
-        <div class="review" id="review">
+        <div class="create_post-imgReview" id="review">
           <button type="button" class=" btn_remove_img modal_text" onclick="remove();">
             <span class="material-icons-outlined icon_remove">
               clear
@@ -59,11 +60,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary save_post modal_text">Post</button>
+        <button type="button" class="btn btn-primary create_post-submitBtn modal_text">Đăng</button>
       </div>
     </div>
   </div>
 </div>
-<script>
-
-</script>
