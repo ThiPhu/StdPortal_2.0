@@ -2,6 +2,28 @@ $(document).ready(function () {
   // Bấm vào comment btn sẽ hiện các comment dưới bài viết
   $('.comments_expand').one('click', e => {
     e.preventDefault();
+    let createCommentScripts = `<script type="text/javascript">
+      // Tạo bình luận
+      $('.comment_box').keypress(e => {
+        let postId = $(e.target).closest('.post_id').data('postid');
+        if (e.which == 13 && !e.shiftKey) {
+          e.preventDefault();
+          const comment = $(e.target).val();
+          fetch('/api/comment/', {
+            method: 'POST',
+            body: new URLSearchParams({
+              content: comment,
+              postId: postId,
+            }),
+          })
+            .then(res => res.json())
+            .then(({ ok, msg, at }) => {
+              // If auth success, redirect to home
+              return window.location.reload();
+            });
+        }
+      });
+    </script>`;
     let postId = $(e.target).closest('.post_id').data('postid');
     $.ajax({
       url: '/api/post/' + postId,
@@ -22,7 +44,7 @@ $(document).ready(function () {
           };
           var template = commentsTemplate(dataStamp);
           $('.comment_container_' + postId).html(
-            $('.post_comments').html() + template
+            template + createCommentScripts
           );
         }
         $('#comment_' + postId).removeClass('d-none');
@@ -32,6 +54,20 @@ $(document).ready(function () {
         alert('error');
       },
     });
+  });
+
+  // Bấm vào caption để mở rộng bài viết
+  let expandPostCaption = false;
+  $('.post_body-caption').on('click', e => {
+    e.preventDefault();
+    let postId = $(e.target).closest('.post_id').data('postid');
+    if (expandPostCaption) {
+      expandPostCaption = false;
+      $('#post_caption_' + postId).addClass('post_caption-lineclapm');
+    } else {
+      expandPostCaption = true;
+      $('#post_caption_' + postId).removeClass('post_caption-lineclapm');
+    }
   });
 
   // Tạo bài viết
@@ -72,16 +108,22 @@ $(document).ready(function () {
       if (result.isConfirmed) {
         fetch('/api/post/' + postId, {
           method: 'DELETE',
-        })
-          .then(res => res.json())
-          .then(({ ok, msg, at }) => {
-            // If auth success, redirect to home
-            return (window.location.href = '/');
-          });
-        Swal.fire({
-          title: 'Xoá bài viết thành công.',
-          confirmButtonText: 'Xác nhận!',
-          confirmButtonColor: '#0e6286',
+        }).then(data => {
+          console.log(data.status);
+          if (data.status !== 500) {
+            Swal.fire({
+              title: 'Xoá bài viết thành công',
+              icon: 'success',
+            });
+            return setTimeout(function () {
+              window.location.reload();
+            }, 1200);
+          } else {
+            Swal.fire({
+              title: 'Bạn không có quyền xoá bài viết này',
+              icon: 'error',
+            });
+          }
         });
       }
     });
@@ -103,7 +145,7 @@ $(document).ready(function () {
         .then(res => res.json())
         .then(({ ok, msg, at }) => {
           // If auth success, redirect to home
-          return (window.location.href = '/');
+          return window.location.reload();
         });
     }
   });

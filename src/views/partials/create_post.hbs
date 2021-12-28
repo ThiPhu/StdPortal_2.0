@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="">
-          <textarea class="form-control modal-style create_post-input" id="message-text"
+          <textarea class="form-control modal-style create_post-input" oninput="onChangeTextArea()" id="message-text"
             placeholder="Bạn muốn viết gì ?"></textarea>
         </div>
         <div class="input_img" id="input_img">
@@ -65,3 +65,21 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  function onChangeTextArea() {
+    //auto resize text area
+    const tx = $('.comment_box');
+    for (let i = 0; i < tx.length; i++) {
+      tx[i].setAttribute(
+        'style',
+        'height:' + tx[i].scrollHeight + 'px;overflow-y:hidden;'
+      );
+      tx[i].addEventListener('input', OnInput, false);
+    }
+    function OnInput() {
+      this.style.height = 'auto';
+      this.style.height = this.scrollHeight + 'px';
+    }
+  }
+</script>
