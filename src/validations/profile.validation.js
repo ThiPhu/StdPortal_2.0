@@ -1,38 +1,35 @@
 const {check} = require('express-validator')
 const {handleValidationResult} = require("../utils/handleValidationResult")
 
-exports.facultyUpdate = [
+exports.update = [
     // Can be named anything
     check("checkRole")
         .custom((value, {req}) => {
-            const {user: {role}} = req.user
-
+            const {role} = req.user
+            // Condition check
             switch (role) {
                 case "falcuty":
                     const {password, passwordConfirm} = req.body
 
+                    if (!password || password.length < 0){
+                        throw new Error("Vui lòng nhập mật khẩu!")
+                    }
+
+                    if (!passwordConfirm || passwordConfirm.length < 0){
+                        throw new Error("Vui lòng xác nhận mật khẩu!")
+                    }
+
                     if (password!==passwordConfirm) {
-                        throw new Error("Mật khẩu không khớp!")
+                        throw new Error("Mật khẩu xác nhận không khớp!")
                     }
                     break;
 
                 case "student":
-                    const a =1
+                    
                     break;
 
-            return true
             }
+            return true
         }),
-    // check("password")
-    //     .exists()
-    //     .withMessage("Vui lòng cung cấp mật khẩu!")
-    //     .notEmpty()
-    //     .withMessage("Mật khẩu sai định dạng!"),
-    // check("passwordConfirm")
-    //     .exists()
-    //     .withMessage("Vui lòng cung cấp mật khẩu!")
-    //     .notEmpty()
-    //     .custom((value,{req}) => { value === req.body.password})
-    //     .withMessage("Mật khẩu không khớp!"),
     (req, res, next) => handleValidationResult(req, res, next)
 ]

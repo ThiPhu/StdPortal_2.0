@@ -1,34 +1,22 @@
 const User = require("../models/User.model");
 const mongoose = require("mongoose");
-const {verifyToken} = require("../utils/jwt");
-const bcrypt = require('bcrypt');
-
+const bcrypt = require("bcrypt");
 
 
 exports.get = async (req, res, next) => {
     const {userId} = req.params
+    // get userid from session
+    const {_id}  = req.user
     try{
       const user = await User.find({"_id":userId}).populate("unit")
       if(user){
         // Check is owner by check validate token
-        const {access_token} = req.cookies
         let isOwner = false;
 
-        const {id} = verifyToken(access_token)
-        console.log("TOKEN ID",id)
-
-        if(id && mongoose.isValidObjectId(id)){
-          if(id == userId){
-            isOwner = true;
-          }
+        if( _id.toString() === userId){
+          isOwner = true;
         }
-
-        console.log(mongoose.isValidObjectId(id))
-
-        console.log(id == req.user._id.toString())
-
-        console.log("USER INFO",req.user)
-
+        
         console.log("USER ID", req.user._id.toString())
 
         console.log("IS OWNER", isOwner)
@@ -52,67 +40,47 @@ exports.get = async (req, res, next) => {
 
 exports.update = async (req,res,next) => {
     const {userId} = req.params;
-
+    const {_id} = req.user
     console.log("USER",req.user)
 
-    console.log(userId)
     // Check is owner by check validate token
-    const {access_token} = req.cookies
     let isOwner = false;
 
-    const {id} = verifyToken(access_token)
-    console.log("TOKEN ID",id)
-
-    if(id && mongoose.isValidObjectId(id)){
-        if(id == userId){
-            isOwner = true;
-        }
+    if(_id.toString() === userId){
+      isOwner = true;
     }
+
     if(isOwner){
         try{
             if(req.user.role == "faculty"){
+              const update = req.body;
 
+              // Generate salt
+              const salt = await bcrypt.genSalt();
+              const hashedPassword = await bcrypt.hash(update.password,salt)
+              update.password = hashedPassword
+
+              const user = await User.findByIdAndUpdate({_id: userId}, update)
+
+              if(user){
+                return res.json({
+                  ok: true,
+                  msg: "Cập nhật người dùng thành công!"
+                })
+              } else {
+                return res.json({
+                  ok: false,
+                  msg: "Cập nhật người dùng thất bại!"
+                })
+              }
             }
 
             if(req.user.role == "student"){
+                const update = req.body
+
+                const user = await User.findByIdAndUpdate({_id: userId}, update)
                 
             }
-
-            // const update = req.body;
-            // // password
-            // if(update.password === null){
-            //     delete update.password
-            // }else{
-            //     // Generate salt
-            //     const salt = await bcrypt.genSalt();
-            //     // Hash password with bcrypt
-            //     const hashedPassword = await bcrypt.hash(update.password, salt);
-            //     update.password = hashedPassword
-            // }
-
-            // // Remove null fields
-            // update.avatar == null && delete update.avatar
-            // update.class == null && delete update.class
-            // update.unit == null && delete update.unit
-
-            // console.log(update)
-
-            // const user = await User.findByIdAndUpdate(
-            //     {_id: userId},
-            //     update
-            // )
-
-            // if(user){
-            //     return res.json({
-            //         ok: true,
-            //         msg: "Cập nhật thành công!"
-            //     })
-            // }else{
-            //     return res.json({
-            //         ok: false,
-            //         msg: "Cập nhật thất bại!"
-            //     })
-            // }
         }catch (err){
             next(err)
         }

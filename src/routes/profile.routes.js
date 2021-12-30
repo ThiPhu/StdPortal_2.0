@@ -5,7 +5,7 @@ const profileValidation = require("../validations/profile.validation")
 
 Router.get('/:userId', profileController.get);
 
-Router.post('/:userId', profileController.update);
+Router.post('/:userId', profileValidation.update, profileController.update);
 
 Router.get('/:userId/update-info', (req,res) => {
     return res.render("user/updateInfo",{
