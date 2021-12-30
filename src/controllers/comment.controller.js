@@ -74,11 +74,7 @@ exports.create = async (req, res, next) => {
       'From comment.controller.js at create function: Tạo bình luận thành công'
     );
 
-    return res.json({
-      ok: true,
-      msg: 'Tạo bình luận thành công!',
-      data: newComment,
-    });
+    return res.json({ ok: true, msg: 'Tạo bình luận thành công!' });
   } catch (err) {
     next(err);
   }

@@ -54,6 +54,8 @@ exports.create = async (req, res, next) => {
   let image = req.file;
   if (!image) {
     image = null;
+  } else {
+    image = image.filename;
   }
   const user = req.user;
   try {
@@ -107,19 +109,15 @@ exports.update = async (req, res, next) => {
   const { caption } = req.body;
   const image = req.file.filename;
   try {
-    const userId = await User.findById(req.user.id);
-    const postId = await Post.findById(req.params.id);
+    const user = await User.findById(req.user.id);
+    const post = await Post.findById(req.params.id);
     const date = new Date();
     const create_date =
       date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
     const create_time = date.getHours() + ':' + date.getMinutes();
     // Nếu không phải là chủ bài viết hoặc không có bài viết
     // hay user không login, thì không cho cập nhật
-    if (
-      !userId ||
-      !postId ||
-      postId.user[0]._id.toString() !== userId._id.toString()
-    ) {
+    if (!user || !post || post.user[0]._id.toString() !== user._id.toString()) {
       // return res.render('posts/post');
       return res.json({
         ok: false,
@@ -133,7 +131,7 @@ exports.update = async (req, res, next) => {
       create_date,
       create_time,
     };
-    newPost = await Post.findByIdAndUpdate(postId, newPost, { new: true });
+    newPost = await Post.findByIdAndUpdate(post, newPost, { new: true });
     return res.json({
       ok: true,
       msg: 'Cập nhật bài viết thành công!',
@@ -148,9 +146,23 @@ exports.update = async (req, res, next) => {
 // Xoá bài viết
 exports.delete = async (req, res, next) => {
   const postId = req.params.id;
+  const user = req.user;
   try {
-    const post = await Post.findByIdAndDelete(postId);
-    if (!post) return res.status(404).json({ ok: false, msg: 'No post found' });
+    const post = await Post.findById(postId);
+    if (!post)
+      return res
+        .status(500)
+        .json({ ok: false, msg: 'Không tìm thấy bài viết' });
+    if (!user || post.user[0]._id.toString() !== user._id.toString()) {
+      return res.status(500).json({
+        ok: false,
+        msg: 'Người dùng không hợp lệ hoặc người dùng không có quyền xoá bài viết này',
+      });
+    }
+
+    // Xoá post và tất cả bình luận bên trong
+    await Post.findByIdAndDelete(postId);
+    await Comment.find({ postId }).deleteMany();
     // return res.render('posts/post', { post });
     return res.json({
       ok: true,
