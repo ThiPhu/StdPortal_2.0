@@ -37,50 +37,50 @@ const userId = $("#updateUserInfo").attr("data-id")
 $("#updateUserInfo").on("submit", (e) =>{
     e.preventDefault()
 
+
     const password = $(".user-password").val()
     const passwordConfirm = $(".user-password-confirm").val()
 
     const msgDisplay = $(".msg-display")
+    console.log(password)
+    console.log(passwordConfirm)
 
-    const msgArray = [];
-    msgDisplay.html("")
+ 
+    let errorFlag = true;
+    // reset
+    $(msgDisplay).removeClass().addClass("msg-display").html("")
 
-    if(password === passwordConfirm){
-        fetch(`/api/profile/${userId}`,{
+    if(password != passwordConfirm){
+        errorFlag = false
+        msgMap("Mật khẩu không trùng khớp")
+        $(msgDisplay).addClass("msg-display--error").show()
+    }
+
+    console.log(errorFlag)
+    if(errorFlag){
+        fetch(`/profile/${userId}`,{
             method: "POST",
             body: new URLSearchParams({
-                password
-            })
-            .then((res)=>{
-                res.json()
-            })
-            .then((json)=>{
-                if(!json.ok){
-                    msgArray.push(json.msg)
-                    msgMap(msgArray)
-                    $(msgDisplay).addClass("msg-display--error").show()
-                    return;
-                }
-                msgArray.push(json.msg)
-                msgMap(msgArray)
-                $(msgDisplay).addClass("msg-display--error").show()
+                password,
+                passwordConfirm
             })
         })
-    } else {
-        msgArray.push("Mật khẩu không trùng khớp")
-        msgMap(msgArray)
-        $(msgDisplay).addClass("msg-display--error").show()
+        .then(res=> res.json())
+        .then(json=>{
+            console.log(json)
+            if(!json.ok){
+                msgMap(json.msg)
+                $(msgDisplay).addClass("msg-display--error").show()
+                return;
+            }
+            msgMap(json.msg)
+            $(msgDisplay).addClass("msg-display--success").show()
+        })
     }
 })
 
-function msgMap(msgArray){
-    msgArray.map((msg)=>{
-        $(".msg-display").append(`
-                <li>${msg}</li>   
-        `)
-    })
+function msgMap(msg){
+    $(".msg-display").append(`
+            <li>${msg}</li>   
+    `)
 }
-
-
-
-

@@ -1,5 +1,7 @@
 const Router = require("express").Router();
 const profileController = require("../controllers/profile.controller")
+const profileValidation = require("../validations/profile.validation")
+
 
 Router.get('/:userId', profileController.get);
 

@@ -77,7 +77,7 @@ $(".btn-create-faculty-account").on("click", (event) => {
                                     <div class="col-6 mngt-act-btn mngt-profile-user"
                                         data-bs-toggle="tooltip" title="Xem trang người dùng">
                                         <a class="m-3 d-flex justify-content-center"
-                                            href="/profile/${user.fullname}">
+                                            href="/profile/${user._id}">
                                             <span class="material-icons-outlined">
                                                 account_circle
                                             </span>
@@ -120,7 +120,7 @@ $(".btn-create-faculty-account").on("click", (event) => {
                                 <div>${user.unit.name}</div>
                             </td>
                             <td class="tools">
-                                <a class="me-3 btn-profile" href="/profile/${user.username}"
+                                <a class="me-3 btn-profile" href="/profile/${user._id}"
                                     style="cursor:pointer; color: green;">
                                     <span class="material-icons-outlined" data-bs-toggle="tooltip"
                                         title="Profile">
