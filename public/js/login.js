@@ -27,17 +27,21 @@ $(document).ready(function () {
       }),
     })
       .then(res => res.json())
-      .then(({ ok, msg, at }) => {
-        if (!ok) {
+      .then(json => {
+        if (!json.ok) {
+          console.log(json)
+          console.log(json.param)
           // Reset
           if ($('#loginForm input').hasClass('invalid')) {
             $('#loginForm input').removeClass('invalid');
             $('span.login-msg--error').remove();
           }
-          $('.' + at).addClass('invalid');
-          $('.' + at).after(`<span class="login-msg--error">${msg}</span>`);
+          // param from auth.validation.js
+          $('.' + json.at).addClass('invalid');
+          $('.' + json.at).after(`<span class="login-msg--error">${json.msg}</span>`);
           return;
         }
+        
         // If auth success, redirect to home
         return (window.location.href = '/home');
       });

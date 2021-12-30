@@ -1,6 +1,6 @@
 .form-container{
     margin: 0 auto;
-    padding: 1rem 2rem;
+    padding: 2rem;
     width: 100%; 
     max-width:575px; 
     background-color: white
@@ -29,4 +29,15 @@
 
 .avatar-upload-button:hover{
     color: rgb(65, 82, 238);
+}
+
+.msg-display{
+    width: 100%;
+    min-height: 100px;
+    border-radius: 4px;
+}
+
+.msg-display--error{
+    background-color: rgb(253, 75, 69);
+    color: #fff;
 }

@@ -15,10 +15,10 @@ Router.get("/:userId", userController.readDetail)
 // Router.get('/', userController.get);
 
 // Create new user
-Router.post('/', userValidation, userController.create);
+Router.post('/', userValidation.create, userController.create);
 
 // Update user
-Router.put("/:userId", userController.update)
+Router.put("/:userId", userValidation.update, userController.update)
 
 // Delete user
 Router.delete("/:userId", userController.delete)

@@ -93,14 +93,25 @@ exports.readDetail = async (req, res) => {
 
 // Create user
 exports.create = async (req, res, next) => {
+
   // Generate salt
   const salt = await bcrypt.genSalt();
   // Hash password with bcrypt
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-  // Generate avatar
-
   try {
+    console.log(req.body.email)
+
+    // Check existed user
+    const duplicateUser = await User.find({email:req.body.email});
+
+    if(duplicateUser.length > 0){
+      return res.json({
+          ok: false,
+          msg: 'Người dùng đã tồn tại!'
+      })
+    }
+
     const user = await User.create({
       username: req.body.email ? req.body.email.split('@')[0] : null,
       email: req.body.email ? req.body.email : null,
@@ -108,7 +119,7 @@ exports.create = async (req, res, next) => {
       role: req.body.role,
       unit: req.body.unit ? req.body.unit : null,
       //  Since URLSearchParams transform value into string, format it to array
-      topics: req.body.topics ? req.body.topics.split(","): null
+      topics: req.body.topics ? req.body.topics.split(",") : null
     });
     return res.json({
       ok: true,
@@ -140,8 +151,9 @@ exports.update = async (req, res, next) => {
   }
 
   // topics
-  update.topics = update.topics.split(",")
+  update.topics = update.topics ? update.topics.split(",") : null 
 
+  console.log("update topics",update.topics)
 
   try{
     const user = await User.findByIdAndUpdate(

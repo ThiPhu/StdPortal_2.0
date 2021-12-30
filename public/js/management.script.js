@@ -167,7 +167,7 @@ function setModal(element){
     });
 }
 
-// Form submit handler
+// Create user
 $("#createFacultyAccount").on("submit", (event) => {
     event.preventDefault()
 
@@ -175,6 +175,8 @@ $("#createFacultyAccount").on("submit", (event) => {
     const inputPassword = $(".inputPassword").val()
     const sectionSelect = $(".section-select").val()
     const topicSelect= $("#createFacultyAccountModal").find(".topic-select")
+
+    console.log(sectionSelect)
 
     // get checked checkbox
     let selectedTopic = []
@@ -199,6 +201,7 @@ $("#createFacultyAccount").on("submit", (event) => {
             console.log("error",msg)
             return;
         }
+        console.log("success",msg)
         getUserList("faculty")
     })
     .finally(()=>{
@@ -214,8 +217,6 @@ $("#createFacultyAccount").on("submit", (event) => {
 // Render update user modal
 $(document).on("click", ".btn-update", (event) =>{
     const userId = $(event.target).closest(".admin_tr_mgmt").attr("data-id")
-
-    $("#updateFacultyAccountModal").find(".modal-title").text("Cập nhật người dùng")
 
     fetch(`/api/user/${userId}`)
     .then(res => res.json())
@@ -242,13 +243,15 @@ $(document).on("click", ".btn-update", (event) =>{
 
             console.log("TOPIC", usr.topics)
 
-            $(topicSelect).find(".form-check .form-check-input").each((index,item)=>{
-                usr.topics.forEach((topic)=>{
-                    if($(item).val() === topic._id){
-                        $(item).prop("checked",true)
-                    }
+            if(usr.topics){
+                $(topicSelect).find(".form-check .form-check-input").each((index,item)=>{
+                    usr.topics.forEach((topic)=>{
+                        if($(item).val() === topic._id){
+                            $(item).prop("checked",true)
+                        }
+                    })
                 })
-            })
+            }
         })
     })
 })

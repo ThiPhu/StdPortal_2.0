@@ -21,13 +21,13 @@ exports.post = async (req, res, next) => {
       }
       return res.status(401).json({
         ok: false,
-        msg: 'Tài khoản hoặc mật khẩu không đúng!',
+        msg: 'Mật khẩu không đúng!',
         at: 'loginPassword',
       });
     }
     return res.status(401).json({
       ok: false,
-      msg: 'Tài khoản hoặc mật khẩu không đúng!',
+      msg: 'Tài khoản không tồn tại!',
       at: 'loginUsername',
     });
   } catch (err) {

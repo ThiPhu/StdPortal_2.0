@@ -7,6 +7,11 @@
                 </div>
                 <div class="modal-body">
                     <form id="createFacultyAccount">
+                        <div class="error-msg-wrapper">
+                            <ul class="error-msg">
+                                
+                            </ul>
+                        </div>
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control inputEmail" placeholder="d" required>
                             <label for="exampleInputEmail1" class="form-label">Email</label>
@@ -16,17 +21,18 @@
                             <label for="exampleInputPassword1" class="form-label">Mật Khẩu</label>
                         </div>
                         <div class="mb-3">
-                            {{!-- <label for="unit-select" class="form-label">Chọn</label> --}}
-                            <select class="form-select unit-select" aria-label="Unit-select" required>
-                                <option selected hidden>Chọn đơn vị</option>
+                            <label for="unit-select" class="form-label">Đơn vị</label>
+                            <select id="unit-select" class="form-select unit-select" aria-label="Unit-select" required>
+                                <option selected hidden>Hãy chọn một đơn vị </option>
                                 <option value="central">Phòng ban trung tâm</option>
                                 <option value="faculty">Khoa</option>
                             </select>
                         </div>
                         <div class="mb-4">
-                            <select class="form-select section-select" aria-label="section-select" required>
-                                <option selected hidden>Chọn chuyên mục</option>
+                            <label for="section-select" class="form-label">Phòng/Khoa</label>
+                            <select id="section-select" class="form-select section-select" aria-label="section-select" required>
                                 <option disabled>Hãy chọn một đơn vị!</option>
+
                             </select>
                         </div>
                         <div class="mb-3">    

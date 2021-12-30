@@ -38,7 +38,7 @@ exports.get = async (req, res, next) => {
             isOwner: isOwner,
             currentProfile: user,
             admin: req.user.role === 'admin' ? true : false,
-          });
+        });
       }
       return res.status(404).json({
         ok: false,
@@ -49,7 +49,7 @@ exports.get = async (req, res, next) => {
     }
 }
 
-exports.update = async (req,rest,next) => {
+exports.update = async (req,res,next) => {
     const {userId} = req.params;
 
     // Check is owner by check validate token
@@ -61,7 +61,7 @@ exports.update = async (req,rest,next) => {
 
     if(id && mongoose.isValidObjectId(id)){
         if(id == userId){
-        isOwner = true;
+            isOwner = true;
         }
     }
 
@@ -69,7 +69,7 @@ exports.update = async (req,rest,next) => {
         try{
             const update = req.body;
             // password
-            if(update.password === 'null'){
+            if(update.password === null){
                 delete update.password
             }else{
                 // Generate salt
@@ -103,7 +103,7 @@ exports.update = async (req,rest,next) => {
         }catch (err){
             next(err)
         }
-    }else{
+    } else {
         return res.status(401).json({
             ok: "false",
             msg: "Người dùng không hợp lệ!"
