@@ -16,8 +16,9 @@
 }
 
 .admin_tr_mgmt {
-  font-size: 20px;
+  font-size: clamp(14px,1.5vw,20px);
   text-align: center;
+  white-space: nowrap;
 }
 
 .admin_tr_mgmt td {

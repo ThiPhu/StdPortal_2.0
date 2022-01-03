@@ -74,7 +74,7 @@ $(".btn-create-faculty-account").on("click", (event) => {
                             </td>
                             <td>
                                 <div class="row container">
-                                    <div class="col-6 mngt-act-btn mngt-profile-user"
+                                    <div class="col-12 mngt-act-btn mngt-profile-user"
                                         data-bs-toggle="tooltip" title="Xem trang người dùng">
                                         <a class="m-3 d-flex justify-content-center"
                                             href="/profile/${user._id}">
@@ -82,15 +82,6 @@ $(".btn-create-faculty-account").on("click", (event) => {
                                                 account_circle
                                             </span>
                                             <p class="m-0 ms-2">Profile</p>
-                                        </a>
-                                    </div>
-                                    <div class="col-6 mngt-act-btn mngt-del-user"
-                                        data-bs-toggle="tooltip" title="Xoá người dùng">
-                                        <a class="m-3 d-flex justify-content-center" href="#">
-                                            <span class="material-icons-outlined">
-                                                delete
-                                            </span>
-                                            <p class="m-0 ms-2">Delete</p>
                                         </a>
                                     </div>
                                 </div>
@@ -197,12 +188,10 @@ $("#createFacultyAccount").on("submit", (event) => {
     })
     .then((res) => res.json())
     .then(({ok,msg,data}) => {
-        if(!ok){
-            console.log("error",msg)
-            return;
+        createToast(ok,msg)
+        if(ok){
+            getUserList("faculty")
         }
-        console.log("success",msg)
-        getUserList("faculty")
     })
     .finally(()=>{
         $("#createFacultyAccountModal").modal("hide")
@@ -292,9 +281,8 @@ $(document).on("click", "#updateFacultyAccountModal .btn-submit", (event) =>{
     })
     .then(res => res.json())
     .then(({ok,msg})=>{
-        if(!ok) 
-            alert(msg)
-        else{
+            createToast(ok,msg)
+        if(ok){
             getUserList("faculty")
         }
     })
@@ -304,22 +292,29 @@ $(document).on("click", "#updateFacultyAccountModal .btn-submit", (event) =>{
 })
 
 // Delete user
-$(document).on("click", ".btn-delete", (event) =>{
+$(document).on("click", ".btn-delete", async (event) =>{
+
     event.preventDefault();
 
-    const userId = $(event.target).closest(".admin_tr_mgmt").attr("data-id")
-    console.log(userId)
-    fetch(`/api/user/${userId}`,{
-        method: "DELETE",
-    })
-    .then(res => res.json())
-    .then(({ok,msg})=>{
-        if(!ok) 
-            alert(msg)
-        else{
-            getUserList("faculty")
-        }
-    })
+    // prompt user confirm
+    const isConfirmed = await createConfirmModal()
+    console.log("outter",isConfirmed)
+    if(isConfirmed){
+        const userId = $(event.target).closest(".admin_tr_mgmt").attr("data-id")
+        console.log(userId)
+        fetch(`/api/user/${userId}`,{
+            method: "DELETE",
+        })
+        .then(res => res.json())
+        .then(({ok,msg})=>{
+            createToast(ok,msg)
+            if(ok){
+                getUserList("faculty")
+            }
+        })
+    } else {
+        return;
+    }
 })
 
 // Map section function
@@ -364,3 +359,37 @@ $('.mngt_btn_faculty').on('click', e => {
   mngt_btn_student.removeClass('active');
   mngt_btn_faculty.addClass('active');
 });
+
+
+// Toast message
+function createToast(result,msg){
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+      
+      Toast.fire({
+        icon: result ? "success" : "error",
+        title: msg
+      })
+}
+
+
+// modalConfirm
+async function createConfirmModal(){
+    const result = await Swal.fire({
+        title: 'Bạn có chắc muốn xóa người dùng',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DC3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Xóa',
+        cancelButtonText: 'Hủy',
+        reverseButtons: true
+    })
+
+    return result.isConfirmed
+}
