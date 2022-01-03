@@ -22,6 +22,8 @@ exports.read = async (req, res) => {
   } catch (err){
     res.status(500)
     console.log(err)
+  }
+}
 // Get user ID (profile)
 exports.getUserDetail = async (req, res, next) => {
   console.log('From user.controller: Trang cá nhân của', req.params);
