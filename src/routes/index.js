@@ -26,7 +26,8 @@ const route = app => {
     if (req.cookies.access_token) {
       return res.redirect('/home');
     }
-    res.render('login');
+    console.log("error",req.session.error)
+    res.render('login',{msg: req.session.error});
   });
 
   // Kiểm tra token session
