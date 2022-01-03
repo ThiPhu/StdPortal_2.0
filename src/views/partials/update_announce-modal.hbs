@@ -22,6 +22,11 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center col-12">
+                    <textarea type="text" rows="1" placeholder="Bạn muốn viết gì...?"
+                        class="form-control shadow-none comment_box update_announce-title"
+                        id="update_announce-title_{{id}}" oninput="onChangeTextArea()">{{{title}}}</textarea>
+                </div>
+                <div class="d-flex justify-content-center col-12">
                     <textarea class="update_announce-content_{{_id}}" id="update_announce-content_{{id}}"
                         name="update_announce-content_{{_id}}">{{{content}}}</textarea>
                     <script>

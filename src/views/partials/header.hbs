@@ -157,10 +157,12 @@
                                                 cast_for_education
                                             </span>
                                             <span>{{#each user}}{{fullname}}{{/each}}</span>
+                                            <span class="ms-1 small alert-danger">{{#if isUpdated}}Cập
+                                                nhật{{/if}}</span>
                                         </strong>
                                     </div>
                                     <div class="col-12 mb-1 dropdown-alert-content">
-                                        {{{content}}}
+                                        <strong>Tiêu đề: </strong>{{title}}
                                     </div>
                                     <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
                                         <span class="material-icons-outlined m-1">

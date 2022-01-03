@@ -110,7 +110,7 @@
   font-size: 17px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: initial;
+  white-space: pre-line;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   padding-left: 2rem;
@@ -196,6 +196,12 @@
   border-radius: 12px;
 }
 
+.announce_header-content {
+  font-size: 17px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
 .announce_body-content {
   cursor: pointer;
   font-size: 17px;
@@ -221,6 +227,10 @@
 
 .update_announce-submitBtn:hover {
   background: var(--secondary-color-hover);
+}
+
+.update_announce-title {
+  border: none;
 }
 
 .modal-style {

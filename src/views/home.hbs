@@ -10,14 +10,11 @@
         {{#if isAnnoucePages}}
         {{!-- Trang thông báo --}}
         <div class="col-lg-9">
-            {{#if faculty}}{{> create_announce-modal}}{{/if}}
-            {{#if admin}}{{> create_announce-modal}}{{/if}}
             {{> announcement_middle}}
         </div>
         {{else}}
         {{!-- Trang bài viết --}}
         <div class="col-lg-6">
-            {{> create_post-modal}}
             {{> post_middle}}
         </div>
         {{!-- Side bar right --}}

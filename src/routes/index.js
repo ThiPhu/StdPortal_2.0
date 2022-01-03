@@ -35,7 +35,6 @@ const route = app => {
 
   app.get('/home', async (req, res) => {
     const posts = await Post.find().sort({ createdAt: -1 }).lean(); // Lấy hết tất cả các post
-    const facultyRole = await User.find({ role: 'faculty' }).lean(); // Lấy user role là Phòng/Khoa
     const announcements = await Announcement.find()
       .sort({ createdAt: -1 })
       .lean();
@@ -51,7 +50,9 @@ const route = app => {
 
   app.get('/announcements', async (req, res) => {
     const posts = await Post.find().sort({ createdAt: -1 }).lean(); // Lấy hết tất cả các post
-    const announcements = await Announcement.find();
+    const announcements = await Announcement.find()
+      .sort({ createdAt: -1 })
+      .lean();
     res.render('home', {
       user: req.user,
       post: posts,

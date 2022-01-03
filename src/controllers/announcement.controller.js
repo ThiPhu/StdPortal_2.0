@@ -16,7 +16,7 @@ const months = [
 ];
 // Lấy toàn bộ thông báo
 exports.get = async (req, res, next) => {
-  const announces = await Announcement.find({}).sort({ createdAt: -1 }).lean();
+  const announces = await Announcement.find({});
   if (!announces) {
     return res.status(500).json({ ok: false, msg: 'Không tồn tại thông báo' });
   }
@@ -33,12 +33,11 @@ exports.get = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
-    const { content } = req.body;
+    const { title, content } = req.body;
     const date = new Date();
     const create_date =
       date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
-    const create_time =
-      date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    const create_time = date.getHours() + ':' + date.getMinutes();
 
     // Nếu không phải là người dùng đăng nhập được trên trang này hay
     // không có tài khoản đăng nhập và không phải là Phòng/Khoa thì không cho tạo thông báo
@@ -51,6 +50,7 @@ exports.create = async (req, res, next) => {
     }
 
     let newAnnounce = await Announcement.create({
+      title,
       content,
       create_date,
       create_time,
@@ -73,7 +73,7 @@ exports.create = async (req, res, next) => {
 
 // Cập nhật thông báo
 exports.update = async (req, res, next) => {
-  const { content } = req.body;
+  const { title, content } = req.body;
 
   try {
     const user = await User.findById(req.user.id);
@@ -98,6 +98,7 @@ exports.update = async (req, res, next) => {
     }
 
     let newAnnounce = {
+      title,
       content,
       create_date,
       create_time,

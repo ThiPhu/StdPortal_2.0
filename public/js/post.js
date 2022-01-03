@@ -332,12 +332,14 @@ $(document).ready(function () {
   // Tạo thông báo
   $('.create_announce-submitBtn').on('click', e => {
     e.preventDefault();
+    let announceTitle = $('.create_announce-title').val();
     let announceContent =
       CKEDITOR.instances['create_announce-content'].getData();
     fetch('/api/announcement', {
       method: 'POST',
       async: true,
       body: new URLSearchParams({
+        title: announceTitle,
         content: announceContent,
       }),
     })
@@ -360,12 +362,14 @@ $(document).ready(function () {
   $('.update_announce-submitBtn').on('click', e => {
     e.preventDefault();
     let announceId = $(e.target).closest('.announce_id').data('announceid');
+    let announceTitle = $('#update_announce-title_' + announceId).val();
     let announceUpdateContent =
       CKEDITOR.instances['update_announce-content_' + announceId].getData();
     fetch('/api/announcement/' + announceId, {
       method: 'PUT',
       async: true,
       body: new URLSearchParams({
+        title: announceTitle,
         content: announceUpdateContent,
       }),
     }).then(data => {
