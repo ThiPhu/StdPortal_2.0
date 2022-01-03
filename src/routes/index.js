@@ -2,10 +2,13 @@ const apiRouter = require('./api.routes');
 const { userAuth } = require('../middlewares/auth.middleware');
 const isAdmin = require('../validations/isAdmin.validation');
 const authRouter = require('./auth.routes');
+const profileRouter = require('./profile.routes')
 const User = require('../models/User.model');
 const Post = require('../models/Post.model');
 const Comment = require('../models/Comment.model');
 const Announcement = require('../models/Announcement.model');
+const {verifyToken} = require('../utils/jwt');
+const mongoose = require('mongoose');
 
 const route = app => {
   // Các route không yêu cầu phiên đăng nhập của user
@@ -25,7 +28,8 @@ const route = app => {
     if (req.cookies.access_token) {
       return res.redirect('/home');
     }
-    res.render('login');
+    console.log("error",req.session.error)
+    res.render('login',{msg: req.session.error});
   });
 
   // Kiểm tra token session
@@ -44,30 +48,33 @@ const route = app => {
       user: req.user,
       post: posts,
       admin: req.user.role === 'admin' ? true : false,
+      currentProfile: req.user,
       announcements: announcements,
     });
   });
 
-  app.get('/manage', isAdmin, async (req, res) => {
-    try {
-      const studentRole = await User.find({ role: 'student' }).lean();
-      const facultyRole = await User.find({ role: 'faculty' }).lean();
-      if (req.user.role === 'admin') {
-        return res.render('admin/management', {
-          user: req.user, // For showing who is logging in session
-          student: studentRole, // Show all of Student from database for admin to manage
-          faculty: facultyRole, // Show all of Faculty from database for admin to manage
-          exampleAvatar: '../../public/image/tdt.jpg',
-        });
-      }
-      res.redirect('/home');
-    } catch (err) {
-      next(err);
+  app.use("/profile", profileRouter)
+
+  //  ADMIN
+  app.get('/management', async (req, res) => {
+    const studentRole = await User.find({ role: 'student' }).lean();
+    const facultyRole = await User.find({ role: 'faculty' }).lean();
+    if (req.user.role === 'admin') {
+      return res.render('admin/management', {
+        // Check for role
+        admin: req.user.role === 'admin' ? true : false,
+        user: req.user, // For showing who is logging in session
+        student: studentRole, // Show all of Student from database for admin to manage
+        faculty: facultyRole, // Show all of Faculty from database for admin to manage
+        exampleAvatar: '../../public/image/tdt.jpg',
+      });
     }
+    return res.redirect('/home');
   });
 
   // Các route api
   app.use('/api', apiRouter);
+
 
   app.get('*', (req, res) => {
     res.status(404).render('error');

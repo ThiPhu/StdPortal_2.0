@@ -30,13 +30,12 @@ const UserSchema = new Schema({
     type: String,
     default: null,
   },
-  unit: {
-    type: String,
-    default: null,
-  },
+  unit: 
+    {type: Schema.Types.ObjectId, ref: 'Sections'},
+  
   topics: {
-    type: [Object],
-    default: null,
+    type: [{type: Schema.Types.ObjectId, ref: 'Sections'}],
+    default: null
   },
 });
 

@@ -8,11 +8,11 @@ $(document).ready(function () {
 
     if (scrollNavbar >= 1) {
       stickyNavbar.addClass('navbar-sticky');
-      stickyLeftbar.addClass('sb-left_sticky');
+      // stickyLeftbar.addClass('sb-left_sticky');
       stickyRightbar.addClass('sb-right_sticky');
     } else {
       stickyNavbar.removeClass('navbar-sticky');
-      stickyLeftbar.removeClass('sb-left_sticky');
+      // stickyLeftbar.removeClass('sb-left_sticky');
       stickyRightbar.removeClass('sb-right_sticky');
     }
   });

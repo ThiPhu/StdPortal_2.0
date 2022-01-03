@@ -136,12 +136,12 @@ body {
 
 .sb-left {
   border-radius: 6px;
-  position: fixed;
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  top: 5.5em;
-  bottom: 0;
+  position: sticky;
+  top: 5rem;
+  /* width: 100%;
+  max-width: 300px; */
+  /* height: auto; */
+  /* bottom: 0; */
   overflow: auto;
 }
 
@@ -641,3 +641,5 @@ body {
 /*======= End Main =======*/
 
 /* -----------------------------------End login--------------------------------------------------------- */
+
+

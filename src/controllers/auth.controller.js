@@ -2,7 +2,7 @@ const User = require('../models/User.model');
 const bcrypt = require('bcrypt');
 const { genToken } = require('../utils/jwt.js');
 
-exports.post = async (req, res) => {
+exports.post = async (req, res, next) => {
   const { loginUsername, loginPassword } = req.body;
   try {
     const user = await User.findOne({ username: loginUsername }).lean();
@@ -21,13 +21,13 @@ exports.post = async (req, res) => {
       }
       return res.status(401).json({
         ok: false,
-        msg: 'Tài khoản hoặc mật khẩu không đúng!',
+        msg: 'Mật khẩu không đúng!',
         at: 'loginPassword',
       });
     }
     return res.status(401).json({
       ok: false,
-      msg: 'Tài khoản hoặc mật khẩu không đúng!',
+      msg: 'Tài khoản không tồn tại!',
       at: 'loginUsername',
     });
   } catch (err) {

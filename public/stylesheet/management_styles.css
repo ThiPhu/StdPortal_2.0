@@ -1,18 +1,24 @@
 /* =================== ============================================================== ===================*/
 /* =================== =============== ADMIN - Management =========================== ===================*/
 
+/* =================== Common class */
+.btn--active{
+  background-color: #0e6286 !important;
+  color: #fff !important;
+}
+
+
 /* =================== Sidebar - Left */
 .admin_avatar_mgmt {
-  vertical-align: middle;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 2px solid black;
 }
 
 .admin_tr_mgmt {
-  font-size: 20px;
+  font-size: clamp(14px,1.5vw,20px);
   text-align: center;
+  white-space: nowrap;
 }
 
 .admin_tr_mgmt td {
@@ -65,6 +71,10 @@
   font-size: 20px !important;
 }
 
+.mngt-act-btn a{
+  text-decoration: none;
+}
+
 .mngt-act-btn:hover,
 .mngt-act-btn:hover a {
   color: #fff !important;
@@ -72,5 +82,29 @@
   border-radius: 6px;
 }
 
+/* create faculty account modal */
+.topic-select{
+  position: relative;
+  padding: 16px 12px;
+  min-height: 50px;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+
+}
+
+.topic-select > .topic-select__title {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  padding: 0 2px;
+  background-color: #fff;
+  transform: translateY(-60%);
+}
+
 /* =================== =============== END ADMIN - Management ======================= ===================*/
 /* =================== ============================================================== ===================*/
+
+/* Normalise */
+a{
+  text-decoration: none;
+}
