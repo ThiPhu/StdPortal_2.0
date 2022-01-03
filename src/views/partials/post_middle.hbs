@@ -19,10 +19,10 @@
                             {{fullname}}
                             {{/each}}
                         </strong>
+                        {{#if isUpdated}}<span class="small">(Bài viết đã cập nhật)</span>{{/if}}
                     </div>
                     <div class="small">
                         {{create_date}} at {{create_time}}
-                        {{#if isUpdated}}updated{{/if}}
                     </div>
                 </div>
             </a>
@@ -36,7 +36,8 @@
                     <ul class="dropdown-menu dropdown-menu-lg-end post_dropdown-menu"
                         aria-labelledby="dropdownMenuButton1">
                         <li class="me-1 ms-1">
-                            <a class="dropdown-item d-flex justify-content-start align-items-center" href="#">
+                            <a class="dropdown-item d-flex justify-content-start align-items-center" href="#"
+                                data-bs-toggle="modal" data-bs-target="#updatePostModal_{{_id}}">
                                 <span class="material-icons-outlined me-2">
                                     settings
                                 </span>
@@ -61,16 +62,34 @@
     <div class="post_body col-12">
         {{!-- Post body --}}
         <div class="d-flex flex-column col-12 mt-3">
-            <div id="post_caption_{{_id}}" class="col-12 post_body-caption post_caption-lineclapm">{{caption}}</div>
+            <div id="post_caption_{{_id}}" class="col-12 post_body-caption post_caption-lineclamp">{{caption}}</div>
         </div>
         <div class="post_body-caption col-12 mt-3">
             ||=> ID để test: {{_id}}
         </div>
         <div class="col-12 mt-3">
             {{#if image}}
-            <img src="../../../image/{{image}}" alt="image" class="img-post img-fluid">
+            <img src="../../../image/{{image}}" alt="image" class="img-post img-fluid post_img-viewImg"
+                data-bs-toggle="modal" data-bs-target="#post_img-viewImg_{{_id}}">
             {{else}}
             {{/if}}
+        </div>
+
+        {{!-- Modal để xem ảnh to hơn --}}
+        <div class="modal fade" id="post_img-viewImg_{{_id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <d class=" modal-content">
+                    <div class="modal-body d-flex flex-column justify-content-center">
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="col-12">
+                            <img src="../../../image/{{image}}" alt="image" class="img-post img-fluid post_img-viewImg">
+                        </div>
+                    </div>
+                </d </div>
+            </div>
         </div>
     </div>
 
@@ -110,7 +129,8 @@
             </div>
             <div class="d-flex justify-content-center col-11">
                 <textarea type="text" rows="1" placeholder="Write a comment..."
-                    class="form-control comment_box text_area_border" oninput="onChangeTextArea()"></textarea>
+                    class="form-control comment_box post_create-cmtInpt text_area_border"
+                    oninput="onChangeTextArea()"></textarea>
             </div>
         </div>
     </div>
@@ -126,12 +146,12 @@
             </div>
             <div class="d-flex justify-content-center col-11">
                 <textarea type="text" rows="1" placeholder="Write a comment..."
-                    class="form-control comment_box text_area_border" oninput="onChangeTextArea()"></textarea>
+                    class="form-control comment_box post_create-cmtInpt text_area_border" oninput="onChangeTextArea()"></textarea>
             </div>
         </div>
         {{!-- ----------------- --}}
         {{#comments}}
-        <div class="post_comment col-12 d-flex justify-content-center mb-3">
+        <div class="post_comment col-12 d-flex justify-content-center mb-3" data-commentid="{{_id}}">
             <div class="d-flex flex-column container-fluid">
                 <div class="col-12 d-flex flex-row">
                     <div class="d-flex justify-content-center col-2">
@@ -163,11 +183,11 @@
                                 <ul class="dropdown-menu post_dropdown-menu"
                                     aria-labelledby="dropdownMenuComment">
                                     <li class="me-1 ms-1">
-                                        <a class="dropdown-item d-flex justify-content-start align-items-center" href="#">
+                                        <a class="dropdown-item d-flex justify-content-start align-items-center" data-bs-toggle="modal" data-bs-target="#updateCommentModal_{{_id}}" href="#">
                                             <span class="material-icons-outlined me-2">
                                                 settings
                                             </span>
-                                            <span>Chỉnh sửa (Chưa hoàn thiện)</span>
+                                            <span>Chỉnh sửa comment</span>
                                         </a>
                                     </li>
                                     <li class="me-1 ms-1">
@@ -186,6 +206,42 @@
                 <div class="col-12">
                     <div class="d-flex justify-content-end align-items-center me-5">
                         <small class="underline">{{create_time}}</small>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- Modal cập nhật bình luận --}}
+            <div class="modal fade updateCommentModal" id="updateCommentModal_{{_id}}" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title modal_text" id="exampleModalLabel">Cập nhật bình luận</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="post_header">
+                                <div class="d-flex bd-highlight mb-2 ">
+                                    <img class="post-comments_avatar mt-2 p-2 bd-highlight" width="50" height="50" alt="avatar"
+                                        src="{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}">
+                                    <div class="bd-highlight d-flex justify-content-center align-items-center">
+                                        <div class="modal_text ms-3">
+                                            <strong>
+                                                {{#each user}}{{fullname}}{{/each}}
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center col-12">
+                                <textarea id="update_comment-input_{{_id}}" type="text" rows="1"
+                                    class="form-control shadow-none comment_box post_update-cmtInpt create_post-input"
+                                    oninput="onChangeTextArea()">{{content}}</textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary update_comment-Btn modal_text">Cập nhật</button>
+                        </div>
                     </div>
                 </div>
             </div>

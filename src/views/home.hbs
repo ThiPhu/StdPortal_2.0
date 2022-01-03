@@ -1,21 +1,29 @@
 {{> header}}
 <div class="container">
     <div class="d-flex row flex-row">
+
         {{!-- Side bar left --}}
         <div class="col-lg-3 col-3">
             {{> sidebar_left}}
         </div>
-
-        {{!-- Main post --}}
-        
+        {{!-- Chứa tất cả các post --}}
+        {{#if isAnnoucePages}}
+        {{!-- Trang thông báo --}}
+        <div class="col-lg-9">
+            {{#if faculty}}{{> create_announce-modal}}{{/if}}
+            {{#if admin}}{{> create_announce-modal}}{{/if}}
+            {{> announcement_middle}}
+        </div>
+        {{else}}
+        {{!-- Trang bài viết --}}
         <div class="col-lg-6">
-            {{> create_post}}
+            {{> create_post-modal}}
             {{> post_middle}}
         </div>
-
         {{!-- Side bar right --}}
         <div class="col-lg-3">
             {{> sidebar_right}}
         </div>
+        {{/if}}
     </div>
 </div>

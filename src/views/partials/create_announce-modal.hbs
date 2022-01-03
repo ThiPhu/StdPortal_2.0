@@ -1,0 +1,54 @@
+<div class="create_post_body">
+    <div class="head_comment">
+        <div class="d-flex justify-content-center align-items-center p-2">
+            <img class="avt_create_post bd-highlight mt-1"
+                src="{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}">
+            <div class="input_bar">
+                <div type="text" class="form-control text_area_border" data-bs-toggle="modal"
+                    data-bs-target="#createAnnounceModal">
+                    <span>Viết thông báo...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="createAnnounceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title modal_text" id="exampleModalLabel">Tạo thông báo</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="post_header">
+                    <div class="d-flex bd-highlight mb-2 ">
+                        <img class="post-comments_avatar mt-2 p-2 bd-highlight" width="50" height="50" alt="avatar"
+                            src="{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}">
+                        <div class="bd-highlight d-flex justify-content-center align-items-center">
+                            <div class="modal_text ms-3">
+                                <strong>
+                                    {{#each user}}{{fullname}}{{/each}}
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center col-12">
+                    <textarea class="create_announce-content" name="create_announce-content"></textarea>
+                    <script>
+                        CKEDITOR.replace('create_announce-content', {
+                            fullPage: true,
+                            allowedContent: true
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary create_announce-submitBtn modal_text">Đăng thông
+                    báo</button>
+            </div>
+        </div>
+    </div>
+</div>

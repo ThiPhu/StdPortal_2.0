@@ -1,9 +1,14 @@
 const Router = require('express').Router();
-const multerUpload = require('../utils/multerUpload');
 const announcementController = require('../controllers/announcement.controller');
 
+// Lấy hết thông báo
+Router.get('/', announcementController.get);
+
 // Tạo thông báo
-Router.post('/', multerUpload, announcementController.create);
+Router.post('/', announcementController.create);
+
+// Cập nhật thông báo
+Router.put('/:announceId', announcementController.update);
 
 // Xoá thông báo
 Router.delete('/:announceId', announcementController.delete);

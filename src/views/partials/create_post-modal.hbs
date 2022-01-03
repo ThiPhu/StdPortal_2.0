@@ -1,7 +1,7 @@
 <div class="create_post_body">
   <div class="head_comment">
-    <div class="d-flex">
-      <img class="avt_create_post p-2 bd-highlight mt-1"
+    <div class="d-flex justify-content-center align-items-center p-2">
+      <img class="avt_create_post bd-highlight mt-1"
         src="{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}">
       <div class="input_bar">
         <div type="text" class="form-control text_area_border" data-bs-toggle="modal" data-bs-target="#createPostModal">
@@ -17,31 +17,42 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title modal_text" id="exampleModalLabel">Tạo bài viết</h5>
+        <h3 class="modal-title modal_text" id="exampleModalLabel">Tạo bài viết</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="post_header">
           <div class="d-flex bd-highlight mb-2 ">
-            <img class="mt-2 circle_img_create_post p-2 bd-highlight "
+            <img class="post-comments_avatar mt-2 p-2 bd-highlight" width="50" height="50" alt="avatar"
               src="{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}">
             <div class="bd-highlight d-flex justify-content-center align-items-center">
-              <div class="modal_text">
-                {{#each user}}{{fullname}}{{/each}}
+              <div class="modal_text ms-3">
+                <strong>
+                  {{#each user}}{{fullname}}{{/each}}
+                </strong>
               </div>
             </div>
           </div>
         </div>
-        <div class="">
-          <textarea class="form-control modal-style create_post-input" oninput="onChangeTextArea()" id="message-text"
-            placeholder="Bạn muốn viết gì ?"></textarea>
+        <div class="d-flex justify-content-center col-12">
+          <textarea type="text" rows="1" placeholder="Bạn muốn viết gì...?"
+            class="form-control shadow-none comment_box create_post-input" oninput="onChangeTextArea()"></textarea>
         </div>
-        <div class="input_img" id="input_img">
-          <div class="input_body d-flex flex-column align-items-center justify-content-center">
+
+        {{!-- Nút để mở rộng phần thêm ảnh --}}
+        <div class="d-flex justify-content-center col-12 p-1">
+          <button type="button" class="btn d-flex justify-content-end create_post-addImgBtn col-12">
+            Thêm ảnh
+            <span class="material-icons-outlined ms-3">
+              image
+            </span>
+          </button>
+        </div>
+        <div class="create_post-input-img p-1 d-none">
+          <div class="create_post-bodyImgContainer d-flex flex-column align-items-center justify-content-center">
             <div class="d-flex flex-column align-items-center ">
-              <input type="file" id="file" name="image" class="create_post-image d-none" accept="image/*,video/*"
-                onchange="loadFile(event)" />
-              <button class="add_img_btn" onclick="img_upload();">
+              <input type="file" id="file" name="image" class="create_post-image d-none" accept="image/*,video/*" />
+              <button class="add_img_btn">
                 <span class="material-icons-outlined">
                   add_photo_alternate
                 </span>
@@ -50,17 +61,17 @@
             </div>
           </div>
         </div>
-        <div class="create_post-imgReview" id="review">
-          <button type="button" class=" btn_remove_img modal_text" onclick="remove();">
+        <div class="post_image-Container d-none" id="review">
+          <button type="button" class=" btn_remove_img modal_text">
             <span class="material-icons-outlined icon_remove">
               clear
             </span>
           </button>
-          <img class="img_post" id="review_img">
+          <img class="img_post post_image-Review">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary create_post-submitBtn modal_text">Đăng</button>
+        <button type="button" class="btn btn-primary create_post-submitBtn modal_text">Đăng bài viết</button>
       </div>
     </div>
   </div>
@@ -69,6 +80,7 @@
 <script type="text/javascript">
   function onChangeTextArea() {
     //auto resize text area
+    alert("D")
     const tx = $('.comment_box');
     for (let i = 0; i < tx.length; i++) {
       tx[i].setAttribute(

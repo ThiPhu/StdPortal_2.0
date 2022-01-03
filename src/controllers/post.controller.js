@@ -67,7 +67,7 @@ exports.create = async (req, res, next) => {
       date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
     // Nếu không phải là người dùng đăng nhập được trên trang này hay
     // không có tài khoản đăng nhập thì không cho tạo bài viết
-    if (!userId) {
+    if (!userId || (caption.length <= 0 && image === null)) {
       // return res.render('posts/post');
       return res.json({
         ok: false,
@@ -82,14 +82,6 @@ exports.create = async (req, res, next) => {
       create_date,
       create_time,
     });
-
-    // const post = {
-    //   caption,
-    //   image,
-    //   user,
-    //   create_date,
-    //   create_time,
-    // };
 
     console.log(
       'From post.controller.js at create function: Tạo bài viết thành công'
@@ -107,7 +99,8 @@ exports.create = async (req, res, next) => {
 // Cập nhật bài viết
 exports.update = async (req, res, next) => {
   const { caption } = req.body;
-  const image = req.file.filename;
+  let image = req.file;
+
   try {
     const user = await User.findById(req.user.id);
     const post = await Post.findById(req.params.id);
@@ -117,12 +110,22 @@ exports.update = async (req, res, next) => {
     const create_time = date.getHours() + ':' + date.getMinutes();
     // Nếu không phải là chủ bài viết hoặc không có bài viết
     // hay user không login, thì không cho cập nhật
-    if (!user || !post || post.user[0]._id.toString() !== user._id.toString()) {
+    if (
+      !user ||
+      !post ||
+      post.user[0]._id.toString() !== user._id.toString() ||
+      (caption.length <= 0 && image === null)
+    ) {
       // return res.render('posts/post');
-      return res.json({
+      return res.status(500).json({
         ok: false,
-        msg: 'Failed to update post',
+        msg: 'Không thể cập nhật bài viết',
       });
+    }
+    if (!image) {
+      image = post.image;
+    } else {
+      image = image.filename;
     }
     // res.render('posts/post');
     let newPost = {
@@ -130,6 +133,7 @@ exports.update = async (req, res, next) => {
       image,
       create_date,
       create_time,
+      isUpdated: true,
     };
     newPost = await Post.findByIdAndUpdate(post, newPost, { new: true });
     return res.json({
@@ -153,17 +157,29 @@ exports.delete = async (req, res, next) => {
       return res
         .status(500)
         .json({ ok: false, msg: 'Không tìm thấy bài viết' });
+
+    if (req.user.role === 'admin') {
+      // Xoá post và tất cả bình luận bên trong
+      await Post.findByIdAndDelete(postId);
+      await Comment.find({ postId }).deleteMany();
+      return res.json({
+        ok: true,
+        msg: `Đã xoá bài viết ${postId} thành công!`,
+        post: post,
+      });
+    }
+
     if (!user || post.user[0]._id.toString() !== user._id.toString()) {
       return res.status(500).json({
         ok: false,
         msg: 'Người dùng không hợp lệ hoặc người dùng không có quyền xoá bài viết này',
       });
-    }
+    } // Role admin có thể xoá hết
 
     // Xoá post và tất cả bình luận bên trong
     await Post.findByIdAndDelete(postId);
     await Comment.find({ postId }).deleteMany();
-    // return res.render('posts/post', { post });
+
     return res.json({
       ok: true,
       msg: `Đã xoá bài viết ${postId} thành công!`,
