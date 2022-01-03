@@ -13,10 +13,12 @@ async function mapSection(sectionSelect){
     .then((res) => res.json())
     .then(({ok,sections})=>{
         console.log(sections)
+        // Get selected option
+        const selected_option = $(sectionSelect).attr("data-selected") 
         // sections
         sections.map((item)=>{
             $(sectionSelect).append(`
-            <option value=${item._id}>${item.name}</option>
+            <option value=${item._id} ${selected_option == item._id && "selected"}>${item.name}</option>
         `)
         })
     })
@@ -28,53 +30,88 @@ $(".avatar-upload-button").on("click", (e) => {
     $(".avatar_upload").click();
 })
 
-const userId = $("#updateUserInfo").attr("data-id")
+
 
 // Student form submit handler
 
 
-// Faculty form submit handler
 $("#updateUserInfo").on("submit", (e) =>{
     e.preventDefault()
 
-
-    const password = $(".user-password").val()
-    const passwordConfirm = $(".user-password-confirm").val()
+    const userId = $("#updateUserInfo").attr("data-id")
+    const role = $("#updateUserInfo").attr("data-role")
 
     const msgDisplay = $(".msg-display")
-    console.log(password)
-    console.log(passwordConfirm)
-
- 
-    let errorFlag = true;
-    // reset
     $(msgDisplay).removeClass().addClass("msg-display").html("")
 
-    if(password != passwordConfirm){
-        errorFlag = false
-        msgMap("Mật khẩu không trùng khớp")
-        $(msgDisplay).addClass("msg-display--error").show()
-    }
+    // Faculty form submit handler
+    if(role == "faculty"){
+        const password = $(".user-password").val()
+        const passwordConfirm = $(".user-password-confirm").val()
+    
+        console.log(password)
+        console.log(passwordConfirm)
+    
+     
+        let errorFlag = true;
+        // reset
 
-    console.log(errorFlag)
-    if(errorFlag){
-        fetch(`/profile/${userId}`,{
-            method: "POST",
-            body: new URLSearchParams({
-                password,
-                passwordConfirm
+        if(password != passwordConfirm){
+            errorFlag = false
+            msgMap("Mật khẩu không trùng khớp")
+            $(msgDisplay).addClass("msg-display--error").show()
+        }
+    
+        console.log(errorFlag)
+        if(errorFlag){
+            fetch(`/profile/faculty/${userId}`,{
+                method: "POST",
+                body: new URLSearchParams({
+                    password,
+                    passwordConfirm
+                })
             })
-        })
-        .then(res=> res.json())
-        .then(json=>{
-            console.log(json)
-            if(!json.ok){
+            .then(res=> res.json())
+            .then(json=>{
+                console.log(json)
+                if(!json.ok){
+                    msgMap(json.msg)
+                    $(msgDisplay).addClass("msg-display--error").show()
+                    return;
+                }
                 msgMap(json.msg)
+                $(msgDisplay).addClass("msg-display--success").show()
+            })
+        }
+    } else if(role == "student"){
+        const userFullName = $(".user-fullName").val()
+        const userClass = $(".user-class").val()
+        const section = $(".section-select").val()
+
+        const image = $(".avatar_upload")[0].files[0]
+
+        console.log(userFullName, userClass, section,image)
+
+        const formData = new FormData();
+        formData.append("fullname",userFullName)
+        formData.append("class",userClass)
+        formData.append("unit",section)
+        formData.append("image",image)
+
+        console.log("formData",formData)
+        fetch(`/profile/student/${userId}`,{
+            method: "POST",
+            body: formData,
+        })
+        .then(res => res.json())
+        .then(json => {
+            msgMap(json.msg)
+            if(!json.ok){
                 $(msgDisplay).addClass("msg-display--error").show()
                 return;
+            } else{
+                $(msgDisplay).addClass("msg-display--success").show()
             }
-            msgMap(json.msg)
-            $(msgDisplay).addClass("msg-display--success").show()
         })
     }
 })
@@ -84,3 +121,15 @@ function msgMap(msg){
             <li>${msg}</li>   
     `)
 }
+
+// Review image after upload
+const image = $(".img_holder > img")
+const image_input = $(".avatar_upload")
+
+$(image_input).on("change", function(e){
+    var reader = new FileReader()
+    reader.onload = function(){
+        $(image).attr("src",reader.result)
+    }
+    reader.readAsDataURL(e.target.files[0])
+})

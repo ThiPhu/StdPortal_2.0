@@ -38,7 +38,7 @@ exports.get = async (req, res, next) => {
     }
 }
 
-exports.update = async (req,res,next) => {
+exports.updateFaculty = async (req,res,next) => {
     const {userId} = req.params;
     const {_id} = req.user
     console.log("USER",req.user)
@@ -52,9 +52,7 @@ exports.update = async (req,res,next) => {
 
     if(isOwner){
         try{
-            if(req.user.role == "faculty"){
               const update = req.body;
-
               // Generate salt
               const salt = await bcrypt.genSalt();
               const hashedPassword = await bcrypt.hash(update.password,salt)
@@ -72,15 +70,7 @@ exports.update = async (req,res,next) => {
                   ok: false,
                   msg: "Cập nhật người dùng thất bại!"
                 })
-              }
-            }
-
-            if(req.user.role == "student"){
-                const update = req.body
-
-                const user = await User.findByIdAndUpdate({_id: userId}, update)
-                
-            }
+            } 
         }catch (err){
             next(err)
         }
@@ -90,5 +80,65 @@ exports.update = async (req,res,next) => {
             msg: "Không có thẩm quyền!"
         })
     }
+}
+
+exports.updateStudent = async (req,res, next) => {
+  const {userId} = req.params;
+  const {_id} = req.user
+  console.log("USER",req.user)
+
+  // Check is owner by check validate token
+  let isOwner = false;
+
+  if(_id.toString() === userId){
+    isOwner = true;
+  }
+
+  if(isOwner){
+      try{
+            const body = req.body
+            const image = req.file
+            console.log("USER UDPATE",image)
+            console.log("USER UDPATE",body)
+
+            if(image){
+              body.avatar = image.filename
+            }
+
+            // remove undefined variable
+            if(body.fullname == 'undefined'){
+              delete body.fullname
+            } 
+            if (body.class == 'undefined'){
+              delete body.class
+            } 
+            if (body.unit == 'undefined' || !body.unit){
+              delete body.unit
+            }
+
+            console.log("USER UDPATE",body)
+            
+            const user = await User.findByIdAndUpdate({_id: userId}, body)
+            console.log("UPDATE", user)
+            if(user){
+              return res.json({
+                ok:"true",
+                msg:"Cập nhật người dùng thành công!"
+              })
+            }
+            else return res.json({
+              ok:"false",
+              msg:"Cập nhật người dùng thất bại!"
+            })
+          }
+      catch (err){
+          next(err)
+      }
+  } else {
+      return res.status(401).json({
+          ok: "false",
+          msg: "Không có thẩm quyền!"
+      })
+  }
 }
 

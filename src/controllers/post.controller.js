@@ -52,6 +52,7 @@ exports.getPostId = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   const { caption } = req.body;
   let image = req.file;
+  console.log("IMAGE", image)
   if (!image) {
     image = null;
   } else {

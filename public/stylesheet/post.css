@@ -202,7 +202,7 @@
   margin-left: 16px;
   margin-right: 16px;
 }
-.modal-content {
+#createPostModal .modal-content {
   background: #303030;
 }
 .modal_text {

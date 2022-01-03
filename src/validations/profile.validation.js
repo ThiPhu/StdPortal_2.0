@@ -5,12 +5,13 @@ exports.update = [
     // Can be named anything
     check("checkRole")
         .custom((value, {req}) => {
-            const {role} = req.user
+            const role = req.user.role
+            console.log(role) 
             // Condition check
             switch (role) {
                 case "falcuty":
                     const {password, passwordConfirm} = req.body
-
+                    console.log("from validation",password, passwordConfirm)
                     if (!password || password.length < 0){
                         throw new Error("Vui lòng nhập mật khẩu!")
                     }

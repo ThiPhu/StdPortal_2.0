@@ -10,9 +10,27 @@
     position: relative;
 }
 
-.user-avatar > img{
-    width: 96px;
-    height: 96px;
+.user-avatar > .img_holder{
+    border-radius: 50%;
+    padding-bottom: 100%;
+    min-width: 5rem;
+    overflow: hidden;
+    position: relative;
+    background: red;
+    height: 0;
+}
+
+.img_holder > img{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    object-fit: cover;
+    object-position: center;
+
 }
 
 .avatar-upload-button{
