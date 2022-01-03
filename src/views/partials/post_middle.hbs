@@ -6,12 +6,12 @@
     <div class="post_header col-12 mt-3">
         <div class="d-flex row bd-highlight">
             <a class="col-lg-2 col-2 d-flex align-items-center justify-content-end"
-                href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                href="/profile/{{#each user}}{{_id}}{{/each}}">
                 <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
                     alt="avatar" width="50" height="50" class="img-fluid post-comments_avatar">
             </a>
             <a class="row post_header-userInfo col-9 col-lg-8 d-flex align-items-center justify-content-center p-0"
-                href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                href="/profile/{{#each user}}{{_id}}{{/each}}">
                 <div class="p-2 bd-highlight">
                     <div>
                         <strong>
@@ -103,7 +103,7 @@
     <div class="col-12 post_comments comment_container_{{_id}} d-none" id="comment_{{_id}}">
         <div class="d-flex container-fluid mb-2">
             <div class="d-flex justify-content-center col-1">
-                <a class="post-comments_avatar" href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                <a class="post-comments_avatar" href="/profile/{{#each user}}{{_id}}{{/each}}">
                     <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
                         alt="avatar" width="50" height="50" class="img-fluid rounded-circle">
                 </a>
@@ -119,7 +119,7 @@
     <script class="comment_data_template_{{_id}}" type="text/template">
         <div class="d-flex container-fluid mb-2">
             <div class="d-flex justify-content-center col-1">
-                <a class="post-comments_avatar" href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                <a class="post-comments_avatar" href="/profile/{{#each user}}{{_id}}{{/each}}">
                     <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
                         alt="avatar" width="50" height="50" class="img-fluid rounded-circle">
                 </a>
@@ -135,7 +135,7 @@
             <div class="d-flex flex-column container-fluid">
                 <div class="col-12 d-flex flex-row">
                     <div class="d-flex justify-content-center col-2">
-                        <a class="post-comments_avatar" href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                        <a class="post-comments_avatar" href="/profile/{{#each user}}{{_id}}{{/each}}">
                             <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
                                 alt="avatar" width="50" height="50" class="img-fluid rounded-circle">
                         </a>
