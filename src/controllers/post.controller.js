@@ -51,7 +51,10 @@ exports.getPostId = async (req, res, next) => {
 // Tạo bài viết mới
 exports.create = async (req, res, next) => {
   const { caption } = req.body;
-  const image = req.file.filename;
+  let image = req.file;
+  if (!image) {
+    image = null;
+  }
   const user = req.user;
   try {
     const userId = await User.findById(req.user.id);
@@ -77,6 +80,15 @@ exports.create = async (req, res, next) => {
       create_date,
       create_time,
     });
+
+    // const post = {
+    //   caption,
+    //   image,
+    //   user,
+    //   create_date,
+    //   create_time,
+    // };
+
     console.log(
       'From post.controller.js at create function: Tạo bài viết thành công'
     );
@@ -100,8 +112,7 @@ exports.update = async (req, res, next) => {
     const date = new Date();
     const create_date =
       date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
-    const create_time =
-      date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    const create_time = date.getHours() + ':' + date.getMinutes();
     // Nếu không phải là chủ bài viết hoặc không có bài viết
     // hay user không login, thì không cho cập nhật
     if (

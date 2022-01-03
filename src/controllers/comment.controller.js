@@ -48,8 +48,7 @@ exports.create = async (req, res, next) => {
     const date = new Date();
     const create_date =
       date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
-    const create_time =
-      date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    const create_time = date.getHours() + ':' + date.getMinutes();
 
     // Nếu không tìm thấy bài viết, hay user không tìm thấy thì sẽ không cho comment
     if (!post || !user) {
@@ -116,6 +115,7 @@ exports.delete = async (req, res, next) => {
     }
 
     await Comment.findByIdAndDelete(commentId);
+
     post.comments.splice(removeIndex, 1);
     await post.save();
     return res.json({
