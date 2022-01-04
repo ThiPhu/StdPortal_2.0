@@ -10,6 +10,10 @@ const PostSchema = new Schema(
     // reaction: String, Optional
     create_date: String,
     create_time: String,
+    isUpdated: {
+      type: Boolean,
+      default: false,
+    },
     user: [Object],
     comments: [Object],
   },

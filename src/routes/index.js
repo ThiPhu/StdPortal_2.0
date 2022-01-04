@@ -72,6 +72,20 @@ const route = app => {
     return res.redirect('/home');
 
     });
+  app.get('/announcements', async (req, res) => {
+    const posts = await Post.find().sort({ createdAt: -1 }).lean(); // Lấy hết tất cả các post
+    const announcements = await Announcement.find()
+      .sort({ createdAt: -1 })
+      .lean();
+    res.render('home', {
+      user: req.user,
+      post: posts,
+      isAnnoucePages: true,
+      faculty: req.user.role === 'faculty' ? true : false,
+      admin: req.user.role === 'admin' ? true : false,
+      announcements: announcements,
+    });
+  });
 
   app.get('/manage', isAdmin, async (req, res) => {
     try {

@@ -5,7 +5,7 @@ Router.get('/:id', commentController.getCommentId);
 
 Router.post('/', commentController.create);
 
-// Router.put('/:id', commentController.update);
+Router.put('/:id', commentController.update);
 
 Router.delete('/:id', commentController.delete);
 

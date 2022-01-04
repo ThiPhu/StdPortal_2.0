@@ -1,0 +1,45 @@
+<!-- Modal -->
+<div class="modal fade" id="updateAnnounceModal_{{_id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title modal_text" id="exampleModalLabel">Cập nhật thông báo</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="post_header">
+                    <div class="d-flex bd-highlight mb-2 ">
+                        <img class="post-comments_avatar mt-2 p-2 bd-highlight" width="50" height="50" alt="avatar"
+                            src="{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}">
+                        <div class="bd-highlight d-flex justify-content-center align-items-center">
+                            <div class="modal_text ms-3">
+                                <strong>
+                                    {{#each user}}{{fullname}}{{/each}}
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center col-12">
+                    <textarea type="text" rows="1" placeholder="Bạn muốn viết gì...?"
+                        class="form-control shadow-none comment_box update_announce-title"
+                        id="update_announce-title_{{id}}" oninput="onChangeTextArea()">{{{title}}}</textarea>
+                </div>
+                <div class="d-flex justify-content-center col-12">
+                    <textarea class="update_announce-content_{{_id}}" id="update_announce-content_{{id}}"
+                        name="update_announce-content_{{_id}}">{{{content}}}</textarea>
+                    <script>
+                        CKEDITOR.replace('update_announce-content_{{_id}}', {
+                            fullPage: true,
+                            allowedContent: true
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary update_announce-submitBtn modal_text">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>

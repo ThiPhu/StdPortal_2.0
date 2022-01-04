@@ -107,7 +107,7 @@
 
                     {{!-- Faculty post --}}
                     <div class="btn-group me-3 ms-3 d-flex align-items-center">
-                        <a href="/" class="d-flex btn navbar-action-btn">
+                        <a href="/announcements" class="d-flex btn navbar-action-btn navtop-announcement-Btn">
                             <span class="material-icons-outlined" data-bs-toggle="tooltip" data-bs-placement="top"
                                 title="Bài đăng của Khoa">
                                 school
@@ -156,6 +156,7 @@
                             </span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-alert p-0">
+                            {{#each announcements}}
                             <li>
                                 <a href="#" class="dropdown-item p-3" aria-current="true">
                                     <div
@@ -164,45 +165,27 @@
                                             <span class="me-2 material-icons-outlined">
                                                 cast_for_education
                                             </span>
-                                            <span>Khoa Công Nghệ Thông Tin</span>
+                                            <span>{{#each user}}{{fullname}}{{/each}}</span>
+                                            <span class="ms-1 small alert-danger">{{#if isUpdated}}Cập
+                                                nhật{{/if}}</span>
                                         </strong>
                                     </div>
                                     <div class="col-12 mb-1 dropdown-alert-content">
-                                        Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng
-                                        ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký đồ án CNTT2Đăng ký
-                                        đồ án CNTT2Đăng
-                                        ký đồ án CNTT2
+                                        <strong>Tiêu đề: </strong>{{title}}
                                     </div>
                                     <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
                                         <span class="material-icons-outlined m-1">
                                             schedule
                                         </span>
-                                        Vào lúc: <strong class="ms-1">19:00</strong>
+                                        {{create_date}} lúc {{create_time}}
                                     </div>
                                 </a>
                             </li>
+                            {{/each}}
                             <li>
-                                <a href="#" class="dropdown-item p-3" aria-current="true">
-                                    <div
-                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
-                                        <strong class="mb-1">
-                                            <span class="me-2 material-icons-outlined">
-                                                cast_for_education
-                                            </span>
-                                            <span>Khoa Công Nghệ Thông Tin</span>
-                                        </strong>
-                                    </div>
-                                    <div class="col-12 mb-1 dropdown-alert-content">
-                                        Phòng/Khoa post bài sẽ hiện icon cho biết là Khoa
-                                    </div>
-                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
-                                        <span class="material-icons-outlined m-1">
-                                            schedule
-                                        </span>
-                                        Vào lúc: <strong class="ms-1">19:00</strong>
-                                    </div>
-                                </a>
+                                <hr class="dropdown-divider">
                             </li>
+                            {{#each post}}
                             <li>
                                 <a href="#" class="dropdown-item p-3" aria-current="true">
                                     <div
@@ -211,20 +194,24 @@
                                             <span class="me-2 material-icons-outlined">
                                                 people
                                             </span>
-                                            <span>Nguyễn Văn A</span>
+                                            <span>{{#each user}}{{fullname}}{{/each}}</span>
                                         </strong>
                                     </div>
                                     <div class="col-12 mb-1 dropdown-alert-content">
-                                        Đây là icon người dùng khi post bài
+                                        {{caption}}
+                                    </div>
+                                    <div class="col-12 mb-1 dropdown-alert-content">
+                                        <strong>{{#if image}}Bài viết có ảnh.{{/if}}</strong>
                                     </div>
                                     <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
                                         <span class="material-icons-outlined m-1">
                                             schedule
                                         </span>
-                                        Vào lúc: <strong class="ms-1">19:00</strong>
+                                        {{create_date}} lúc {{create_time}}
                                     </div>
                                 </a>
                             </li>
+                            {{/each}}
                         </ul>
                     </div>
 
