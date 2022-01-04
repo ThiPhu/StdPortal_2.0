@@ -1,6 +1,7 @@
 {{> create_post-modal}}
 
 {{!-- Hiển thị bài viết --}}
+
 {{#each post}}
 <div class="post_id bg-white container d-lg-flex flex-column p-0 mb-4" data-postid="{{_id}}">
 
@@ -9,8 +10,8 @@
         <div class="d-flex row bd-highlight">
             <a class="col-lg-2 col-2 d-flex align-items-center justify-content-end"
                 href="/profile/{{#each user}}{{_id}}{{/each}}">
-                <img src='{{#each user}}{{avatar}}{{/each}}'
-                    alt="avatar" width="50" height="50" class="img-fluid post-comments_avatar">
+                <img src='{{#each user}}{{avatar}}{{/each}}' alt="avatar" width="50" height="50"
+                    class="img-fluid post-comments_avatar">
             </a>
             <a class="row post_header-userInfo col-9 col-lg-8 d-flex align-items-center justify-content-center p-0"
                 href="/profile/{{#each user}}{{_id}}{{/each}}">
@@ -66,22 +67,26 @@
         <div class="d-flex flex-column col-12 mt-3">
             <div id="post_caption_{{_id}}" class="col-12 post_body-caption post_caption-lineclamp">{{caption}}</div>
         </div>
-        <div class="post_body-caption col-12 mt-3">
-            ||=> ID để test: {{_id}}
-        </div>
+        {{#if video}}
         <div class="col-12 mt-3">
+            <iframe class="post_video-iframe" id="video1" width="450" height="280"
+                src="http://www.youtube.com/embed/{{video}}?enablejsapi" frameborder="0" allowtransparency="true"
+                allowfullscreen></iframe>
+        </div>
+        {{else}}
+        {{/if}}
+        <div class="col-12 mt-1">
             {{#if image}}
-            <img src="{{image}}" alt="image" class="img-post img-fluid post_img-viewImg"
-                data-bs-toggle="modal" data-bs-target="#post_img-viewImg_{{_id}}">
+            <img src="{{image}}" alt="image" class="img-post img-fluid post_img-viewImg" data-bs-toggle="modal"
+                data-bs-target="#post_img-viewImg_{{_id}}">
             {{else}}
             {{/if}}
         </div>
-
         {{!-- Modal để xem ảnh to hơn --}}
         <div class="modal fade" id="post_img-viewImg_{{_id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
-                <d class=" modal-content">
+                <div class=" modal-content">
                     <div class="modal-body d-flex flex-column justify-content-center">
                         <div class="col-12 d-flex justify-content-end">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -90,7 +95,7 @@
                             <img src="{{image}}" alt="image" class="img-post img-fluid post_img-viewImg">
                         </div>
                     </div>
-                </d </div>
+                </div>
             </div>
         </div>
     </div>
@@ -125,8 +130,8 @@
         <div class="d-flex container-fluid mb-2">
             <div class="d-flex justify-content-center col-1">
                 <a class="post-comments_avatar" href="/profile/{{#each user}}{{_id}}{{/each}}">
-                    <img src='{{#each user}}{{avatar}}{{/each}}'
-                        alt="avatar" width="50" height="50" class="img-fluid rounded-circle">
+                    <img src='{{#each user}}{{avatar}}{{/each}}' alt="avatar" width="50" height="50"
+                        class="img-fluid rounded-circle">
                 </a>
             </div>
             <div class="d-flex justify-content-center col-11">
@@ -261,6 +266,7 @@
     function onChangeTextArea() {
         //auto resize text area
         const tx = $('.comment_box');
+
         for (let i = 0; i < tx.length; i++) {
             tx[i].setAttribute(
                 'style',

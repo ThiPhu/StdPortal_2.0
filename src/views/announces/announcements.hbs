@@ -4,13 +4,12 @@
     {{!-- Annoucement header - Hiển thị tên chủ bài viết và ngày đăng --}}
     <div class="post_header col-12 mt-3">
         <div class="d-flex row bd-highlight">
-            <a class="col-lg-1 col-2 d-flex align-items-center justify-content-end"
-                href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
-                <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
-                    alt="avatar" width="50" height="50" class="img-fluid post-comments_avatar">
+            <a class="col-lg-1 col-2 d-flex align-items-center justify-content-end" href="/profile/{{user._id}}">
+                <img src='{{#each user}}{{avatar}}{{/each}}' alt="avatar" width="50" height="50"
+                    class="img-fluid post-comments_avatar">
             </a>
             <a class="row post_header-userInfo col-9 col-lg-10 d-flex align-items-center justify-content-center p-0"
-                href="/api/user/{{#each user}}{{username}}{{fullname}}{{/each}}">
+                href="/profile/{{user._id}}">
                 <div class="p-2 bd-highlight">
                     <div>
                         <strong>

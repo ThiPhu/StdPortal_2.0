@@ -2,11 +2,11 @@ const apiRouter = require('./api.routes');
 const { userAuth } = require('../middlewares/auth.middleware');
 const isAdmin = require('../validations/isAdmin.validation');
 const authRouter = require('./auth.routes');
-const profileRouter = require('./profile.routes')
+const profileRouter = require('./profile.routes');
 const User = require('../models/User.model');
 const Post = require('../models/Post.model');
 const Comment = require('../models/Comment.model');
-const {verifyToken} = require('../utils/jwt');
+const { verifyToken } = require('../utils/jwt');
 const mongoose = require('mongoose');
 const Announcement = require('../models/Announcement.model');
 
@@ -28,8 +28,8 @@ const route = app => {
     if (req.cookies.access_token) {
       return res.redirect('/home');
     }
-    console.log("error",req.session.error)
-    res.render('login',{msg: req.session.error});
+    console.log('error', req.session.error);
+    res.render('login', { msg: req.session.error });
   });
 
   // Kiểm tra token session
@@ -53,7 +53,7 @@ const route = app => {
     });
   });
 
-  app.use("/profile", profileRouter)
+  app.use('/profile', profileRouter);
 
   //  ADMIN
   app.get('/management', async (req, res) => {
@@ -70,8 +70,7 @@ const route = app => {
       });
     }
     return res.redirect('/home');
-
-    });
+  });
   app.get('/announcements', async (req, res) => {
     const posts = await Post.find().sort({ createdAt: -1 }).lean(); // Lấy hết tất cả các post
     const announcements = await Announcement.find()
@@ -118,7 +117,6 @@ const route = app => {
 
   // Các route api
   app.use('/api', apiRouter);
-
 
   app.get('*', (req, res) => {
     res.status(404).render('error');

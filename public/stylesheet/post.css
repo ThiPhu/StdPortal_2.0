@@ -154,6 +154,19 @@
   color: white;
 }
 
+.create_post-addVideoBtn {
+  border: 2px solid var(--secondary-color);
+  border-radius: 16px;
+}
+
+.create_post-addVideoBtn:hover {
+  border: 2px solid var(--secondary-color);
+  border-radius: 16px;
+  background-color: var(--secondary-color-hover);
+  cursor: pointer;
+  color: white;
+}
+
 .create_post-submitBtn {
   width: 100%;
   background: var(--secondary-color);
@@ -276,22 +289,6 @@
   width: 100%;
   background: #dadada;
 }
-.modal-header,
-.modal-footer {
-  border: none;
-}
-.modal-footer {
-  padding-left: 0%;
-  padding-right: 0%;
-  margin-left: 16px;
-  margin-right: 16px;
-}
-#createPostModal .modal-content {
-  background: #303030;
-}
-.modal_text {
-  color: white;
-}
 
 .create_post-bodyImgContainer:hover {
   background: #cecece;
@@ -367,4 +364,9 @@
 .comment_box {
   text-align: left;
   resize: none;
+}
+
+.post_video-iframe {
+  width: 100%;
+  height: 38vh;
 }

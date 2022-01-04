@@ -1,9 +1,9 @@
 const Router = require('express').Router();
 const multerhelper = require('../utils/multerhelper');
 const postController = require('../controllers/post.controller');
-const cloudinaryUpload = require("../utils/cloudinaryUpload")
+const cloudinaryUpload = require('../utils/cloudinaryUpload');
 
-const postValidation = require("../validations/post.validation")
+const postValidation = require('../validations/post.validation');
 
 // Lấy tất cả bài viết
 Router.get('/', postController.getPosts);
@@ -12,10 +12,20 @@ Router.get('/', postController.getPosts);
 Router.get('/:id', postController.getPostId);
 
 // Tạo bài viết mới
-Router.post('/', cloudinaryUpload.single("image"),postValidation.image ,postController.create);
+Router.post(
+  '/',
+  cloudinaryUpload.single('image'),
+  postValidation.image,
+  postController.create
+);
 
 // Cập nhật lại bài viết
-Router.put('/:id', cloudinaryUpload.single("image"), postValidation.image, postController.update);
+Router.put(
+  '/:id',
+  cloudinaryUpload.single('image'),
+  postValidation.image,
+  postController.update
+);
 
 // Xoá bài viết
 Router.delete('/:id', postController.delete);

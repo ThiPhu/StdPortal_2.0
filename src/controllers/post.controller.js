@@ -50,9 +50,8 @@ exports.getPostId = async (req, res, next) => {
 
 // Tạo bài viết mới
 exports.create = async (req, res, next) => {
-  const { caption } = req.body;
+  const { caption, video } = req.body;
   let image = req.file;
-  console.log("IMAGE", image)
   if (!image) {
     image = null;
   } else {
@@ -79,6 +78,7 @@ exports.create = async (req, res, next) => {
     const post = await Post.create({
       caption,
       image,
+      video,
       user,
       create_date,
       create_time,

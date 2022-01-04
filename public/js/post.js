@@ -152,12 +152,35 @@ $(document).ready(function () {
 
   // Tạo bài viết
   $('.create_post-submitBtn').on('click', e => {
-    $('.create_post-submitBtn').addClass("disabled")
-    const caption = $('.create_post-input').val();
+    e.preventDefault();
+    // const valueText = tx.val();
+    // function youtube_parser(url) {
+    //   var regExp =
+    //     /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    //   var match = url.match(regExp);
+    //   return match && match[7].length == 11 ? match[7] : false;
+    // }
+    // console.log(youtube_parser(valueText));
+    $('.create_post-submitBtn').addClass('disabled');
     const image = $('.create_post-image')[0].files[0];
+    const caption = $('.create_post-input').val();
     const formData = new FormData();
+
+    // check size or type here with upload.getSize() and upload.getType()
+    if (image !== undefined) {
+      if (image.size / (1024 * 1024).toFixed(2) >= 10) {
+        Swal.fire({
+          title: 'Dung lượng ảnh lớn hơn 10MB',
+          icon: 'error',
+        });
+        return setTimeout(function () {
+          window.location.reload();
+        }, 800);
+      }
+      formData.append('image', image, image.name);
+    }
+
     formData.append('caption', caption);
-    formData.append('image', image);
     fetch('/api/post', {
       method: 'POST',
       async: true,
@@ -168,9 +191,12 @@ $(document).ready(function () {
         // If auth success, redirect to home
         return (window.location.href = '/');
       })
-      .finally(()=>{
-        $('.create_post-submitBtn').removeClass("disabled")
+      .finally(() => {
+        $('.create_post-submitBtn').removeClass('disabled');
       })
+      .catch(err => {
+        console.log(err);
+      });
   });
 
   // Cập nhật bài viết
@@ -247,6 +273,13 @@ $(document).ready(function () {
     e.preventDefault();
     $('.create_post-input-img').removeClass('d-none');
     $('.create_post-addImgBtn').addClass('d-none');
+  });
+
+  // Bấm để mở rộng phần thêm video vào post
+  $('.create_post-addVideoBtn').on('click', e => {
+    e.preventDefault();
+    $('.create_post-input-video').removeClass('d-none');
+    $('.create_post-addVideoBtn').addClass('d-none');
   });
 
   $('.btn-close').click(e => {

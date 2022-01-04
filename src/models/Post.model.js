@@ -7,6 +7,7 @@ const PostSchema = new Schema(
   {
     caption: String, // caption (The content of the post)
     image: String,
+    video: String,
     // reaction: String, Optional
     create_date: String,
     create_time: String,
