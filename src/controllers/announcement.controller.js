@@ -28,6 +28,17 @@ exports.get = async (req, res, next) => {
 };
 
 // Xem chi tiết thông báo qua Id
+exports.getId = async (req, res, next) => {
+  const announce = await Announcement.findById(req.params.announceId);
+  if (!announce) {
+    return res.status(500).json({ ok: false, msg: 'Không tồn tại thông báo' });
+  }
+  return res.json({
+    ok: true,
+    message: 'Lấy thông báo thành công',
+    announce: announce,
+  });
+};
 
 // Tạo thông báo
 exports.create = async (req, res, next) => {

@@ -88,6 +88,16 @@ const route = app => {
     });
   });
 
+  app.get('/announcement/:announceId', async (req, res) => {
+    const announce = await Announcement.findById(req.params.announceId);
+    res.render('announces/announcements', {
+      user: req.user,
+      faculty: req.user.role === 'faculty' ? true : false,
+      admin: req.user.role === 'admin' ? true : false,
+      announce: announce,
+    });
+  });
+
   app.get('/manage', isAdmin, async (req, res) => {
     try {
       const studentRole = await User.find({ role: 'student' }).lean();

@@ -196,10 +196,16 @@
   border-radius: 12px;
 }
 
-.announce_header-content {
+.announce_header-title {
+  cursor: pointer;
   font-size: 17px;
   padding-left: 2rem;
   padding-right: 2rem;
+  color: var(--secondary-color);
+}
+
+.announce_header-title:hover {
+  color: var(--secondary-color-hover);
 }
 
 .announce_body-content {

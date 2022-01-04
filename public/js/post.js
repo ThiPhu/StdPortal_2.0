@@ -316,6 +316,13 @@ $(document).ready(function () {
 
   // ================ Kết thúc Section Jquery liên quan đến bài viết
   // ================ Jquery liên quan đến phần Thông báo
+  // Xem thông báo theo ID
+  $('.announce_header-title').on('click', e => {
+    e.preventDefault();
+    let announceId = $(e.target).closest('.announce_id').data('announceid');
+    window.location.href = '/announcement/' + announceId;
+  });
+
   let expandAnnounceCaption = false;
   $('.announce_body-content').on('click', e => {
     e.preventDefault();
