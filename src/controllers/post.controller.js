@@ -56,7 +56,7 @@ exports.create = async (req, res, next) => {
   if (!image) {
     image = null;
   } else {
-    image = image.filename;
+    image = image.path;
   }
   const user = req.user;
   try {
@@ -126,7 +126,7 @@ exports.update = async (req, res, next) => {
     if (!image) {
       image = post.image;
     } else {
-      image = image.filename;
+      image = image.path;
     }
     // res.render('posts/post');
     let newPost = {

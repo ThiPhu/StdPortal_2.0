@@ -125,7 +125,7 @@
                     <div class="d-flex align-items-center navbar-custom-item">
                         <a class="d-flex align-items-center justify-content-center"
                             href="/profile/{{user._id}}">
-                            <img src='{{#each user}}{{#if username}}../../image/tdt.jpg{{else}}{{avatar}}{{/if}}{{/each}}'
+                            <img src='{{#each user}}{{avatar}}{{/each}}'
                                 alt="avatar" width="32" height="32" class="rounded-circle me-2">
                             <span style="font-size: 14px">
                             {{#each user}}
@@ -140,7 +140,6 @@
                             </span>
                         </a>
                     </div>
-
                     {{!-- Notificatioons dropdown --}}
                     <div class="btn-group me-3 ms-3 d-flex align-items-center">
                         <button type="button" class="d-flex btn navbar-action-btn" data-bs-toggle="dropdown"

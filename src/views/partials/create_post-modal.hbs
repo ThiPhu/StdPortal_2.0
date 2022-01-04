@@ -2,7 +2,7 @@
   <div class="head_comment">
     <div class="d-flex justify-content-center align-items-center p-2">
       <img class="avt_create_post bd-highlight mt-1"
-        src="{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}">
+        src="{{#each user}}{{avatar}}{{/each}}">
       <div class="input_bar">
         <div type="text" class="form-control text_area_border" data-bs-toggle="modal" data-bs-target="#createPostModal">
           <span>Bạn muốn viết gì?</span>
@@ -24,7 +24,7 @@
         <div class="post_header">
           <div class="d-flex bd-highlight mb-2 ">
             <img class="post-comments_avatar mt-2 p-2 bd-highlight" width="50" height="50" alt="avatar"
-              src="{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}">
+              src="{{user.avatar}}">
             <div class="bd-highlight d-flex justify-content-center align-items-center">
               <div class="modal_text ms-3">
                 <strong>

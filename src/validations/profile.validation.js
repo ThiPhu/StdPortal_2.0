@@ -9,7 +9,7 @@ exports.update = [
             console.log(role) 
             // Condition check
             switch (role) {
-                case "falcuty":
+                case "faculty":
                     const {password, passwordConfirm} = req.body
                     console.log("from validation",password, passwordConfirm)
                     if (!password || password.length < 0){
@@ -26,7 +26,24 @@ exports.update = [
                     break;
 
                 case "student":
-                    
+
+                    console.log(req.body)
+                    const {fullname,class:Class,unit} = req.body
+                    const image = req.file
+                    // if(!fullname && !Class && !unit && !image){
+                    //     throw new Error("Dữ liệu rỗng")
+                    // }
+
+                    // Avatar validation
+                    console.log("AVATAR",image)
+                    console.log(!(image.mimetype.includes("image")));
+                    if(!(image.mimetype.includes("image"))){
+                        throw new Error("Sai định dạng ảnh")
+                    }
+
+                    if(image.size > 5000000){
+                        throw new Error("Kích thước ảnh vượt quá 5Mb")
+                    }
                     break;
 
             }

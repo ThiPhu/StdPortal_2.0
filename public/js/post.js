@@ -152,6 +152,7 @@ $(document).ready(function () {
 
   // Tạo bài viết
   $('.create_post-submitBtn').on('click', e => {
+    $('.create_post-submitBtn').addClass("disabled")
     const caption = $('.create_post-input').val();
     const image = $('.create_post-image')[0].files[0];
     const formData = new FormData();
@@ -166,7 +167,10 @@ $(document).ready(function () {
       .then(({ ok, msg, at }) => {
         // If auth success, redirect to home
         return (window.location.href = '/');
-      });
+      })
+      .finally(()=>{
+        $('.create_post-submitBtn').removeClass("disabled")
+      })
   });
 
   // Cập nhật bài viết

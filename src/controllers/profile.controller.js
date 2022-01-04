@@ -102,7 +102,7 @@ exports.updateStudent = async (req,res, next) => {
             console.log("USER UDPATE",body)
 
             if(image){
-              body.avatar = image.filename
+              body.avatar = image.path
             }
 
             // remove undefined variable

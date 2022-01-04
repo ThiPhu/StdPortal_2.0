@@ -154,6 +154,8 @@ exports.create = async (req, res, next) => {
       })
     }
 
+    const avatar_default = "https://res.cloudinary.com/dd27hshho/image/upload/v1641262805/Upload/tdt_wnobdu.jpg"
+
     const user = await User.create({
       username: req.body.email ? req.body.email.split('@')[0] : null,
       email: req.body.email ? req.body.email : null,
@@ -161,7 +163,8 @@ exports.create = async (req, res, next) => {
       role: req.body.role,
       unit: req.body.unit ? req.body.unit : null,
       //  Since URLSearchParams transform value into string, format it to array
-      topics: req.body.topics ? req.body.topics.split(",") : null
+      topics: req.body.topics ? req.body.topics.split(",") : null,
+      avatar: avatar_default,
     });
     return res.json({
       ok: true,

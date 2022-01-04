@@ -61,6 +61,10 @@ app.use(
 
 app.use(cookieParser());
 
+
+// cloudinary
+require("./src/config/cloudinary.config")
+
 // app.use(passport.initialize());
 require('./src/config/passport.config');
 

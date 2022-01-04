@@ -3,10 +3,7 @@
     <div class="d-flex flex-column align-items-center justify-content-center sb-left-header">
         {{#each currentProfile}}
         {{#if fullname}}
-        <img src='{{avatar}}' alt="avatar" width="100" height="100"
-            class="rounded-circle m-3">
-        {{else}}
-        <img src='../../../image/tdt.jpg' alt="avatar" width="100" height="100" class="rounded-circle m-3">
+        <img src='{{avatar}}' alt="avatar" width="100" height="100" class="rounded-circle m-3">
         {{/if}}
         {{/each}}
         <p class="text-white">
@@ -22,11 +19,13 @@
         </p>
     </div>
     <hr>
+    {{#unless admin}}
     {{#if isOwner}}
     <div class="my-3 w-100">
         <a href="{{#each currentProfile}}{{_id}}{{/each}}/update-info" class="btn btn-primary w-100 p-3" style="font-size: 18px">Thay đổi thông tin</a>
     </div>
     {{/if}}
+    {{/unless}}
     <div>
         {{#if currentProfile}}
         <ul class="list-group">
@@ -43,6 +42,7 @@
                     </div>
                 </div>
             </li>
+            {{#unless admin}}
             <li class="list-group-item">
                 <div class="row p-1">
                     <div class="col-2 d-flex justify-content-center align-items-center">
@@ -71,6 +71,7 @@
                     </div>
                 </div>
             </li>
+            {{/unless}}
         </ul>
     {{/if}}
     </div>
@@ -78,7 +79,7 @@
 {{else}}
 <div class="d-lg-flex sb-left d-xm-none d-none flex-column p-2">
     <div class="d-flex flex-column align-items-center sb-left-header">
-        <img src='{{#each currentProfile}}{{#if username}}/image/tdt.jpg{{else}}{{avatar}}{{/if}}{{/each}}' alt="avatar"
+        <img src='{{#each currentProfile}}{{avatar}}{{/each}}' alt="avatar"
             width="100" height="100" class="rounded-circle m-3">
         <p class="text-white">
             <strong>

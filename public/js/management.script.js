@@ -64,12 +64,12 @@ $(".btn-create-faculty-account").on("click", (event) => {
                             </td>
                             <td class="admin_td_class">
                                 <div>
-                                    ${user.email.class ? user.email.class : "-" }
+                                    ${user.class ? user.class : "-" }
                                 </div>
                             </td>
                             <td class="admin_td_faculty">
                                 <div>
-                                    ${user.email.unit ? user.email.unit : "-"}
+                                    ${user.unit ? user.unit.name : "-"}
                                 </div>
                             </td>
                             <td>

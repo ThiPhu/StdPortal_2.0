@@ -38,6 +38,8 @@ $(".avatar-upload-button").on("click", (e) => {
 $("#updateUserInfo").on("submit", (e) =>{
     e.preventDefault()
 
+    $("#updateUserInfo button[type*='submit']").addClass("disabled")
+
     const userId = $("#updateUserInfo").attr("data-id")
     const role = $("#updateUserInfo").attr("data-role")
 
@@ -56,11 +58,11 @@ $("#updateUserInfo").on("submit", (e) =>{
         let errorFlag = true;
         // reset
 
-        if(password != passwordConfirm){
-            errorFlag = false
-            msgMap("Mật khẩu không trùng khớp")
-            $(msgDisplay).addClass("msg-display--error").show()
-        }
+        // if(password != passwordConfirm){
+        //     errorFlag = false
+        //     msgMap("Mật khẩu không trùng khớp")
+        //     $(msgDisplay).addClass("msg-display--error").show()
+        // }
     
         console.log(errorFlag)
         if(errorFlag){
@@ -81,6 +83,9 @@ $("#updateUserInfo").on("submit", (e) =>{
                 }
                 msgMap(json.msg)
                 $(msgDisplay).addClass("msg-display--success").show()
+            })
+            .finally(()=>{
+                $("#updateUserInfo button[type*='submit']").removeClass("disabled")
             })
         }
     } else if(role == "student"){
@@ -112,6 +117,9 @@ $("#updateUserInfo").on("submit", (e) =>{
             } else{
                 $(msgDisplay).addClass("msg-display--success").show()
             }
+        })
+        .finally(()=>{
+            $("#updateUserInfo button[type*='submit']").removeClass("disabled")
         })
     }
 })

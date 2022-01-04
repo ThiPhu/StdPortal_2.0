@@ -9,7 +9,7 @@
         <div class="d-flex row bd-highlight">
             <a class="col-lg-2 col-2 d-flex align-items-center justify-content-end"
                 href="/profile/{{#each user}}{{_id}}{{/each}}">
-                <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
+                <img src='{{#each user}}{{avatar}}{{/each}}'
                     alt="avatar" width="50" height="50" class="img-fluid post-comments_avatar">
             </a>
             <a class="row post_header-userInfo col-9 col-lg-8 d-flex align-items-center justify-content-center p-0"
@@ -71,7 +71,7 @@
         </div>
         <div class="col-12 mt-3">
             {{#if image}}
-            <img src="../../../image/{{image}}" alt="image" class="img-post img-fluid post_img-viewImg"
+            <img src="{{image}}" alt="image" class="img-post img-fluid post_img-viewImg"
                 data-bs-toggle="modal" data-bs-target="#post_img-viewImg_{{_id}}">
             {{else}}
             {{/if}}
@@ -87,7 +87,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="col-12">
-                            <img src="../../../image/{{image}}" alt="image" class="img-post img-fluid post_img-viewImg">
+                            <img src="{{image}}" alt="image" class="img-post img-fluid post_img-viewImg">
                         </div>
                     </div>
                 </d </div>
@@ -125,7 +125,7 @@
         <div class="d-flex container-fluid mb-2">
             <div class="d-flex justify-content-center col-1">
                 <a class="post-comments_avatar" href="/profile/{{#each user}}{{_id}}{{/each}}">
-                    <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
+                    <img src='{{#each user}}{{avatar}}{{/each}}'
                         alt="avatar" width="50" height="50" class="img-fluid rounded-circle">
                 </a>
             </div>
@@ -142,7 +142,7 @@
         <div class="d-flex container-fluid mb-2">
             <div class="d-flex justify-content-center col-1">
                 <a class="post-comments_avatar" href="/profile/{{#each user}}{{_id}}{{/each}}">
-                    <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
+                    <img src='{{#each user}}{{avatar}}{{/each}}'
                         alt="avatar" width="50" height="50" class="img-fluid rounded-circle">
                 </a>
             </div>
@@ -158,7 +158,7 @@
                 <div class="col-12 d-flex flex-row">
                     <div class="d-flex justify-content-center col-2">
                         <a class="post-comments_avatar" href="/profile/{{#each user}}{{_id}}{{/each}}">
-                            <img src='{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}'
+                            <img src='{{#each user}}{{avatar}}{{/each}}'
                                 alt="avatar" width="50" height="50" class="img-fluid rounded-circle">
                         </a>
                     </div>
@@ -225,7 +225,7 @@
                             <div class="post_header">
                                 <div class="d-flex bd-highlight mb-2 ">
                                     <img class="post-comments_avatar mt-2 p-2 bd-highlight" width="50" height="50" alt="avatar"
-                                        src="{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}">
+                                        src="{{#each user}}{{avatar}}{{/each}}">
                                     <div class="bd-highlight d-flex justify-content-center align-items-center">
                                         <div class="modal_text ms-3">
                                             <strong>

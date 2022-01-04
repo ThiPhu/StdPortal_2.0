@@ -640,6 +640,44 @@ body {
 
 /*======= End Main =======*/
 
+
+/* Avatar image */
+/* .img_holder{
+  border-radius: 50%;
+  padding-bottom: 100%;
+  overflow: hidden;
+  position: relative;
+  background: red;
+  height: 0;
+}
+
+.size--sm{
+  min-width: 2.5rem;
+}
+
+.size--md{
+  min-width: 3.5rem;
+}
+
+.size--lg{
+  min-width: 5rem;
+}
+
+.img_holder > img{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  object-fit: cover;
+  object-position: center;
+
+} */
+
+
+
 /* -----------------------------------End login--------------------------------------------------------- */
 
 

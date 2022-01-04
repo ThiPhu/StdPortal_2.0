@@ -63,7 +63,7 @@ const route = app => {
       return res.render('admin/management', {
         // Check for role
         admin: req.user.role === 'admin' ? true : false,
-        user: req.user, // For showing who is logging in session
+        currentProfile: req.user, // For showing who is logging in session
         student: studentRole, // Show all of Student from database for admin to manage
         faculty: facultyRole, // Show all of Faculty from database for admin to manage
         exampleAvatar: '../../public/image/tdt.jpg',
@@ -78,6 +78,7 @@ const route = app => {
       .sort({ createdAt: -1 })
       .lean();
     res.render('home', {
+      currentProfile: req.user,
       user: req.user,
       post: posts,
       isAnnoucePages: true,
@@ -93,7 +94,7 @@ const route = app => {
       const facultyRole = await User.find({ role: 'faculty' }).lean();
       if (req.user.role === 'admin') {
         return res.render('admin/management', {
-          user: req.user, // For showing who is logging in session
+          currentProfile: req.user, // For showing who is logging in session
           student: studentRole, // Show all of Student from database for admin to manage
           faculty: facultyRole, // Show all of Faculty from database for admin to manage
           exampleAvatar: '../../public/image/tdt.jpg',
