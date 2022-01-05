@@ -45,7 +45,7 @@
                                     add_photo_alternate
                                 </span>
                             </button>
-                            <div>Thêm ảnh hoặc video</div>
+                            <div>Thêm ảnh</div>
                         </div>
                     </div>
                 </div>
@@ -56,6 +56,24 @@
                         </span>
                     </button>
                     <img class="img_post post_image-Review">
+                </div>
+
+                {{!-- Nút để mở rộng phần thêm video --}}
+                <div class="d-flex justify-content-center col-12 p-1">
+                    <button type="button" class="btn d-flex justify-content-end create_post-addVideoBtn col-12">
+                        {{#if video}} Thay đổi video {{else}} Thêm video {{/if}}
+                        <span class="material-icons-outlined ms-3">
+                            smart_display
+                        </span>
+                    </button>
+                </div>
+                <div class="create_post-input-video p-1 d-none">
+                    <div class="d-flex justify-content-center col-12">
+                        <textarea id="update_post-video-input_{{_id}}" type="text" rows="1"
+                            placeholder="Copy url youtube vào đây..."
+                            class="form-control shadow-none comment_box create_post-video-input"
+                            oninput="onChangeTextArea()"></textarea>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

@@ -50,12 +50,17 @@ exports.getPostId = async (req, res, next) => {
 
 // Tạo bài viết mới
 exports.create = async (req, res, next) => {
-  const { caption, video } = req.body;
+  const { caption } = req.body;
+  let video = req.body.video;
   let image = req.file;
+
   if (!image) {
     image = null;
   } else {
     image = image.path;
+  }
+  if (!video) {
+    video = null;
   }
   const user = req.user;
   try {
@@ -67,9 +72,9 @@ exports.create = async (req, res, next) => {
       date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
     // Nếu không phải là người dùng đăng nhập được trên trang này hay
     // không có tài khoản đăng nhập thì không cho tạo bài viết
-    if (!userId || (caption.length <= 0 && image === null)) {
+    if (!userId || (caption.length <= 0 && image === null && video === null)) {
       // return res.render('posts/post');
-      return res.json({
+      return res.status(500).json({
         ok: false,
         msg: 'Tạo bài viết thất bại',
       });
@@ -100,6 +105,7 @@ exports.create = async (req, res, next) => {
 // Cập nhật bài viết
 exports.update = async (req, res, next) => {
   const { caption } = req.body;
+  let video = req.body.video;
   let image = req.file;
 
   try {
@@ -128,10 +134,14 @@ exports.update = async (req, res, next) => {
     } else {
       image = image.path;
     }
+    if (!video) {
+      video = post.video;
+    }
     // res.render('posts/post');
     let newPost = {
       caption,
       image,
+      video,
       create_date,
       create_time,
       isUpdated: true,

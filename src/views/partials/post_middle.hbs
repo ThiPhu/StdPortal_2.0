@@ -1,4 +1,4 @@
-{{> create_post-modal}}
+{{> modals/create_post-modal}}
 
 {{!-- Hiển thị bài viết --}}
 
@@ -173,8 +173,6 @@
                                 {{#each user}}
                                     {{fullname}}
                                 {{/each}}
-                                <br>
-                                || ID để test: {{_id}}
                             </strong>
                         </div>
                         <div class="post_body-comments post_comments-lineclapm">
@@ -258,7 +256,7 @@
     </script>
 
 
-    {{> update_post_modal}}
+    {{> modals/update_post_modal}}
 </div>
 {{/each}}
 

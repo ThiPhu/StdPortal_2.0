@@ -640,7 +640,6 @@ body {
 
 /*======= End Main =======*/
 
-
 /* Avatar image */
 /* .img_holder{
   border-radius: 50%;
@@ -676,8 +675,726 @@ body {
 
 } */
 
-
-
 /* -----------------------------------End login--------------------------------------------------------- */
 
+/* ======================================= Post and Annoucement ======================================= */
 
+.post_id {
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+}
+
+.post_header-userInfo {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-size: 18px;
+}
+
+.post_header-userInfo:hover {
+  text-decoration: none;
+  color: var(--secondary-color-hover);
+}
+
+.post-comment_input {
+  resize: none;
+  border-radius: 12px;
+  height: 0;
+  width: 100%;
+}
+
+.post-comments_avatar {
+  border: 1px solid rgb(238, 238, 238);
+  border-radius: 50%;
+  height: min-content;
+}
+
+.post_comment {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.post_comment-container {
+  border: 1px solid #c7c7c7;
+  border-radius: 12px;
+  padding: 0.5rem;
+  background-color: #f9f9f9;
+}
+
+.post_body-comments {
+  font-size: 17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: initial;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.post_comments-lineclapm {
+  -webkit-line-clamp: 2;
+}
+
+.post-dropdown-action {
+  transition: ease-in-out 0.1s;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 36px !important;
+}
+
+.post-dropdown-action:hover {
+  transition: ease-in-out 0.1s;
+  border-radius: 50%;
+  color: white;
+  background-color: var(--secondary-color-hover);
+}
+
+.post_dropdown-menu {
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.post_dropdown-menu .dropdown-item:hover {
+  transition: 0.1s ease-in-out;
+  border-radius: 6px;
+  background-color: var(--secondary-color-hover) !important;
+}
+
+.avt_create_post {
+  border: 1px solid rgb(238, 238, 238);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.text_caption {
+  margin-left: 12px;
+  margin-right: 12px;
+  text-align: start;
+}
+.img_post {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.input_bar {
+  width: 100%;
+  margin-right: 12px;
+  margin-top: 8px;
+}
+
+.comments_expand {
+  color: gray;
+}
+
+.post_body-caption {
+  cursor: pointer;
+  font-size: 17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-line;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.post_caption-lineclamp {
+  -webkit-line-clamp: 2;
+}
+
+.create_post_body {
+  background: white;
+  border-radius: 18px;
+  margin-bottom: 10px;
+  margin-top: 3px;
+}
+.button_create_post {
+  margin-top: 0%;
+  background: dodgerblue;
+  color: black;
+  margin-bottom: 8px;
+  margin-left: 12px;
+  display: flex;
+}
+
+.modal-title {
+  width: 100%;
+  text-align: center;
+}
+
+.create_post-addImgBtn {
+  border: 2px solid var(--secondary-color);
+  border-radius: 16px;
+}
+
+.create_post-addImgBtn:hover {
+  border: 2px solid var(--secondary-color);
+  border-radius: 16px;
+  background-color: var(--secondary-color-hover);
+  cursor: pointer;
+  color: white;
+}
+
+.create_post-video-input {
+  border: none;
+}
+
+.create_post-video-input:focus {
+  outline: none !important;
+}
+
+.create_post-addVideoBtn {
+  border: 2px solid var(--secondary-color);
+  border-radius: 16px;
+}
+
+.create_post-addVideoBtn:hover {
+  border: 2px solid var(--secondary-color);
+  border-radius: 16px;
+  background-color: var(--secondary-color-hover);
+  cursor: pointer;
+  color: white;
+}
+
+.create_post-submitBtn {
+  width: 100%;
+  background: var(--secondary-color);
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+.create_post-submitBtn:hover {
+  background: var(--secondary-color-hover);
+}
+
+.create_post-updateBtn {
+  width: 100%;
+  background: var(--secondary-color);
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+.create_post-updateBtn:hover {
+  background: var(--secondary-color-hover);
+}
+
+.create_announce-title {
+  border: none;
+}
+
+.create_announce-submitBtn {
+  width: 100%;
+  background: var(--secondary-color);
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+.create_announce-submitBtn:hover {
+  background: var(--secondary-color-hover);
+}
+
+.announces_container {
+  background-color: #fff;
+  border-radius: 12px;
+}
+
+.announce_header-title {
+  cursor: pointer;
+  font-size: 17px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  color: var(--secondary-color);
+}
+
+.announce_header-title:hover {
+  color: var(--secondary-color-hover);
+}
+
+.announce_body-content {
+  cursor: pointer;
+  font-size: 17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: initial;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.announce_content-lineclamp {
+  -webkit-line-clamp: 2;
+}
+
+.update_announce-submitBtn {
+  width: 100%;
+  background: var(--secondary-color);
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+.update_announce-submitBtn:hover {
+  background: var(--secondary-color-hover);
+}
+
+.update_announce-title {
+  border: none;
+}
+
+.modal-style {
+  outline: none;
+  border: none;
+  padding: 0%;
+}
+
+.create_post-input {
+  border: none;
+}
+
+.create_post-input:focus {
+  outline: none !important;
+}
+
+.create_post-input-img {
+  border-radius: 18px;
+  margin-top: 5px;
+  border-top: 1px solid gray;
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
+  height: 300px;
+  display: flex;
+  border-end-end-radius: 0px;
+  border-end-start-radius: 0px;
+}
+
+.create_post-bodyImgContainer {
+  border-radius: 12px;
+  border-top: 1px solid gray;
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
+  border-end-end-radius: 0px;
+  border-end-start-radius: 0px;
+  height: 290px;
+  width: 100%;
+  background: #dadada;
+}
+
+.create_post-bodyImgContainer:hover {
+  background: #cecece;
+  cursor: pointer;
+}
+
+.post_img-viewImg {
+  cursor: pointer;
+}
+
+.add_img_btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #a1a1a1;
+  border: none;
+}
+
+.modal-style {
+  background: #303030;
+  color: white;
+  resize: none;
+  justify-content: center;
+  text-align: left;
+  margin-top: 8px;
+  height: 45px;
+}
+
+.text_area_border {
+  transition: 0.1s ease-in-out;
+  background: #f2f2f2;
+  color: black;
+  border-radius: 25px;
+  margin: 8px;
+  padding: 8px;
+  display: flex;
+}
+
+.text_area_border:hover {
+  transition: 0.1s ease-in-out;
+  background: #d4d4d4;
+}
+
+.text_area_border:focus {
+  transition: 0.1s ease-in-out;
+  background: #fff;
+}
+
+.create_post-imgReview {
+  margin-top: 3px;
+  height: auto;
+  display: none;
+}
+
+.btn_remove_img {
+  height: 30px;
+  width: 30px;
+  border-radius: 25px;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  margin: 5px;
+  padding: 3px;
+  position: absolute;
+  float: left;
+}
+.icon_remove {
+  color: gray;
+  width: 24px;
+  height: 24px;
+}
+.comment_box {
+  text-align: left;
+  resize: none;
+}
+
+.post_video-iframe {
+  width: 100%;
+  height: 38vh;
+}
+
+/* ======================================= End Post and Announcement ======================================= */
+
+/* ======================================= [404 error page] =======================================
+--------------------------*/
+.error-content {
+  padding: 0 0 70px;
+}
+.error-text {
+  text-align: center;
+}
+.error {
+  font-size: 180px;
+  font-weight: 100;
+}
+@keyframes bob {
+  0% {
+    top: 0;
+  }
+  50% {
+    top: 0.2em;
+  }
+}
+.im-sheep {
+  display: inline-block;
+  position: relative;
+  font-size: 1em;
+  margin-bottom: 70px;
+}
+.im-sheep * {
+  transition: transform 0.3s;
+}
+.im-sheep .top {
+  position: relative;
+  top: 0;
+  animation: bob 1s infinite;
+}
+.im-sheep:hover .head {
+  transform: rotate(0deg);
+}
+.im-sheep:hover .head .im-eye {
+  width: 1.25em;
+  height: 1.25em;
+}
+.im-sheep:hover .head .im-eye:before {
+  right: 30%;
+}
+.im-sheep:hover .top {
+  animation-play-state: paused;
+}
+.im-sheep .head {
+  display: inline-block;
+  width: 5em;
+  height: 5em;
+  border-radius: 100%;
+  background: #253858;
+  vertical-align: middle;
+  position: relative;
+  top: 1em;
+  transform: rotate(30deg);
+}
+.im-sheep .head:before {
+  content: '';
+  display: inline-block;
+  width: 80%;
+  height: 50%;
+  background: #253858;
+  position: absolute;
+  bottom: 0;
+  right: -10%;
+  border-radius: 50% 40%;
+}
+.im-sheep .head:hover .im-ear.one,
+.im-sheep .head:hover .im-ear.two {
+  transform: rotate(0deg);
+}
+.im-sheep .head .im-eye {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border-radius: 100%;
+  background: white;
+  position: absolute;
+  overflow: hidden;
+}
+.im-sheep .head .im-eye:before {
+  content: '';
+  display: inline-block;
+  background: black;
+  width: 50%;
+  height: 50%;
+  border-radius: 100%;
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+  transition: all 0.3s;
+}
+.im-sheep .head .im-eye.one {
+  right: -2%;
+  top: 1.7em;
+}
+.im-sheep .head .im-eye.two {
+  right: 2.5em;
+  top: 1.7em;
+}
+.im-sheep .head .im-ear {
+  background: #253858;
+  width: 50%;
+  height: 30%;
+  border-radius: 100%;
+  position: absolute;
+}
+.im-sheep .head .im-ear.one {
+  left: -10%;
+  top: 5%;
+  transform: rotate(-30deg);
+}
+.im-sheep .head .im-ear.two {
+  top: 2%;
+  right: -5%;
+  transform: rotate(20deg);
+}
+.im-sheep .body {
+  display: inline-block;
+  width: 7em;
+  height: 7em;
+  border-radius: 100%;
+  background: #0054d1;
+  position: relative;
+  vertical-align: middle;
+  margin-right: -3em;
+}
+.im-sheep .im-legs {
+  display: inline-block;
+  position: absolute;
+  top: 80%;
+  left: 10%;
+  z-index: -1;
+}
+.im-sheep .im-legs .im-leg {
+  display: inline-block;
+  background: #141214;
+  width: 0.5em;
+  height: 2.5em;
+  margin: 0.2em;
+}
+.im-sheep::before {
+  left: 0;
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 112%;
+  width: 100%;
+  height: 18%;
+  border-radius: 100%;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* ======================================= END [404 error page] =======================================
+--------------------------*/
+
+/* =================== =============== ADMIN - Management =========================== ===================*/
+
+/* =================== Common class */
+.btn--active {
+  background-color: #0e6286 !important;
+  color: #fff !important;
+}
+
+/* =================== Sidebar - Left */
+.admin_avatar_mgmt {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.admin_tr_mgmt {
+  font-size: clamp(14px, 1.5vw, 20px);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.admin_tr_mgmt td {
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+.admin_td_topic {
+  max-width: 200px;
+  min-width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-line-clamp: 1;
+  text-overflow: ellipsis !important;
+}
+
+.admin_td_topic {
+  max-width: 200px;
+  min-width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-line-clamp: 1;
+  text-overflow: ellipsis !important;
+}
+
+.mngt-btn-carousel {
+  margin: 0.2rem;
+  transition: 0.3s ease-in-out;
+  background-color: #fff;
+}
+
+.mngt-btn-carousel:hover,
+.mngt-btn-carousel button:hover {
+  transition: 0.3s ease-in-out;
+  background-color: var(--secondary-color-hover);
+  color: white;
+  border-radius: 6px;
+}
+
+.mngt-btn-carousel.active {
+  background-color: var(--secondary-color-hover);
+  border-radius: 6px;
+}
+
+.mngt-btn-carousel.active button {
+  color: white;
+}
+
+.mngt-btn-carousel button {
+  font-size: 20px !important;
+}
+
+.mngt-act-btn a {
+  text-decoration: none;
+}
+
+.mngt-act-btn:hover,
+.mngt-act-btn:hover a {
+  color: #fff !important;
+  background-color: var(--secondary-color-hover);
+  border-radius: 6px;
+}
+
+/* create faculty account modal */
+.topic-select {
+  position: relative;
+  padding: 16px 12px;
+  min-height: 50px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.topic-select > .topic-select__title {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  padding: 0 2px;
+  background-color: #fff;
+  transform: translateY(-60%);
+}
+
+/* =================== =============== END ADMIN - Management ======================= ===================*/
+/* =================== ============================================================== ===================*/
+
+/* =================== =============== Update Infomation User ======================= ===================*/
+
+.form-container {
+  margin: 0 auto;
+  padding: 2rem;
+  width: 100%;
+  max-width: 575px;
+  background-color: white;
+}
+
+.user-avatar {
+  position: relative;
+}
+
+.user-avatar > .img_holder {
+  border-radius: 50%;
+  padding-bottom: 100%;
+  min-width: 5rem;
+  overflow: hidden;
+  position: relative;
+  background: red;
+  height: 0;
+}
+
+.img_holder > img {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+.avatar-upload-button {
+  position: absolute;
+  right: -10px;
+  bottom: -5px;
+  padding: 5px;
+  font-size: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  cursor: pointer;
+}
+
+.avatar-upload-button:hover {
+  color: rgb(65, 82, 238);
+}
+
+.msg-display {
+  display: none;
+  margin: 0 0 1rem 0;
+  padding: 12px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.msg-display > li {
+  margin-left: 1rem;
+}
+
+.msg-display--error {
+  background-color: rgb(253, 75, 69);
+  color: #fff;
+}
+
+.msg-display--success {
+  background-color: rgb(45, 185, 80);
+  color: #fff;
+}
+
+/* =================== =============== END Update Infomation User ======================= ===================*/

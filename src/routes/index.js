@@ -55,22 +55,6 @@ const route = app => {
 
   app.use('/profile', profileRouter);
 
-  //  ADMIN
-  app.get('/management', async (req, res) => {
-    const studentRole = await User.find({ role: 'student' }).lean();
-    const facultyRole = await User.find({ role: 'faculty' }).lean();
-    if (req.user.role === 'admin') {
-      return res.render('admin/management', {
-        // Check for role
-        admin: req.user.role === 'admin' ? true : false,
-        currentProfile: req.user, // For showing who is logging in session
-        student: studentRole, // Show all of Student from database for admin to manage
-        faculty: facultyRole, // Show all of Faculty from database for admin to manage
-        exampleAvatar: '../../public/image/tdt.jpg',
-      });
-    }
-    return res.redirect('/home');
-  });
   app.get('/announcements', async (req, res) => {
     const posts = await Post.find().sort({ createdAt: -1 }).lean(); // Lấy hết tất cả các post
     const announcements = await Announcement.find()
@@ -104,6 +88,7 @@ const route = app => {
       if (req.user.role === 'admin') {
         return res.render('admin/management', {
           currentProfile: req.user, // For showing who is logging in session
+          user: req.user,
           student: studentRole, // Show all of Student from database for admin to manage
           faculty: facultyRole, // Show all of Faculty from database for admin to manage
           exampleAvatar: '../../public/image/tdt.jpg',
