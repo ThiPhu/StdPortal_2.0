@@ -679,6 +679,10 @@ body {
 
 /* ======================================= Post and Annoucement ======================================= */
 
+.post-container{
+  width: 100%;
+}
+
 .post_id {
   border-radius: 10px;
   background-color: rgb(255, 255, 255);
