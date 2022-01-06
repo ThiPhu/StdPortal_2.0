@@ -15,8 +15,9 @@ const PostSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    user: [Object],
-    comments: [Object],
+    // user: [Object],
+    user: {type:  Schema.Types.ObjectId, ref: 'Users'},
+    comments: [{type: Schema.Types.ObjectId, ref: 'Comments'}],
   },
   { timestamps: true }
 );

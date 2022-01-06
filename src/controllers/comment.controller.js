@@ -66,7 +66,7 @@ exports.create = async (req, res, next) => {
     });
 
     // Đẩy bình luận vào bài viết người dùng mới nhập vào
-    post.comments.push(newComment);
+    post.comments.push(newComment._id);
 
     // Lưu lại bài viết có bình luận đó
     await post.save();

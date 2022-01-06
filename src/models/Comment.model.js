@@ -9,8 +9,7 @@ const CommentSchema = new Schema(
     // reaction: String, Optional
     create_date: String,
     create_time: String,
-    user: [Object],
-    postId: [Object],
+    user: {type: Schema.Types.ObjectId, ref:"Users"},
   },
   { timestamps: true }
 );
