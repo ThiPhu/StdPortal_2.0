@@ -23,6 +23,7 @@ exports.getPosts = async (req, res, next) => {
                       .sort({createdAt: -1})
                       .populate('user','fullname avatar')
                       .populate('comments')
+                      .populate('comments.user')
                       .lean()
     // return res.render('posts/post', { post });
     res.json({
@@ -66,7 +67,7 @@ exports.create = async (req, res, next) => {
   if (!video) {
     video = null;
   }
-  const user = req.user;
+  const user = {_id:req.user._id, fullname: req.user.fullname, avatar: req.user.avatar, role: req.user.role};
   try {
     const userId = await User.findById(req.user.id);
     const date = new Date();
@@ -124,7 +125,7 @@ exports.update = async (req, res, next) => {
     if (
       !user ||
       !post ||
-      post.user[0]._id.toString() !== user._id.toString() ||
+      post.user.toString() !== user._id.toString() ||
       (caption.length <= 0 && image === null)
     ) {
       // return res.render('posts/post');
@@ -173,16 +174,16 @@ exports.delete = async (req, res, next) => {
         .status(500)
         .json({ ok: false, msg: 'Không tìm thấy bài viết' });
 
-    if (req.user.role === 'admin') {
-      // Xoá post và tất cả bình luận bên trong
-      await Post.findByIdAndDelete(postId);
-      await Comment.find({ postId }).deleteMany();
-      return res.json({
-        ok: true,
-        msg: `Đã xoá bài viết ${postId} thành công!`,
-        post: post,
-      });
-    }
+    // if (req.user.role === 'admin') {
+    //   // Xoá post và tất cả bình luận bên trong
+    //   await Post.findByIdAndDelete(postId);
+    //   await Comment.find({ postId }).deleteMany();
+    //   return res.json({
+    //     ok: true,
+    //     msg: `Đã xoá bài viết ${postId} thành công!`,
+    //     post: post,
+    //   });
+    // }
 
     if (!user || post.user[0]._id.toString() !== user._id.toString()) {
       return res.status(500).json({

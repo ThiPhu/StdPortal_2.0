@@ -16,20 +16,18 @@ const months = [
   'Dec',
 ];
 
-// Lấy bình luận qua ID ( Dành cho admin quản lý )
-exports.getCommentId = async (req, res, next) => {
-  const id = req.params.id;
-  if (req.user.role !== 'admin') {
-    return res.redirect('/');
-  }
+// Lấy bình luận theo post ID
+exports.get = async (req, res, next) => {
+  const commentId = req.params.id
+
   try {
-    const comment = await Comment.findById(id);
+    const comment = await Comment.findById(commentId);
     if (!comment) {
       return res.json({ ok: false, msg: 'Không tìm thấy bình luận' });
     }
     return res.json({
       ok: true,
-      msg: `Trả về comment ${id} thành công!`,
+      msg: `Trả về comment ${commentId} thành công!`,
       comment: comment,
     });
   } catch (err) {
@@ -42,7 +40,11 @@ exports.create = async (req, res, next) => {
   // Đầu vào là postId sẽ là ẩn, và nội dung bình luận
   const { content, postId } = req.body;
 
-  const user = req.user;
+
+  console.log("POSTID",postId)
+
+  const user = {_id: req.user._id, fullname: req.user.fullname, avatar: req.user.avatar};
+  console.log("User info", user)
   try {
     const post = await Post.findById(postId);
 
@@ -61,10 +63,10 @@ exports.create = async (req, res, next) => {
       create_date,
       create_time,
       postId,
-      user,
-      date,
+      user:user,
+      // date,
     });
-
+    console.log("post",post)
     // Đẩy bình luận vào bài viết người dùng mới nhập vào
     post.comments.push(newComment._id);
 
@@ -90,7 +92,7 @@ exports.update = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
 
-    const comment = await Comment.findById(req.params.id);
+    const comment = await Comment.findById(commentId);
     const post = await Post.findById(postId);
     const date = new Date();
     const create_date =
@@ -103,7 +105,7 @@ exports.update = async (req, res, next) => {
       !user ||
       content.length <= 0 ||
       !comment ||
-      !comment.user[0]._id.toString() === req.user.id
+      !comment.user._id.toString() === req.user.id
     ) {
       return res
         .status(500)
@@ -116,34 +118,42 @@ exports.update = async (req, res, next) => {
       create_time,
     };
 
-    // Tìm bình luận bên trong comments array của bài viết
-    newComment = await Comment.findByIdAndUpdate(comment, newComment, {
-      new: true,
-    });
+    // // Tìm bình luận bên trong comments array của bài viết
+    // newComment = await Comment.findByIdAndUpdate(comment, newComment, {
+    //   new: true,
+    // });
 
-    // Xoá đi bình luận cũ và tạo lại bình luận mới kèm theo boolean cho cập nhật
-    // Tìm bình luận bên trong comments array của bài viết
-    const removeIndex = post.comments.findIndex(
-      c => c._id.toString() === commentId
-    );
+    // // Xoá đi bình luận cũ và tạo lại bình luận mới kèm theo boolean cho cập nhật
+    // // Tìm bình luận bên trong comments array của bài viết
+    // const removeIndex = post.comments.findIndex(
+    //   c => c._id.toString() === commentId
+    // );
 
-    post.comments.splice(removeIndex, 1);
+    // post.comments.splice(removeIndex, 1);
 
-    post.comments.push(newComment);
+    // post.comments.push(newComment);
 
-    // Đẩy bình luận vào bài viết người dùng mới nhập vào
+    // // Đẩy bình luận vào bài viết người dùng mới nhập vào
 
-    // Lưu lại bài viết có bình luận đó
-    await post.save();
+    // // Lưu lại bài viết có bình luận đó
+    // await post.save();
 
+    const update = await Comment.findByIdAndUpdate(
+        {_id:commentId},
+        newComment
+      )
+      console.log("UPDATE",update)
+    if(update){
+      return res.json({
+        ok: true,
+        msg: 'Cập nhật bình luận thành công',
+        comment: newComment,
+      });
+    }
     console.log(
       'From comment.controller.js function update: Cập nhật bình luận thành công'
     );
-    return res.json({
-      ok: true,
-      msg: 'Cập nhật bình luận thành công',
-      comment: newComment,
-    });
+
   } catch (error) {}
 };
 
