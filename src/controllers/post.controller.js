@@ -20,11 +20,11 @@ const months = [
 exports.getPosts = async (req, res, next) => {
   try {
     const posts = await Post.find()
-                      .sort({createdAt: -1})
-                      .populate('user','fullname avatar')
-                      .populate('comments')
-                      .populate('comments.user')
-                      .lean()
+      .sort({ createdAt: -1 })
+      .populate('user', 'fullname avatar')
+      .populate('comments')
+      .populate('comments.user')
+      .lean();
     // return res.render('posts/post', { post });
     res.json({
       ok: true,
@@ -67,7 +67,12 @@ exports.create = async (req, res, next) => {
   if (!video) {
     video = null;
   }
-  const user = {_id:req.user._id, fullname: req.user.fullname, avatar: req.user.avatar, role: req.user.role};
+  const user = {
+    _id: req.user._id,
+    fullname: req.user.fullname,
+    avatar: req.user.avatar,
+    role: req.user.role,
+  };
   try {
     const userId = await User.findById(req.user.id);
     const date = new Date();
@@ -185,7 +190,7 @@ exports.delete = async (req, res, next) => {
     //   });
     // }
 
-    if (!user || post.user[0]._id.toString() !== user._id.toString()) {
+    if (!user || post.user.toString() !== user._id.toString()) {
       return res.status(500).json({
         ok: false,
         msg: 'Người dùng không hợp lệ hoặc người dùng không có quyền xoá bài viết này',

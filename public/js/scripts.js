@@ -563,7 +563,7 @@ $(document).ready(function () {
   });
 
   // Xoá bài viết
-  $('.post_delete_Btn').on('click', e => {
+  $(document).on('click', '.post_delete_Btn', async e => {
     e.preventDefault();
     let postId = $(e.target).closest('.post_id').data('postid');
     Swal.fire({
@@ -586,9 +586,7 @@ $(document).ready(function () {
               title: 'Xoá bài viết thành công',
               icon: 'success',
             });
-            return setTimeout(function () {
-              window.location.reload();
-            }, 800);
+            getPost();
           } else {
             Swal.fire({
               title: 'Bạn không có quyền xoá bài viết này',
