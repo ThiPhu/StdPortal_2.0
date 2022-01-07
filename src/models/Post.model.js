@@ -7,11 +7,17 @@ const PostSchema = new Schema(
   {
     caption: String, // caption (The content of the post)
     image: String,
+    video: String,
     // reaction: String, Optional
     create_date: String,
     create_time: String,
-    user: [Object],
-    comments: [Object],
+    isUpdated: {
+      type: Boolean,
+      default: false,
+    },
+    // user: [Object],
+    user: {type:  Schema.Types.ObjectId, ref: 'Users'},
+    comments: [{type: Schema.Types.ObjectId, ref: 'Comments'}]
   },
   { timestamps: true }
 );

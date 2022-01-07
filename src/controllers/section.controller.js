@@ -1,7 +1,7 @@
 const Section = require('../models/Section.model');
 
-// Get section
-exports.get = async (req,res,next) => { 
+// Read section
+exports.read = async (req,res,next) => { 
     const {unit} = req.query
     try{
         let sections = await Section.find({unit: unit}).lean()

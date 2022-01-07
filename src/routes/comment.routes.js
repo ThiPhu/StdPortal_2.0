@@ -1,11 +1,11 @@
 const Router = require('express').Router();
 const commentController = require('../controllers/comment.controller');
 
-Router.get('/:id', commentController.getCommentId);
+Router.get('/:id', commentController.get);
 
 Router.post('/', commentController.create);
 
-// Router.put('/:id', commentController.update);
+Router.put('/:id', commentController.update);
 
 Router.delete('/:id', commentController.delete);
 

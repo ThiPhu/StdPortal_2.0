@@ -2,9 +2,13 @@ const apiRouter = require('./api.routes');
 const { userAuth } = require('../middlewares/auth.middleware');
 const isAdmin = require('../validations/isAdmin.validation');
 const authRouter = require('./auth.routes');
+const profileRouter = require('./profile.routes');
 const User = require('../models/User.model');
 const Post = require('../models/Post.model');
 const Comment = require('../models/Comment.model');
+const { verifyToken } = require('../utils/jwt');
+const mongoose = require('mongoose');
+const Announcement = require('../models/Announcement.model');
 
 const route = app => {
   // Các route không yêu cầu phiên đăng nhập của user
@@ -24,7 +28,8 @@ const route = app => {
     if (req.cookies.access_token) {
       return res.redirect('/home');
     }
-    res.render('login');
+    console.log('error', req.session.error);
+    res.render('login', { msg: req.session.error });
   });
 
   // Kiểm tra token session
@@ -34,12 +39,45 @@ const route = app => {
 
   app.get('/home', async (req, res) => {
     const posts = await Post.find().sort({ createdAt: -1 }).lean(); // Lấy hết tất cả các post
+    const announcements = await Announcement.find()
+      .sort({ createdAt: -1 })
+      .lean();
     console.log('From index.routes: Role đang đăng nhập:', req.user.role);
     console.log('From index.routes: ID đang đăng nhập:', req.user.id);
     res.render('home', {
       user: req.user,
       post: posts,
       admin: req.user.role === 'admin' ? true : false,
+      currentProfile: req.user,
+      announcements: announcements,
+    });
+  });
+
+  app.use('/profile', profileRouter);
+
+  app.get('/announcements', async (req, res) => {
+    const posts = await Post.find().sort({ createdAt: -1 }).lean(); // Lấy hết tất cả các post
+    const announcements = await Announcement.find()
+      .sort({ createdAt: -1 })
+      .lean();
+    res.render('home', {
+      currentProfile: req.user,
+      user: req.user,
+      post: posts,
+      isAnnoucePages: true,
+      faculty: req.user.role === 'faculty' ? true : false,
+      admin: req.user.role === 'admin' ? true : false,
+      announcements: announcements,
+    });
+  });
+
+  app.get('/announcement/:announceId', async (req, res) => {
+    const announce = await Announcement.findById(req.params.announceId);
+    res.render('announces/announcements', {
+      user: req.user,
+      faculty: req.user.role === 'faculty' ? true : false,
+      admin: req.user.role === 'admin' ? true : false,
+      announce: announce,
     });
   });
 
@@ -49,7 +87,8 @@ const route = app => {
       const facultyRole = await User.find({ role: 'faculty' }).lean();
       if (req.user.role === 'admin') {
         return res.render('admin/management', {
-          user: req.user, // For showing who is logging in session
+          currentProfile: req.user, // For showing who is logging in session
+          user: req.user,
           student: studentRole, // Show all of Student from database for admin to manage
           faculty: facultyRole, // Show all of Faculty from database for admin to manage
           exampleAvatar: '../../public/image/tdt.jpg',

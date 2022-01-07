@@ -1,0 +1,103 @@
+<div class="modal fade updatePostModal" id="updatePostModal_{{_id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title modal_text" id="exampleModalLabel">Cập nhật bài viết</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="post_header">
+                    <div class="d-flex bd-highlight mb-2 ">
+                        <img class="post-comments_avatar mt-2 bd-highlight" width="50" height="50" alt="avatar"
+                            src="{{#each user}}{{avatar}}{{/each}}">
+                        <div class="bd-highlight d-flex justify-content-center align-items-center">
+                            <div class="modal_text ms-3">
+                                <strong>
+                                    {{#each user}}{{fullname}}{{/each}}
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center col-12">
+                    <textarea id="update_post-input_{{_id}}" type="text" rows="1"
+                        class="form-control shadow-none comment_box create_post-input"
+                        oninput="onChangeTextArea()">{{caption}}</textarea>
+                </div>
+                {{!-- Nút để mở rộng phần add ảnh --}}
+                <div class="d-flex justify-content-center col-12 p-1">
+                    <button type="button" class="btn d-flex justify-content-end create_post-addImgBtn col-12">
+                        {{#if image}} Thay đổi ảnh {{else}} Thêm ảnh {{/if}}
+                        <span class="material-icons-outlined ms-3">
+                            image
+                        </span>
+                    </button>
+                </div>
+                <div class="create_post-input-img p-1 d-none">
+                    <div
+                        class="create_post-bodyImgContainer d-flex flex-column align-items-center justify-content-center">
+                        <div class="d-flex flex-column align-items-center ">
+                            <input type="file" id="file" name="image" class="create_post-image d-none"
+                                accept="image/*,video/*" />
+                            <button class="add_img_btn">
+                                <span class="material-icons-outlined">
+                                    add_photo_alternate
+                                </span>
+                            </button>
+                            <div>Thêm ảnh</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post_image-Container d-none" id="review">
+                    <button type="button" class=" btn_remove_img modal_text">
+                        <span class="material-icons-outlined icon_remove">
+                            clear
+                        </span>
+                    </button>
+                    <img class="img_post post_image-Review">
+                </div>
+
+                {{!-- Nút để mở rộng phần thêm video --}}
+                <div class="d-flex justify-content-center col-12 p-1">
+                    <button type="button" class="btn d-flex justify-content-end create_post-addVideoBtn col-12">
+                        {{#if video}} Thay đổi video {{else}} Thêm video {{/if}}
+                        <span class="material-icons-outlined ms-3">
+                            smart_display
+                        </span>
+                    </button>
+                </div>
+                <div class="create_post-input-video p-1 d-none">
+                    <div class="d-flex justify-content-center col-12">
+                        <textarea id="update_post-video-input_{{_id}}" type="text" rows="1"
+                            placeholder="Copy url youtube vào đây..."
+                            class="form-control shadow-none comment_box create_post-video-input"
+                            oninput="onChangeTextArea()"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary create_post-updateBtn modal_text">Đăng bài viết</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function onChangeTextArea() {
+        //auto resize text area
+        alert("D")
+        const tx = $('.comment_box');
+        for (let i = 0; i < tx.length; i++) {
+            tx[i].setAttribute(
+                'style',
+                'height:' + tx[i].scrollHeight + 'px;overflow-y:hidden;'
+            );
+            tx[i].addEventListener('input', OnInput, false);
+        }
+        function OnInput() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        }
+    }
+</script>

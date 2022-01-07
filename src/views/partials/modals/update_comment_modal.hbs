@@ -1,0 +1,53 @@
+<div class="modal fade updateCommentModal" id="updateCommentModal_{{_id}}" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title modal_text" id="exampleModalLabel">Cập nhật bình luận</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="post_header">
+                    <div class="d-flex bd-highlight mb-2 ">
+                        <img class="post-comments_avatar mt-2 p-2 bd-highlight" width="50" height="50" alt="avatar"
+                            src="{{#each user}}{{#if username}}../../../{{avatar}}{{else}}{{avatar}}{{/if}}{{/each}}">
+                        <div class="bd-highlight d-flex justify-content-center align-items-center">
+                            <div class="modal_text ms-3">
+                                <strong>
+                                    {{#each user}}{{fullname}}{{/each}}
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center col-12">
+                    <textarea id="update_comment-input_{{_id}}" type="text" rows="1"
+                        class="form-control shadow-none comment_box create_post-input"
+                        oninput="onChangeTextArea()">{{content}}</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary update_comment-Btn modal_text">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function onChangeTextArea() {
+        //auto resize text area
+        alert("D")
+        const tx = $('.comment_box');
+        for (let i = 0; i < tx.length; i++) {
+            tx[i].setAttribute(
+                'style',
+                'height:' + tx[i].scrollHeight + 'px;overflow-y:hidden;'
+            );
+            tx[i].addEventListener('input', OnInput, false);
+        }
+        function OnInput() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        }
+    }
+</script>
