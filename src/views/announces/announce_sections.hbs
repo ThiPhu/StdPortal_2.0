@@ -1,0 +1,33 @@
+{{> header}}
+
+<div class="container">
+    <div class="d-flex row flex-row">
+        {{!-- Side bar left --}}
+        <div class="col-lg-3 col-3">
+            {{> sidebar_left}}
+        </div>
+        {{!-- Chứa tất cả các post --}}
+        {{!-- Phần đơn vị thông báo --}}
+        <div class="col-lg-9">
+            <div class="row">
+                {{#each sections}}
+                <a href="#" class="d-flex justify-content-center col-lg-4 col-12 mb-3 as-card-container">
+                    <div class="card">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            99+
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                        <div class="as-card-img" data-content="{{{name}}}">
+                            <img src="../../../image/tdt.jpg" class="card-img-top" alt="...">
+                        </div>
+                        <div class="card-body as-card-body">
+                            <h5 class="card-title">{{{name}}}</h5>
+                        </div>
+                    </div>
+                </a>
+                {{/each}}
+            </div>
+
+        </div>
+    </div>
+</div>

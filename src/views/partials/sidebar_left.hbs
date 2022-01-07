@@ -8,13 +8,13 @@
         {{/each}}
         <p class="text-white">
             <strong>
-            {{#each currentProfile}}
+                {{#each currentProfile}}
                 {{#if fullname}}
-                    {{fullname}}
+                {{fullname}}
                 {{else}}
-                    {{username}}
+                {{username}}
                 {{/if}}
-            {{/each}}
+                {{/each}}
             </strong>
         </p>
     </div>
@@ -22,7 +22,8 @@
     {{#unless admin}}
     {{#if isOwner}}
     <div class="my-3 w-100">
-        <a href="{{#each currentProfile}}{{_id}}{{/each}}/update-info" class="btn btn-primary w-100 p-3" style="font-size: 18px">Thay đổi thông tin</a>
+        <a href="{{#each currentProfile}}{{_id}}{{/each}}/update-info" class="btn btn-primary w-100 p-3"
+            style="font-size: 18px">Thay đổi thông tin</a>
     </div>
     {{/if}}
     {{/unless}}
@@ -73,14 +74,14 @@
             </li>
             {{/unless}}
         </ul>
-    {{/if}}
+        {{/if}}
     </div>
 </div>
 {{else}}
 <div class="d-lg-flex sb-left d-xm-none d-none flex-column p-2">
     <div class="d-flex flex-column align-items-center sb-left-header">
-        <img src='{{#each currentProfile}}{{avatar}}{{/each}}' alt="avatar"
-            width="100" height="100" class="rounded-circle m-3">
+        <img src='{{#each currentProfile}}{{avatar}}{{/each}}' alt="avatar" width="100" height="100"
+            class="rounded-circle m-3">
         <p class="text-white">
             <strong>
                 {{#each currentProfile}}
@@ -99,6 +100,11 @@
         <li class="nav-item sb-left-link">
             <a href="/" class="nav-link d-flex justify-content-start" aria-current="page">
                 Trang chủ
+            </a>
+        </li>
+        <li class="nav-item sb-left-link">
+            <a href="/announcements/sections" class="nav-link d-flex justify-content-start" aria-current="page">
+                Thông báo đơn vị/phòng ban
             </a>
         </li>
         {{!-- Nếu là admin sẽ hiện trang quản lý --}}

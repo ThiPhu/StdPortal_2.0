@@ -10,6 +10,9 @@ const AnnouncementSchema = new Schema(
     create_date: String,
     create_time: String,
     user: [Object],
+    sections: {
+      type: [{ type: Schema.Types.ObjectId, ref: 'Sections' }],
+    },
     isUpdated: {
       type: Boolean,
       default: false,

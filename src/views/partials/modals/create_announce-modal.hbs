@@ -1,7 +1,7 @@
 <div class="create_post_body">
     <div class="head_comment">
         <div class="d-flex justify-content-center align-items-center p-2">
-            <img class="avt_create_post bd-highlight mt-1" src="{{#each user}}{{avatar}}{{/each}}">
+            <img class="avt_create_post bd-highlight mt-1" src="{{{user.avatar}}}">
             <div class="input_bar">
                 <div type="text" class="form-control text_area_border" data-bs-toggle="modal"
                     data-bs-target="#createAnnounceModal">
@@ -14,7 +14,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="createAnnounceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title modal_text" id="exampleModalLabel">Tạo thông báo</h3>
@@ -24,18 +24,18 @@
                 <div class="post_header">
                     <div class="d-flex bd-highlight mb-2 ">
                         <img class="post-comments_avatar mt-2 p-2 bd-highlight" width="50" height="50" alt="avatar"
-                            src="{{#each user}}{{avatar}}{{/each}}">
+                            src="{{{user.avatar}}}">
                         <div class="bd-highlight d-flex justify-content-center align-items-center">
                             <div class="modal_text ms-3">
                                 <strong>
-                                    {{#each user}}{{fullname}}{{/each}}
+                                    {{{user.fullname}}}
                                 </strong>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center col-12">
-                    <textarea type="text" rows="1" placeholder="Bạn muốn viết gì...?"
+                <div class=" d-flex justify-content-center col-12">
+                    <textarea type="text" rows="1" placeholder="Viết thông báo ..."
                         class="form-control shadow-none comment_box create_announce-title"
                         oninput="onChangeTextArea()"></textarea>
                 </div>
@@ -47,6 +47,16 @@
                             allowedContent: true
                         });
                     </script>
+                </div>
+                <div class="d-flex flex-column justify-content-center col-12">
+                    {{#each sections}}
+                    <div class="form-check">
+                        <input class="form-check-input create_announce-section" type="checkbox" value="{{{_id}}}">
+                        <label class="form-check-label" for="cb${index}">
+                            {{{name}}}
+                        </label>
+                    </div>
+                    {{/each}}
                 </div>
             </div>
             <div class="modal-footer">

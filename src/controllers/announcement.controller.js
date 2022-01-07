@@ -45,6 +45,8 @@ exports.create = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
     const { title, content } = req.body;
+    let sectionsId = req.body.sectionsId;
+    sectionsId = sectionsId ? sectionsId.split(',') : null;
     const date = new Date();
     const create_date =
       date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
@@ -65,6 +67,7 @@ exports.create = async (req, res, next) => {
       content,
       create_date,
       create_time,
+      sections: sectionsId,
       user,
     });
 
@@ -75,7 +78,7 @@ exports.create = async (req, res, next) => {
     return res.json({
       ok: true,
       msg: 'Tạo thông báo thành công!',
-      data: newAnnounce,
+      //data: newAnnounce,
     });
   } catch (error) {
     next(error);

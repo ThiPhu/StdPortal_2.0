@@ -95,18 +95,10 @@
                 <div class="d-lg-flex d-none col-4 d-flex flex-row justify-content-center align-items-center">
                     <div class="d-flex align-items-center navbar-custom-item">
                         <a class="d-flex align-items-center justify-content-center" href="/profile/{{user._id}}">
-                            <img src='{{#each user}}{{avatar}}{{/each}}' alt="avatar" width="32" height="32"
+                            <img src='{{{user.avatar}}}' alt="avatar" width="32" height="32"
                                 class="rounded-circle me-2">
                             <span style="font-size: 14px">
-                                {{#each user}}
-                                {{!-- Student --}}
-                                {{#if fullname}}
-                                {{fullname}}
-                                {{else}}
-                                {{!-- Faculty --}}
-                                {{username}}
-                                {{/if}}
-                                {{/each}}
+                                {{{user.fullname}}}
                             </span>
                         </a>
                     </div>

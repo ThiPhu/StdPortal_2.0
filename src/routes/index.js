@@ -6,6 +6,7 @@ const profileRouter = require('./profile.routes');
 const User = require('../models/User.model');
 const Post = require('../models/Post.model');
 const Comment = require('../models/Comment.model');
+const Section = require('../models/Section.model');
 const { verifyToken } = require('../utils/jwt');
 const mongoose = require('mongoose');
 const Announcement = require('../models/Announcement.model');
@@ -57,13 +58,35 @@ const route = app => {
 
   app.get('/announcements', async (req, res) => {
     const posts = await Post.find().sort({ createdAt: -1 }).lean(); // Lấy hết tất cả các post
+    const sections = await Section.find().sort({ createdAt: -1 }).lean();
+    const user = await User.findById(req.user.id).populate('unit').lean();
     const announcements = await Announcement.find()
       .sort({ createdAt: -1 })
+      .populate('sections')
       .lean();
     res.render('home', {
       currentProfile: req.user,
-      user: req.user,
+      sections: sections,
+      user: user,
       post: posts,
+      isAnnoucePages: true,
+      faculty: req.user.role === 'faculty' ? true : false,
+      admin: req.user.role === 'admin' ? true : false,
+      announcements: announcements,
+    });
+  });
+
+  app.get('/announcements/sections', async (req, res) => {
+    const sections = await Section.find().sort({ createdAt: -1 }).lean();
+    const user = await User.findById(req.user.id).populate('unit').lean();
+    const announcements = await Announcement.find()
+      .sort({ createdAt: -1 })
+      .populate('sections')
+      .lean();
+    res.render('announces/announce_sections', {
+      currentProfile: req.user,
+      sections: sections,
+      user: user,
       isAnnoucePages: true,
       faculty: req.user.role === 'faculty' ? true : false,
       admin: req.user.role === 'admin' ? true : false,
