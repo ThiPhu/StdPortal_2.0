@@ -140,7 +140,7 @@ exports.update = async (req, res, next) => {
       });
     }
     if (!image) {
-      image = post.image;
+      image = null;
     } else {
       image = image.path;
     }
@@ -159,8 +159,8 @@ exports.update = async (req, res, next) => {
     newPost = await Post.findByIdAndUpdate(post, newPost, { new: true });
     return res.json({
       ok: true,
-      msg: 'Cập nhật bài viết thành công!',
-      post: newPost,
+      msg: `Cập nhật bài viết ${req.params.id} thành công!`,
+      post: post,
     });
   } catch (err) {
     console.log(err);
@@ -179,16 +179,16 @@ exports.delete = async (req, res, next) => {
         .status(500)
         .json({ ok: false, msg: 'Không tìm thấy bài viết' });
 
-    // if (req.user.role === 'admin') {
-    //   // Xoá post và tất cả bình luận bên trong
-    //   await Post.findByIdAndDelete(postId);
-    //   await Comment.find({ postId }).deleteMany();
-    //   return res.json({
-    //     ok: true,
-    //     msg: `Đã xoá bài viết ${postId} thành công!`,
-    //     post: post,
-    //   });
-    // }
+    if (req.user.role === 'admin') {
+      // Xoá post và tất cả bình luận bên trong
+      await Post.findByIdAndDelete(postId);
+      await Comment.find({ postId }).deleteMany();
+      return res.json({
+        ok: true,
+        msg: `Xoá bài viết ${postId} thành công!`,
+        post: post,
+      });
+    }
 
     if (!user || post.user.toString() !== user._id.toString()) {
       return res.status(500).json({
@@ -203,7 +203,7 @@ exports.delete = async (req, res, next) => {
 
     return res.json({
       ok: true,
-      msg: `Đã xoá bài viết ${postId} thành công!`,
+      msg: `Xoá bài viết ${postId} thành công!`,
       post: post,
     });
   } catch (err) {

@@ -1,5 +1,4 @@
-<div class="modal fade updatePostModal" id="updatePostModal_{{_id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="updatePostModal" tabindex="-1" aria-labelledby="updatePostModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,20 +9,19 @@
                 <div class="post_header">
                     <div class="d-flex bd-highlight mb-2 ">
                         <img class="post-comments_avatar mt-2 bd-highlight" width="50" height="50" alt="avatar"
-                            src="{{#each user}}{{avatar}}{{/each}}">
+                            src="{{user.avatar}}">
                         <div class="bd-highlight d-flex justify-content-center align-items-center">
                             <div class="modal_text ms-3">
                                 <strong>
-                                    {{#each user}}{{fullname}}{{/each}}
+                                    {{user.fullname}}
                                 </strong>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center col-12">
-                    <textarea id="update_post-input_{{_id}}" type="text" rows="1"
-                        class="form-control shadow-none comment_box create_post-input"
-                        oninput="onChangeTextArea()">{{caption}}</textarea>
+                    <textarea type="text" rows="1" class="form-control shadow-none comment_box create_post-input"
+                        oninput="onChangeTextArea()"></textarea>
                 </div>
                 {{!-- Nút để mở rộng phần add ảnh --}}
                 <div class="d-flex justify-content-center col-12 p-1">
@@ -59,9 +57,18 @@
                 </div>
 
                 {{!-- Nút để mở rộng phần thêm video --}}
+                {{#if post.video}}
+                <div class="create_post-input-video p-1">
+                    <div class="d-flex justify-content-center col-12">
+                        <textarea type="text" rows="1" placeholder="Copy url youtube vào đây..."
+                            class="form-control shadow-none comment_box create_post-video-input"
+                            oninput="onChangeTextArea()"></textarea>
+                    </div>
+                </div>
+                {{else}}
                 <div class="d-flex justify-content-center col-12 p-1">
                     <button type="button" class="btn d-flex justify-content-end create_post-addVideoBtn col-12">
-                        {{#if video}} Thay đổi video {{else}} Thêm video {{/if}}
+                        Thêm video
                         <span class="material-icons-outlined ms-3">
                             smart_display
                         </span>
@@ -69,12 +76,12 @@
                 </div>
                 <div class="create_post-input-video p-1 d-none">
                     <div class="d-flex justify-content-center col-12">
-                        <textarea id="update_post-video-input_{{_id}}" type="text" rows="1"
-                            placeholder="Copy url youtube vào đây..."
+                        <textarea type="text" rows="1" placeholder="Copy url youtube vào đây..."
                             class="form-control shadow-none comment_box create_post-video-input"
                             oninput="onChangeTextArea()"></textarea>
                     </div>
                 </div>
+                {{/if}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary create_post-updateBtn modal_text">Đăng bài viết</button>
@@ -82,22 +89,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    function onChangeTextArea() {
-        //auto resize text area
-        alert("D")
-        const tx = $('.comment_box');
-        for (let i = 0; i < tx.length; i++) {
-            tx[i].setAttribute(
-                'style',
-                'height:' + tx[i].scrollHeight + 'px;overflow-y:hidden;'
-            );
-            tx[i].addEventListener('input', OnInput, false);
-        }
-        function OnInput() {
-            this.style.height = 'auto';
-            this.style.height = this.scrollHeight + 'px';
-        }
-    }
-</script>
