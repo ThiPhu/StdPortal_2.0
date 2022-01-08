@@ -2,9 +2,10 @@ const Section = require('../models/Section.model');
 
 // Read section
 exports.read = async (req,res,next) => { 
-    const {unit} = req.query
+    const unit = req.query ? req.query : {}
+    console.log(unit)
     try{
-        let sections = await Section.find({unit: unit}).lean()
+        let sections = await Section.find(unit).lean()
         return (sections.length > 0) ?
             res.json({
                 ok: true,
