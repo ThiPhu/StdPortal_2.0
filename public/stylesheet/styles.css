@@ -11,6 +11,15 @@ body {
 }
 
 /* Styling phần Header - Navbar - Sidebar - Footer*/
+/* ===================================== Navbar Header ===================================== */
+/*  Tạo class kiểu vậy: .navbar_head-abcxyz*/
+.navbar_head-items {
+  color: white;
+  margin-left: 20px;
+}
+.navbar_head-hover:hover {
+  background-color: var(--secondary-color-hover);
+}
 
 .navbar-header {
   background-color: var(--secondary-color);
@@ -679,7 +688,7 @@ body {
 
 /* ======================================= Post and Annoucement ======================================= */
 
-.post-container{
+.post-container {
   width: 100%;
 }
 

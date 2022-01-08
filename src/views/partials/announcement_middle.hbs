@@ -2,90 +2,11 @@
 {{#if admin}}{{> modals/create_announce-modal}}{{/if}}
 
 {{!-- Hiển thị thông báo --}}
-{{#each announcements}}
-<div class="announce_id announces_container container d-lg-flex flex-column col-12 p-0 mb-4" data-announceid="{{_id}}">
-    {{!-- Annoucement header - Hiển thị tên chủ bài viết và ngày đăng --}}
-    <div class="post_header col-12 mt-3">
-        <div class="d-flex row bd-highlight">
-            <a class="col-lg-1 col-2 d-flex align-items-center justify-content-end"
-                href="/profile/{{#each user}}{{_id}}{{/each}}">
-                <img src='{{#each user}}{{avatar}}{{/each}}' alt="avatar" width="50" height="50"
-                    class="img-fluid post-comments_avatar">
-            </a>
-            <a class="row post_header-userInfo col-9 col-lg-10 d-flex align-items-center justify-content-center p-0"
-                href="/profile/{{#each user}}{{_id}}{{/each}}">
-                <div class="p-2 bd-highlight">
-                    <div>
-                        <strong>
-                            {{#each user}}
-                            {{fullname}}
-                            {{/each}}
-                        </strong>
-                        {{#if isUpdated}}<span class="small">(Thông báo đã cập nhật)</span>{{/if}}
-                    </div>
-                    <div class="small">
-                        {{create_date}} at {{create_time}}
-                    </div>
-                </div>
-            </a>
-            {{!-- Annoucements action --}}
-            <div class="col-lg-1 col-1 d-flex align-items-center justify-content-end">
-                <div class="dropdown">
-                    <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        more_horiz
-                    </span>
-                    <ul class="dropdown-menu dropdown-menu-lg-end post_dropdown-menu"
-                        aria-labelledby="dropdownMenuButton1">
-                        <li class="me-1 ms-1">
-                            <a class="dropdown-item d-flex justify-content-start align-items-center" href="#"
-                                data-bs-toggle="modal" data-bs-target="#updateAnnounceModal_{{_id}}">
-                                <span class="material-icons-outlined me-2">
-                                    settings
-                                </span>
-                                <span>Chỉnh sửa</span>
-                            </a>
-                        </li>
-                        <li class="me-1 ms-1">
-                            <a class="dropdown-item d-flex justify-content-start align-items-center announce_delete_Btn"
-                                href="#">
-                                <span class="material-icons-outlined me-2">
-                                    delete
-                                </span>
-                                <span>Xoá</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{!-- Phần hiển thị nội dung thông báo --}}
-    <div class="post_body col-12 mb-3">
-        {{!-- Announce Head --}}
-        <div class="d-flex flex-column col-12 mt-3">
-            <div class="d-flex col-12 justify-content-start align-items-center announce_header-title">
-                <h3>{{{title}}}</h3>
-            </div>
-        </div>
-        {{!-- Announce body --}}
-        <div class="d-flex flex-column col-12 mt-3">
-            <div id="announce_content_{{_id}}" class="col-12 announce_body-content announce_content-lineclamp">
-                {{{content}}}
-                <strong>Phòng ban:</strong>
-                <ul>
-                    {{#each sections}}
-                    <li>{{name}}</li>
-                    {{/each}}
-                </ul>
-            </div>
-        </div>
-    </div>
+{{!-- Modal cập nhật thông báo --}}
+{{> modals/update_announce-modal}}
+<div class="announce_middle-container">
 
-    {{> modals/update_announce-modal}}
 </div>
-{{/each}}
-
 
 <script type="text/javascript">
     function onChangeTextArea() {
