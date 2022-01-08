@@ -5,7 +5,7 @@ const announcementController = require('../controllers/announcement.controller')
 Router.get('/', announcementController.get);
 
 // Lấy thông báo qua id
-Router.get('/announceId', announcementController.getId);
+Router.get('/:announceId', announcementController.getId);
 
 // Tạo thông báo
 Router.post('/', announcementController.create);

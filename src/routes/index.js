@@ -39,8 +39,12 @@ const route = app => {
   // Các route yêu cầu phiên đăng nhập của user
 
   app.get('/home', async (req, res) => {
-    const posts = await Post.find().sort({ createdAt: -1 }).lean(); // Lấy hết tất cả các post
+    const posts = await Post.find()
+      .sort({ createdAt: -1 })
+      .populate('user', 'fullname')
+      .lean(); // Lấy hết tất cả các post
     const announcements = await Announcement.find()
+      .populate('user', 'fullname')
       .sort({ createdAt: -1 })
       .lean();
     console.log('From index.routes: Role đang đăng nhập:', req.user.role);
@@ -57,22 +61,25 @@ const route = app => {
   app.use('/profile', profileRouter);
 
   app.get('/announcements', async (req, res) => {
+    const userTopics = await User.findById(req.user.id)
+      .populate('topics')
+      .lean();
     const posts = await Post.find().sort({ createdAt: -1 }).lean(); // Lấy hết tất cả các post
-    const sections = await Section.find().sort({ createdAt: -1 }).lean();
-    const user = await User.findById(req.user.id).populate('unit').lean();
     const announcements = await Announcement.find()
       .sort({ createdAt: -1 })
-      .populate('sections')
+      .populate('sections', 'name')
+      .populate('user', 'fullname avatar topics')
       .lean();
     res.render('home', {
       currentProfile: req.user,
-      sections: sections,
-      user: user,
+      sections: announcements.sections,
+      user: req.user,
       post: posts,
       isAnnoucePages: true,
       faculty: req.user.role === 'faculty' ? true : false,
       admin: req.user.role === 'admin' ? true : false,
       announcements: announcements,
+      topics: userTopics.topics,
     });
   });
 
@@ -95,7 +102,10 @@ const route = app => {
   });
 
   app.get('/announcement/:announceId', async (req, res) => {
-    const announce = await Announcement.findById(req.params.announceId);
+    const announce = await Announcement.findById(req.params.announceId)
+      .populate('user', 'fullname avatar')
+      .populate('sections', 'name')
+      .lean();
     res.render('announces/announcements', {
       user: req.user,
       faculty: req.user.role === 'faculty' ? true : false,

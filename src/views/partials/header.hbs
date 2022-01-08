@@ -168,7 +168,7 @@
                                             <span class="me-2 material-icons-outlined">
                                                 cast_for_education
                                             </span>
-                                            <span>{{#each user}}{{fullname}}{{/each}}</span>
+                                            <span>{{user.fullname}}</span>
                                             <span class="ms-1 small alert-danger">{{#if isUpdated}}Cập
                                                 nhật{{/if}}</span>
                                         </strong>
@@ -197,7 +197,7 @@
                                             <span class="me-2 material-icons-outlined">
                                                 people
                                             </span>
-                                            <span>{{#each user}}{{fullname}}{{/each}}</span>
+                                            <span>{{user.fullname}}</span>
                                         </strong>
                                     </div>
                                     <div class="col-12 mb-1 dropdown-alert-content">
@@ -205,6 +205,9 @@
                                     </div>
                                     <div class="col-12 mb-1 dropdown-alert-content">
                                         <strong>{{#if image}}Bài viết có ảnh.{{/if}}</strong>
+                                    </div>
+                                    <div class="col-12 mb-1 dropdown-alert-content">
+                                        <strong>{{#if video}}Bài viết có video.{{/if}}</strong>
                                     </div>
                                     <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
                                         <span class="material-icons-outlined m-1">

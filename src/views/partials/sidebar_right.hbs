@@ -8,7 +8,7 @@
         <a href="/announcement/{{_id}}" class="list-group-item list-group-item-action p-3 mt-1 sb-right-list-item"
             aria-current="true">
             <div class="d-flex w-100 align-items-center justify-content-between">
-                <strong class="mb-1">{{#each user}}{{fullname}}{{/each}}</strong>
+                <strong class="mb-1">{{user.fullname}}</strong>
                 <span class="ms-1 small alert-danger">{{#if isUpdated}}Cập
                     nhật{{/if}}</span>
             </div>

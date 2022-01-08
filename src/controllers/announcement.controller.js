@@ -16,7 +16,11 @@ const months = [
 ];
 // Lấy toàn bộ thông báo
 exports.get = async (req, res, next) => {
-  const announces = await Announcement.find({});
+  const announces = await Announcement.find({})
+    .sort({ createdAt: -1 })
+    .populate('user', 'fullname avatar')
+    .populate('sections', 'name')
+    .lean();
   if (!announces) {
     return res.status(500).json({ ok: false, msg: 'Không tồn tại thông báo' });
   }
@@ -44,9 +48,8 @@ exports.getId = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
-    const { title, content } = req.body;
-    let sectionsId = req.body.sectionsId;
-    sectionsId = sectionsId ? sectionsId.split(',') : null;
+    const { title, content, sectionsId } = req.body;
+
     const date = new Date();
     const create_date =
       date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
@@ -87,7 +90,7 @@ exports.create = async (req, res, next) => {
 
 // Cập nhật thông báo
 exports.update = async (req, res, next) => {
-  const { title, content } = req.body;
+  const { title, content, sectionsId } = req.body;
 
   try {
     const user = await User.findById(req.user.id);
@@ -101,7 +104,7 @@ exports.update = async (req, res, next) => {
     if (
       !user ||
       !announces ||
-      announces.user[0]._id.toString() !== user._id.toString() ||
+      announces.user._id.toString() !== req.user.id ||
       content.length <= 0
     ) {
       // return res.render('posts/post');
@@ -116,6 +119,7 @@ exports.update = async (req, res, next) => {
       content,
       create_date,
       create_time,
+      sections: sectionsId,
       isUpdated: true,
     };
     newAnnounce = await Announcement.findByIdAndUpdate(announces, newAnnounce, {
@@ -123,7 +127,7 @@ exports.update = async (req, res, next) => {
     });
     return res.json({
       ok: true,
-      msg: 'Cập nhật bài viết thông báo!',
+      msg: 'Cập nhật thông báo thành công !',
       announce: newAnnounce,
     });
   } catch (err) {
@@ -159,12 +163,12 @@ exports.delete = async (req, res, next) => {
     if (
       !user ||
       user.role !== 'faculty' ||
-      announce.user[0]._id.toString() !== req.user.id
+      announce.user._id.toString() !== req.user.id
     ) {
       // return res.render('posts/post');
       return res.status(500).json({
         ok: false,
-        msg: 'Xoá thông báo thất bại',
+        msg: 'Người dùng không có quyền xoá thông báo này',
       });
     }
     await Announcement.findByIdAndDelete(id);
