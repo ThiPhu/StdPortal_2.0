@@ -15,9 +15,9 @@
                 {{!-- Mobile User --}}
                 <div class="d-flex d-lg-none">
                 <div class="container p-0">
-                    <div class="row mb-1 mt-3">
-                        <div class="col-9">
-                            <div class="mt-3">
+                    <div class="row p-2">
+                        <div class="col-9 d-flex align-items-center">
+                            <div>
                                 Trang chủ
                             </div>
                         </div>
@@ -37,9 +37,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-1 mt-3">
-                        <div class="col-9">
-                            <div class="mt-3">
+                    <div class="row p-2">
+                        <div class="col-9 d-flex align-items-center">
+                            <div >
                             Thông báo Phòng/Khoa
                             </div>
                         </div>
@@ -59,38 +59,32 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-1 mt-3">
-                        <div class="col-9">
-                            <div class="mt-2">
+                    <div class="row p-2 navbar_head-hover">
+                        <div class="col-9 d-flex align-items-center">
+                            <div >
                                 Chỉnh sửa thông tin cá nhân 
                             </div>
                         </div>
-                        <div class="col-2">
-                             <div class="btn-group me-3 ms-3 d-flex align-items-center">
-                                <a href="/profile/{{user._id}} "class="d-flex btn navbar-action-btn navtop-announcement-Btn">
-                                    <span class="material-icons-outlined" data-bs-toggle="tooltip" data-bs-placement="top">
+                        <div class="col-2 ">
+                            <a href="/profile/{{user._id}}" class="d-flex dropdown-item p-2 navbar_head-mobile_item_setting" type="button">
+                                    <span class="material-icons-outlined me-2">
                                         settings
                                     </span>
-                                    
                                 </a>
-                            </div>
                         </div>
                     </div>
-                    <div class="row mb-1 mt-3">
-                        <div class="col-9">
-                            <div class="mt-2">
+                    <div class="row p-2 navbar_head-hover">
+                        <div class="col-9 d-flex align-items-center">
+                            <div>
                             Đăng xuất
                             </div>
                         </div>
-                        <div class="col-2">
-                            <div class="btn-group me-3 ms-3 d-flex align-items-center">
-                                <a href="/logout" class="d-flex btn navbar-action-btn navtop-announcement-Btn">
-                                    <span class="material-icons-outlined" data-bs-toggle="tooltip" data-bs-placement="top">
+                        <div class="col-2 ">
+                            <a class="d-flex dropdown-item p-2 navbar_head-mobile_item_logout" href="/logout">
+                                    <span class="material-icons-outlined me-2">
                                         logout
                                     </span>
-                                    
                                 </a>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,2 +1,9 @@
 /* ===================================== Navbar Header ===================================== */
 /*  Tạo class kiểu vậy: .navbar_head-abcxyz*/
+.navbar_head-mobile_item_setting,.navbar_head-mobile_item_logout{
+    color: white;
+    margin-left: 20px;
+}
+.navbar_head-hover:hover{
+    background-color: var(--secondary-color-hover)
+}
