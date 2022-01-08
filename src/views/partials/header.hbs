@@ -14,32 +14,74 @@
             <div class="row d-lg-flex collapse navbar-collapse" id="navbarSupportedContent">
                 {{!-- Mobile User --}}
                 <div class="d-flex d-lg-none">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled">Disabled</a>
-                        </li>
-                    </ul>
+                    <div class="container p-0">
+                        <div class="row p-2 navbar_head-hover">
+                            <div class="col-9 d-flex align-items-center">
+                                <div>
+                                    Trang chủ
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="btn-group d-flex align-items-center">
+                                    <a href="/" type="button" class="d-flex p-2 btn navbar_head-items">
+                                        <span class="material-icons-outlined" data-bs-toggle="tooltip"
+                                            data-bs-placement="top" title="Tất cả bài đăng">
+                                            home
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-2 navbar_head-hover">
+                            <div class="col-9 d-flex align-items-center">
+                                <div>
+                                    Thông báo Phòng/Khoa
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="btn-group d-flex align-items-center">
+                                    <a href="/announcements" class="d-flex p-2 btn navbar_head-items">
+                                        <span class="material-icons-outlined" data-bs-toggle="tooltip"
+                                            data-bs-placement="top" title="Bài đăng của Khoa">
+                                            school
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-2 navbar_head-hover">
+                            <div class="col-9 d-flex align-items-center">
+                                <div>
+                                    Chỉnh sửa thông tin cá nhân
+                                </div>
+                            </div>
+                            <div class="col-2 ">
+                                <a href="/profile/{{user._id}}" class="d-flex dropdown-item p-2 navbar_head-items"
+                                    type="button">
+                                    <span class="material-icons-outlined me-2">
+                                        settings
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row p-2 navbar_head-hover">
+                            <div class="col-9 d-flex align-items-center">
+                                <div>
+                                    Đăng xuất
+                                </div>
+                            </div>
+                            <div class="col-2 ">
+                                <a class="d-flex dropdown-item p-2 navbar_head-items" href="/logout">
+                                    <span class="material-icons-outlined me-2">
+                                        logout
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
                 {{!-- PC User --}}
                 <div class="col-4 d-lg-flex d-none flex-row justify-content-center align-items-center">
 
