@@ -73,6 +73,140 @@ $(document).ready(function () {
   // Bấm vào comment btn sẽ hiện các comment dưới bài viết ( Phần jquery này sẽ render script cho template )
   // Các script liên quan CRUD đến bình luận sẽ ở đây
 
+  // $('.comments_expand').one('click', e => {
+  //   e.preventDefault();
+
+  //   // Tạo bình luận
+  //   let createCommentScripts = `<script type="text/javascript">
+  //     $('.post_create-cmtInpt').keypress(e => {
+  //       let postId = $(e.target).closest('.post_id').data('postid');
+  //       if (e.which == 13 && !e.shiftKey) {
+  //         e.preventDefault();
+  //         const comment = $(e.target).val();
+  //         fetch('/api/comment/', {
+  //           method: 'POST',
+  //           body: new URLSearchParams({
+  //             content: comment,
+  //             postId: postId,
+  //           }),
+  //         })
+  //           .then(res => res.json())
+  //           .then(({ ok, msg, at }) => {
+  //             // If auth success, redirect to home
+  //             return window.location.reload();
+  //           });
+  //       }
+  //     });
+  //   </script>`;
+
+  //   // Cập nhật bình luận
+  //   let updateCommentScripts = `<script type="text/javascript">
+  //   $('.update_comment-Btn').on('click', e => {
+  //     e.preventDefault();
+  //     let postId = $(e.target).closest('.post_id').data('postid');
+  //     let commentId = $(e.target).closest('.post_comment').data('commentid');
+  //     let content = document.querySelector('#update_comment-input_' + commentId).value;
+  //     fetch('/api/comment/' + commentId, {
+  //       method: 'PUT',
+  //       async: true,
+  //       body: new URLSearchParams({
+  //         content,
+  //         postId
+  //       }),
+  //     }).then(data => {
+  //       if (data.status !== 500) {
+  //         Swal.fire({
+  //           title: 'Cập nhật bình luận thành công',
+  //           icon: 'success',
+  //         });
+  //         return setTimeout(function () {
+  //           window.location.reload();
+  //         }, 800);
+  //       } else {
+  //         Swal.fire({
+  //           title: 'Bạn không có quyền cập nhật bình luận này',
+  //           icon: 'error',
+  //         });
+  //       }
+  //     });
+  //   });
+  //   </script>`;
+
+  //   // Xoá bình luận
+  //   let deleteCommentScripts = `<script type="text/javascript">
+  //   $('.post_comment-delBtn').on('click', e => {
+  //     e.preventDefault();
+  //     let postId = $(e.target).closest('.post_id').data('postid');
+  //     let commentId = $(e.target).closest('.post_comment').data('commentid');
+  //     Swal.fire({
+  //       title: 'Xoá bình luận này ?',
+  //       icon: 'warning',
+  //       showCancelButton: true,
+  //       confirmButtonColor: '#0e6286',
+  //       cancelButtonColor: '#d33',
+  //       confirmButtonText: 'Xác nhận',
+  //       cancelButtonText: 'Huỷ',
+  //       keydownListenerCapture: true,
+  //       allowOutsideClick: false,
+  //     }).then(result => {
+  //       if (result.isConfirmed) {
+  //         fetch('/api/comment/' + commentId, {
+  //           method: 'DELETE',
+  //           body: new URLSearchParams({postId}),
+  //         }).then(data => {
+  //           if (data.status !== 500) {
+  //             Swal.fire({
+  //               title: 'Xoá bình luận thành công',
+  //               icon: 'success',
+  //             });
+  //             return setTimeout(function () {
+  //               window.location.reload();
+  //             }, 800);
+  //           } else {
+  //             Swal.fire({
+  //               title: 'Bạn không có quyền xoá bình luận này',
+  //               icon: 'error',
+  //             });
+  //           }
+  //         });
+  //       }
+  //     });
+  //   });
+  //   </script>`;
+  //   let postId = $(e.target).closest('.post_id').data('postid');
+  //   $.ajax({
+  //     url: '/api/post/' + postId,
+  //     method: 'GET',
+  //     async: true,
+  //     beforeSend: function () {
+  //       $('#comment_loading_' + postId).removeClass('d-none');
+  //     },
+  //     success: function (data) {
+  //       const comments = data.post.comments.length;
+  //       for (let i = 0; i < comments; i++) {
+  //         let commentsTemplate = Handlebars.compile(
+  //           $('.comment_data_template_' + postId).html()
+  //         );
+
+  //         let dataStamp = {
+  //           comments: data.post.comments[i],
+  //         };
+  //         let template = commentsTemplate(dataStamp);
+  //         $('.comment_container_' + postId).html(
+  //           template +
+  //             createCommentScripts +
+  //             deleteCommentScripts +
+  //             updateCommentScripts
+  //         );
+  //         console.log(dataStamp);
+  //       }
+  //       $('#comment_' + postId).removeClass('d-none');
+  //       $('#comment_loading_' + postId).addClass('d-none');
+  //     },
+  //     error: function () {},
+  //   });
+  // });
+
   // Bấm vào caption để mở rộng bài viết
   let expandPostCaption = false;
   $('.post_body-caption').on('click', e => {
@@ -87,23 +221,35 @@ $(document).ready(function () {
     }
   });
 
+  // Lấy danh sách bài viết
+  if(window.location.href.indexOf("home") > -1 || window.location.href.indexOf("profile") > -1 )
   $(window).ready(e => {
     getPost();
-    getAnnounces();
   });
 
-  // Lấy dánh sách bài viết
+
+  // Lấy danh sách bài viết
   function getPost() {
-    return fetch('/api/post')
+
+    // Set cứng, nếu đường dẫn là profile thì tạo biết userid gán id user, ngược lại trả về undefined
+    const userId = (window.location.href.indexOf("profile") > -1 ||  window.location.href.indexOf("update-info") < -1) ?
+    window.location.href.split("/").at(-1) : undefined
+
+
+    // Trả về route có query nếu có tham số id người dùng
+    const route = userId ? `/api/post?user=${userId}` : "/api/post/"
+
+    console.log(route)
+
+    return fetch(route)
       .then(res => res.json())
       .then(json => {
+        console.log(json);
         //reset
-        $('.post-container').html('');
-        json.posts.map(post => {
+        $('.post-container').html("")
+          json.posts.map(post => {
           $('.post-container').append(`
-          <div class="post_id bg-white container d-lg-flex flex-column p-0 mb-4" data-postid="${
-            post._id
-          }">
+          <div class="post_id bg-white container d-lg-flex flex-column p-0 mb-4" data-postid="${post._id}">
               <div class="post_header col-12 mt-3">
                   <div class="d-flex row bd-highlight">
                       <a class="col-lg-2 col-2 d-flex align-items-center justify-content-end"
@@ -228,9 +374,7 @@ $(document).ready(function () {
                   </div>
               </div>
 
-              <div class="col-12 post_comments comment_container_${
-                post._id
-              } d-none" id="comment_${post._id}">
+              <div class="col-12 post_comments comment_container_${post._id} d-none" id="comment_${post._id}">
                   <div class="d-none" id="comment_loading_${post._id}">
                     <div class="d-flex justify-content-center">
                       <div class="spinner-border"  role="status">
@@ -241,9 +385,7 @@ $(document).ready(function () {
                   <div class="comment_holder w-100 my-3"></div>
                   <div class="d-flex container-fluid pb-2">
                       <div class="d-flex justify-content-center align-items-center col-1">
-                          <a class="post-comments_avatar" href="/profile/${
-                            post.user._id
-                          }">
+                          <a class="post-comments_avatar" href="/profile/${post.user._id}">
                               <img src='${
                                 post.user.avatar
                               }' alt="avatar" width="50" height="50"
@@ -260,114 +402,28 @@ $(document).ready(function () {
           </div>
         `);
         });
+        console.log("MAP POST DONE!")
       });
   }
 
-  function getAnnounces() {
-    return fetch('/api/announcement')
-      .then(res => res.json())
-      .then(json => {
-        $('.announce_middle-container').html('');
-        json.announces.map(announce => {
-          console.log(announce);
-          $('.announce_middle-container').append(`
-          <div class="announce_id announces_container container d-lg-flex flex-column col-12 p-0 mb-4" data-announceid="${
-            announce._id
-          }">
-    <div class="post_header col-12 mt-3">
-        <div class="d-flex row bd-highlight">
-            <a class="col-lg-1 col-2 d-flex align-items-center justify-content-end"
-                href="/profile/${announce.user[0]._id}">
-                <img src='${
-                  announce.user[0].avatar
-                }' alt="avatar" width="50" height="50"
-                    class="img-fluid post-comments_avatar">
-            </a>
-            <a class="row post_header-userInfo col-9 col-lg-10 d-flex align-items-center justify-content-center p-0"
-                href="/profile/${announce.user[0]._id}">
-                <div class="p-2 bd-highlight">
-                    <div>
-                        <strong>
-                            ${announce.user[0].fullname}
-                        </strong>
-                        ${
-                          announce.isUpdated
-                            ? `<span class="small">(Thông báo đã cập nhật)</span>`
-                            : ''
-                        }
-                    </div>
-                    <div class="small">
-                        ${announce.create_date} at ${announce.create_time}
-                    </div>
-                </div>
-            </a>
-            <div class="col-lg-1 col-1 d-flex align-items-center justify-content-end">
-                <div class="dropdown">
-                    <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        more_horiz
-                    </span>
-                    <ul class="dropdown-menu dropdown-menu-lg-end post_dropdown-menu"
-                        aria-labelledby="dropdownMenuButton1">
-                        <li class="me-1 ms-1">
-                            <a class="dropdown-item d-flex justify-content-start align-items-center" href="#"
-                                data-bs-toggle="modal" data-bs-target="#updateAnnounceModal">
-                                <span class="material-icons-outlined me-2">
-                                    settings
-                                </span>
-                                <span>Chỉnh sửa</span>
-                            </a>
-                        </li>
-                        <li class="me-1 ms-1">
-                            <a class="dropdown-item d-flex justify-content-start align-items-center announce_delete_Btn"
-                                href="#">
-                                <span class="material-icons-outlined me-2">
-                                    delete
-                                </span>
-                                <span>Xoá</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="post_body col-12 mb-3">
-        <div class="d-flex flex-column col-12 mt-3">
-            <div class="d-flex col-12 justify-content-start align-items-center announce_header-title">
-                <h3>${announce.title}</h3>
-            </div>
-        </div>
-        <div class="d-flex flex-column col-12 mt-3">
-            <div id="announce_content_{{_id}}" class="col-12 announce_body-content announce_content-lineclamp">
-            ${announce.content}
-                <strong>Phòng ban:</strong>
-                <ul>
-                    ${announce.sections.name}
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-        `);
-        });
-      });
-  }
+  // Lấy danh sách bài viết theo người dùng
+
+
+  
 
   // Lấy danh sách comment
-  function getCommentByPost(postId) {
+  function getCommentByPost(postId){
     fetch(`/api/comment/${postId}`)
-      .then(res => res.json())
-      .then(json => {
-        if (json.ok) {
-          const comment_holder = $(`.comment_container_${postId}`).find(
-            '.comment_holder'
-          );
-          if (json.comment.length > 0) {
-            // reset
-            $(comment_holder).html('');
-            json.comment.map(cmt => {
-              $(comment_holder).append(`
+    .then( res => res.json())
+    .then( json => {
+      if(json.ok){
+
+        const comment_holder = $(`.comment_container_${postId}`).find(".comment_holder")
+        if(json.comment.length > 0){
+          // reset
+          $(comment_holder).html("")
+          json.comment.map((cmt)=>{
+            $(comment_holder).append(`
                   <div class="post_comment col-12 d-flex justify-content-center mb-3" data-commentid="${cmt._id}">
                       <div class="d-flex flex-column container-fluid">
                           <div class="col-12 d-flex flex-row">
@@ -415,20 +471,21 @@ $(document).ready(function () {
                           </div>
                       </div>
                   </div>
-              `);
-            });
-          } else {
-            // comments length == 0
-            $(comment_holder).html('');
-          }
-        } else {
-          console.log(json.msg);
+              `)
+            })
+        } else{
+          // comments length == 0
+          $(comment_holder).html("")
         }
-      });
+      }
+      else{
+        console.log(json.msg)
+      }
+    })
   }
 
   // Get comment by post id
-  $(document).on('click', '.comments_expand', async e => {
+  $(document).on('click', '.comments_expand', async (e) => {
     e.preventDefault();
     // Tiền xử lí
     const post_id = $(e.target).closest('.post_id').attr('data-postid');
@@ -438,9 +495,10 @@ $(document).ready(function () {
     $(`.comment_container_${post_id}`).removeClass('d-none');
     // prevent multiple click
     $(e.currentTarget).prop('disabled', true);
-
-    getCommentByPost(post_id);
+  
+    getCommentByPost(post_id)
   });
+
 
   $('.post_create-cmtInpt').on('input', e => {
     //auto resize text area
@@ -516,20 +574,20 @@ $(document).ready(function () {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        console.log(data)
         // If auth success, redirect to home
         if (data.ok != false) {
-          getPost();
+          getPost()
         }
         // return (window.location.href = '/');
       })
       .finally(() => {
         //close modal
-        const createModalEl = $('#createPostModal');
-        const createModal = bootstrap.Modal.getOrCreateInstance(createModalEl);
-        createModal.hide();
+        const createModalEl = $("#createPostModal")
+        const createModal = bootstrap.Modal.getOrCreateInstance(createModalEl)
+        createModal.hide()
 
-        //
+        // 
         $('.create_post-submitBtn').removeClass('disabled');
       })
       .catch(err => {
@@ -540,11 +598,11 @@ $(document).ready(function () {
   // Cập nhật bài viết (Render phần modal của cập nhật)
   $(document).on('click', '.create_post-updateModal', async e => {
     let postId = $(e.target).closest('.post_id').data('postid');
+    console.log("POST", postId)
     fetch(`/api/post/${postId}`)
       .then(res => res.json())
       .then(json => {
-        if (!json.ok) alert(json.msg);
-        console.log(json);
+        if (!json.ok) console.log(json.msg);
         [json.post].map(async pst => {
           $('#updatePostModal').attr('data-id', pst._id);
 
@@ -623,9 +681,9 @@ $(document).ready(function () {
   // Cập nhật bài viết
   $(document).on('click', '#updatePostModal .create_post-updateBtn', e => {
     e.preventDefault();
-
+    
     // disable button
-    $('#updatePostModal .create_post-updateBtn').prop('disabled', true);
+    $('#updatePostModal .create_post-updateBtn').prop("disabled", true)
 
     const updatePostModal = $(e.target).closest('#updatePostModal');
     const postId = $(updatePostModal).attr('data-id');
@@ -705,7 +763,7 @@ $(document).ready(function () {
         $('#updatePostModal').modal('hide');
 
         // Un-disable button
-        $('#updatePostModal .create_post-updateBtn').prop('disabled', false);
+        $('#updatePostModal .create_post-updateBtn').prop("disabled", false)
       });
   });
 
@@ -886,7 +944,7 @@ $(document).ready(function () {
   });
 
   // Tạo bình luận
-  $(document).on('keypress', '.post_create-cmtInpt', e => {
+  $(document).on('keypress','.post_create-cmtInpt',e => {
     let postId = $(e.target).closest('.post_id').data('postid');
     if (e.which == 13 && !e.shiftKey) {
       e.preventDefault();
@@ -899,27 +957,27 @@ $(document).ready(function () {
         }),
       })
         .then(res => res.json())
-        .then(json => {
-          if (!json.ok) {
-            console.log('error comment', json.msg);
+        .then((json) => {
+          if(!json.ok){
+            console.log("error comment", json.msg)
             return;
           }
-          getCommentByPost(postId);
+          getCommentByPost(postId)
         })
-        .finally(() => {
-          console.log($(e.target));
+        .finally(()=>{
+          console.log($(e.target))
           // clear comment
-          $(e.target).val('');
+          $(e.target).val("");
         });
     }
   });
 
   // Xóa bình luận
-  $(document).on('click', '.post_comment-delBtn', e => {
+  $(document).on('click','.post_comment-delBtn', e => {
     e.preventDefault();
     let postId = $(e.target).closest('.post_id').data('postid');
     let commentId = $(e.target).closest('.post_comment').data('commentid');
-    console.log(commentId);
+    console.log(commentId)
     Swal.fire({
       title: 'Xoá bình luận này ?',
       icon: 'warning',
@@ -934,28 +992,29 @@ $(document).ready(function () {
       if (result.isConfirmed) {
         fetch('/api/comment/' + commentId, {
           method: 'DELETE',
-          body: new URLSearchParams({ postId }),
+          body: new URLSearchParams({postId}),
         })
-          .then(res => res.json())
-          .then(json => {
-            console.log(json);
-            if (json.ok) {
-              getCommentByPost(postId);
+        .then(res => res.json())
+        .then(json => {
+          console.log(json)
+          if (json.ok) {
+            getCommentByPost(postId)
 
-              Swal.fire({
-                title: 'Xóa bình luận thành công',
-                icon: 'success',
-              });
-            } else {
-              Swal.fire({
-                title: 'Bạn không có quyền xoá bình luận này',
-                icon: 'error',
-              });
-            }
-          });
+            Swal.fire({
+              title: 'Xóa bình luận thành công',
+              icon: 'success'
+            })
+          } else {
+            Swal.fire({
+              title: 'Bạn không có quyền xoá bình luận này',
+              icon: 'error',
+            });
+          }
+        });
       }
     });
   });
+
 
   // ================ Kết thúc Section Jquery liên quan đến bài viết
   // ================ Jquery liên quan đến phần Thông báo
@@ -1532,3 +1591,154 @@ if (window.location.href.indexOf('manage') > -1) {
 }
 
 //===========================END MANAGEMENT==============================================
+
+
+// ========================= User update ================================================
+
+
+if(window.location.href.indexOf("update-info") > -1){
+  // Render section-select
+  $(window).ready(() =>{
+      if($(".section-select")){
+          mapSection($(".section-select"))
+      } 
+  })
+
+  // Map section function
+  async function mapSection(sectionSelect){ 
+      //  return a promise
+      return fetch(`/api/section?unit=faculty`)
+      .then((res) => res.json())
+      .then(({ok,sections})=>{
+          console.log(sections)
+          // Get selected option
+          const selected_option = $(sectionSelect).attr("data-selected") 
+          // sections
+          sections.map((item)=>{
+              $(sectionSelect).append(`
+              <option value=${item._id} ${selected_option == item._id && "selected"}>${item.name}</option>
+          `)
+          })
+      })
+      .then(()=>{console.log("mapSection COMPLETE")})
+  }
+
+  // Get user avatar
+  $(".avatar-upload-button").on("click", (e) => {
+      $(".avatar_upload").click();
+  })
+
+
+
+  // Student form submit handler
+
+
+  $("#updateUserInfo").on("submit", (e) =>{
+      e.preventDefault()
+
+      $("#updateUserInfo button[type*='submit']").addClass("disabled")
+
+      const userId = $("#updateUserInfo").attr("data-id")
+      const role = $("#updateUserInfo").attr("data-role")
+
+      const msgDisplay = $(".msg-display")
+      $(msgDisplay).removeClass().addClass("msg-display").html("")
+
+      // Faculty form submit handler
+      if(role == "faculty"){
+          const password = $(".user-password").val()
+          const passwordConfirm = $(".user-password-confirm").val()
+      
+          console.log(password)
+          console.log(passwordConfirm)
+      
+      
+          let errorFlag = true;
+          // reset
+
+          // if(password != passwordConfirm){
+          //     errorFlag = false
+          //     msgMap("Mật khẩu không trùng khớp")
+          //     $(msgDisplay).addClass("msg-display--error").show()
+          // }
+      
+          console.log(errorFlag)
+          if(errorFlag){
+              fetch(`/profile/faculty/${userId}`,{
+                  method: "POST",
+                  body: new URLSearchParams({
+                      password,
+                      passwordConfirm
+                  })
+              })
+              .then(res=> res.json())
+              .then(json=>{
+                  console.log(json)
+                  if(!json.ok){
+                      msgMap(json.msg)
+                      $(msgDisplay).addClass("msg-display--error").show()
+                      return;
+                  }
+                  msgMap(json.msg)
+                  $(msgDisplay).addClass("msg-display--success").show()
+              })
+              .finally(()=>{
+                  $("#updateUserInfo button[type*='submit']").removeClass("disabled")
+              })
+          }
+      } else if(role == "student"){
+          const userFullName = $(".user-fullName").val()
+          const userClass = $(".user-class").val()
+          const section = $(".section-select").val()
+
+          const image = $(".avatar_upload")[0].files[0]
+
+          console.log(userFullName, userClass, section,image)
+
+          const formData = new FormData();
+          formData.append("fullname",userFullName)
+          formData.append("class",userClass)
+          formData.append("unit",section)
+          formData.append("image",image)
+
+          console.log("formData",formData)
+          fetch(`/profile/student/${userId}`,{
+              method: "POST",
+              body: formData,
+          })
+          .then(res => res.json())
+          .then(json => {
+              msgMap(json.msg)
+              if(!json.ok){
+                  $(msgDisplay).addClass("msg-display--error").show()
+                  return;
+              } else{
+                  $(msgDisplay).addClass("msg-display--success").show()
+              }
+          })
+          .finally(()=>{
+              $("#updateUserInfo button[type*='submit']").removeClass("disabled")
+          })
+      }
+  })
+
+  function msgMap(msg){
+      $(".msg-display").append(`
+              <li>${msg}</li>   
+      `)
+  }
+
+  // Review image after upload
+  const image = $(".img_holder > img")
+  const image_input = $(".avatar_upload")
+
+  $(image_input).on("change", function(e){
+      var reader = new FileReader()
+      reader.onload = function(){
+          $(image).attr("src",reader.result)
+      }
+      reader.readAsDataURL(e.target.files[0])
+  })
+}
+
+// ============================================= END user update ==================================

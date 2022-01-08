@@ -1237,10 +1237,10 @@ body {
 /* =================== =============== ADMIN - Management =========================== ===================*/
 
 /* =================== Common class */
-.btn--active {
+/* .btn--active {
   background-color: #0e6286 !important;
   color: #fff !important;
-}
+} */
 
 /* =================== Sidebar - Left */
 .admin_avatar_mgmt {
@@ -1284,22 +1284,22 @@ body {
   background-color: #fff;
 }
 
-.mngt-btn-carousel:hover,
-.mngt-btn-carousel button:hover {
-  transition: 0.3s ease-in-out;
+.mngt-btn-carousel:hover{
+  transition: 0.25s ease-in-out;
   background-color: var(--secondary-color-hover);
   color: white;
   border-radius: 6px;
 }
 
-.mngt-btn-carousel.active {
-  background-color: var(--secondary-color-hover);
+.mngt-btn-carousel.btn--active {
+  background-color: var(--secondary-color);
+  color: white;
   border-radius: 6px;
 }
 
-.mngt-btn-carousel.active button {
+/* .mngt-btn-carousel.active button {
   color: white;
-}
+} */
 
 .mngt-btn-carousel button {
   font-size: 20px !important;

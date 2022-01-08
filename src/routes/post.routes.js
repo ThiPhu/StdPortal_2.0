@@ -11,6 +11,9 @@ Router.get('/', postController.getPosts);
 // Lấy bài viết theo ID
 Router.get('/:id', postController.getPostId);
 
+// Lấy bài viết theo người dùng
+// Router.get('/:uid', postController.getPostByUser)
+
 // Tạo bài viết mới
 Router.post(
   '/',
