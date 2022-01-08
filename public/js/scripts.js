@@ -400,8 +400,9 @@ $(document).ready(function () {
     .then( res => res.json())
     .then( json => {
       if(json.ok){
+
+        const comment_holder = $(`.comment_container_${postId}`).find(".comment_holder")
         if(json.comment.length > 0){
-          const comment_holder = $(`.comment_container_${postId}`).find(".comment_holder")
           // reset
           $(comment_holder).html("")
           json.comment.map((cmt)=>{
@@ -455,6 +456,9 @@ $(document).ready(function () {
                   </div>
               `)
             })
+        } else{
+          // comments length == 0
+          $(comment_holder).html("")
         }
       }
       else{
@@ -977,14 +981,12 @@ $(document).ready(function () {
         .then(json => {
           console.log(json)
           if (json.ok) {
-
             getCommentByPost(postId)
 
             Swal.fire({
-              title: 'Xoá bình luận thành công',
-              icon: 'success',
-            });
-
+              title: 'Xóa bình luận thành công',
+              icon: 'success'
+            })
           } else {
             Swal.fire({
               title: 'Bạn không có quyền xoá bình luận này',
