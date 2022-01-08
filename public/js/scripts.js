@@ -401,7 +401,7 @@ $(document).ready(function () {
     .then( json => {
       if(json.ok){
         if(json.comment.length > 0){
-          const comment_holder = $(`.comment_container_${json.comment[0].postId}`).find(".comment_holder")
+          const comment_holder = $(`.comment_container_${postId}`).find(".comment_holder")
           // reset
           $(comment_holder).html("")
           json.comment.map((cmt)=>{
@@ -433,14 +433,6 @@ $(document).ready(function () {
                                           </span>
                                           <ul class="dropdown-menu post_dropdown-menu"
                                               aria-labelledby="dropdownMenuComment">
-                                              <li class="me-1 ms-1">
-                                                  <a class="dropdown-item d-flex justify-content-start align-items-center" data-bs-toggle="modal" data-bs-target="#updateCommentModal_{{_id}}" href="#">
-                                                      <span class="material-icons-outlined me-2">
-                                                          settings
-                                                      </span>
-                                                      <span>Chỉnh sửa comment</span>
-                                                  </a>
-                                              </li>
                                               <li class="me-1 ms-1">
                                                   <a class="dropdown-item d-flex justify-content-start align-items-center post_comment-delBtn"
                                                       href="#">
@@ -944,9 +936,17 @@ $(document).ready(function () {
         }),
       })
         .then(res => res.json())
-        .then(({ ok, msg, at }) => {
-          // If auth success, redirect to home
+        .then((json) => {
+          if(!json.ok){
+            console.log("error comment", json.msg)
+            return;
+          }
           getCommentByPost(postId)
+        })
+        .finally(()=>{
+          console.log($(e.target))
+          // clear comment
+          $(e.target).val("");
         });
     }
   });
@@ -972,15 +972,19 @@ $(document).ready(function () {
         fetch('/api/comment/' + commentId, {
           method: 'DELETE',
           body: new URLSearchParams({postId}),
-        }).then(data => {
-          if (data.status !== 500) {
+        })
+        .then(res => res.json())
+        .then(json => {
+          console.log(json)
+          if (json.ok) {
+
+            getCommentByPost(postId)
+
             Swal.fire({
               title: 'Xoá bình luận thành công',
               icon: 'success',
             });
-            return setTimeout(function () {
-              getCommentByPost(postId)
-            }, 800);
+
           } else {
             Swal.fire({
               title: 'Bạn không có quyền xoá bình luận này',

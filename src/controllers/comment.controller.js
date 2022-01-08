@@ -178,7 +178,13 @@ exports.delete = async (req, res, next) => {
       c => c._id.toString() === commentId
     );
 
-    if (!comment.user._id.toString() === req.user.id) {
+
+    console.log(comment.user._id)
+    console.log(req.user.id)
+
+    console.log(comment.user._id.toString() !== req.user.id)
+
+    if (comment.user._id.toString() !== req.user.id) {
       return res.json({
         ok: false,
         msg: 'Không thể xoá bình luận !',

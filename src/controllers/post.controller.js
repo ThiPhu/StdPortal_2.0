@@ -79,7 +79,7 @@ exports.create = async (req, res, next) => {
     const create_date =
       date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
     const create_time =
-      date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+      date.getHours() + ':' + date.getMinutes()
     // Nếu không phải là người dùng đăng nhập được trên trang này hay
     // không có tài khoản đăng nhập thì không cho tạo bài viết
     if (!userId || (caption.length <= 0 && image === null && video === null)) {
