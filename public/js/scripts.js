@@ -221,13 +221,27 @@ $(document).ready(function () {
     }
   });
 
+  // Lấy danh sách bài viết
+  if(window.location.href.indexOf("home") > -1 || window.location.href.indexOf("profile") > -1 )
   $(window).ready(e => {
     getPost();
   });
 
-  // Lấy dánh sách bài viết
+
+  // Lấy danh sách bài viết
   function getPost() {
-   return fetch('/api/post')
+
+    // Set cứng, nếu đường dẫn là profile thì tạo biết userid gán id user, ngược lại trả về undefined
+    const userId = (window.location.href.indexOf("profile") > -1 ||  window.location.href.indexOf("update-info") < -1) ?
+    window.location.href.split("/").at(-1) : undefined
+
+
+    // Trả về route có query nếu có tham số id người dùng
+    const route = userId ? `/api/post?user=${userId}` : "/api/post/"
+
+    console.log(route)
+
+    return fetch(route)
       .then(res => res.json())
       .then(json => {
         console.log(json);
@@ -235,9 +249,7 @@ $(document).ready(function () {
         $('.post-container').html("")
           json.posts.map(post => {
           $('.post-container').append(`
-          <div class="post_id bg-white container d-lg-flex flex-column p-0 mb-4" data-postid="${
-            post._id
-          }">
+          <div class="post_id bg-white container d-lg-flex flex-column p-0 mb-4" data-postid="${post._id}">
               <div class="post_header col-12 mt-3">
                   <div class="d-flex row bd-highlight">
                       <a class="col-lg-2 col-2 d-flex align-items-center justify-content-end"
@@ -393,6 +405,11 @@ $(document).ready(function () {
         console.log("MAP POST DONE!")
       });
   }
+
+  // Lấy danh sách bài viết theo người dùng
+
+
+  
 
   // Lấy danh sách comment
   function getCommentByPost(postId){
@@ -581,11 +598,11 @@ $(document).ready(function () {
   // Cập nhật bài viết (Render phần modal của cập nhật)
   $(document).on('click', '.create_post-updateModal', async e => {
     let postId = $(e.target).closest('.post_id').data('postid');
+    console.log("POST", postId)
     fetch(`/api/post/${postId}`)
       .then(res => res.json())
       .then(json => {
-        if (!json.ok) alert(json.msg);
-        console.log(json);
+        if (!json.ok) console.log(json.msg);
         [json.post].map(async pst => {
           $('#updatePostModal').attr('data-id', pst._id);
 
@@ -1574,3 +1591,154 @@ if (window.location.href.indexOf('manage') > -1) {
 }
 
 //===========================END MANAGEMENT==============================================
+
+
+// ========================= User update ================================================
+
+
+if(window.location.href.indexOf("update-info") > -1){
+  // Render section-select
+  $(window).ready(() =>{
+      if($(".section-select")){
+          mapSection($(".section-select"))
+      } 
+  })
+
+  // Map section function
+  async function mapSection(sectionSelect){ 
+      //  return a promise
+      return fetch(`/api/section?unit=faculty`)
+      .then((res) => res.json())
+      .then(({ok,sections})=>{
+          console.log(sections)
+          // Get selected option
+          const selected_option = $(sectionSelect).attr("data-selected") 
+          // sections
+          sections.map((item)=>{
+              $(sectionSelect).append(`
+              <option value=${item._id} ${selected_option == item._id && "selected"}>${item.name}</option>
+          `)
+          })
+      })
+      .then(()=>{console.log("mapSection COMPLETE")})
+  }
+
+  // Get user avatar
+  $(".avatar-upload-button").on("click", (e) => {
+      $(".avatar_upload").click();
+  })
+
+
+
+  // Student form submit handler
+
+
+  $("#updateUserInfo").on("submit", (e) =>{
+      e.preventDefault()
+
+      $("#updateUserInfo button[type*='submit']").addClass("disabled")
+
+      const userId = $("#updateUserInfo").attr("data-id")
+      const role = $("#updateUserInfo").attr("data-role")
+
+      const msgDisplay = $(".msg-display")
+      $(msgDisplay).removeClass().addClass("msg-display").html("")
+
+      // Faculty form submit handler
+      if(role == "faculty"){
+          const password = $(".user-password").val()
+          const passwordConfirm = $(".user-password-confirm").val()
+      
+          console.log(password)
+          console.log(passwordConfirm)
+      
+      
+          let errorFlag = true;
+          // reset
+
+          // if(password != passwordConfirm){
+          //     errorFlag = false
+          //     msgMap("Mật khẩu không trùng khớp")
+          //     $(msgDisplay).addClass("msg-display--error").show()
+          // }
+      
+          console.log(errorFlag)
+          if(errorFlag){
+              fetch(`/profile/faculty/${userId}`,{
+                  method: "POST",
+                  body: new URLSearchParams({
+                      password,
+                      passwordConfirm
+                  })
+              })
+              .then(res=> res.json())
+              .then(json=>{
+                  console.log(json)
+                  if(!json.ok){
+                      msgMap(json.msg)
+                      $(msgDisplay).addClass("msg-display--error").show()
+                      return;
+                  }
+                  msgMap(json.msg)
+                  $(msgDisplay).addClass("msg-display--success").show()
+              })
+              .finally(()=>{
+                  $("#updateUserInfo button[type*='submit']").removeClass("disabled")
+              })
+          }
+      } else if(role == "student"){
+          const userFullName = $(".user-fullName").val()
+          const userClass = $(".user-class").val()
+          const section = $(".section-select").val()
+
+          const image = $(".avatar_upload")[0].files[0]
+
+          console.log(userFullName, userClass, section,image)
+
+          const formData = new FormData();
+          formData.append("fullname",userFullName)
+          formData.append("class",userClass)
+          formData.append("unit",section)
+          formData.append("image",image)
+
+          console.log("formData",formData)
+          fetch(`/profile/student/${userId}`,{
+              method: "POST",
+              body: formData,
+          })
+          .then(res => res.json())
+          .then(json => {
+              msgMap(json.msg)
+              if(!json.ok){
+                  $(msgDisplay).addClass("msg-display--error").show()
+                  return;
+              } else{
+                  $(msgDisplay).addClass("msg-display--success").show()
+              }
+          })
+          .finally(()=>{
+              $("#updateUserInfo button[type*='submit']").removeClass("disabled")
+          })
+      }
+  })
+
+  function msgMap(msg){
+      $(".msg-display").append(`
+              <li>${msg}</li>   
+      `)
+  }
+
+  // Review image after upload
+  const image = $(".img_holder > img")
+  const image_input = $(".avatar_upload")
+
+  $(image_input).on("change", function(e){
+      var reader = new FileReader()
+      reader.onload = function(){
+          $(image).attr("src",reader.result)
+      }
+      reader.readAsDataURL(e.target.files[0])
+  })
+}
+
+// ============================================= END user update ==================================

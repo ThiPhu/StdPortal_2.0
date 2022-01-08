@@ -1,5 +1,6 @@
 const User = require('../models/User.model');
 const Post = require('../models/Post.model');
+const Section = require('../models/Section.model')
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -156,8 +157,16 @@ exports.create = async (req, res, next) => {
 
     const avatar_default = "https://res.cloudinary.com/dd27hshho/image/upload/v1641262805/Upload/tdt_wnobdu.jpg"
 
+    // set fullname to user by get section name in Section model
+    let fullname =''
+    const section = await Section.find({_id:req.body.unit})
+    console.log("section", section)
+    
+    section ?  fullname = section[0].name : null 
+
     const user = await User.create({
       username: req.body.email ? req.body.email.split('@')[0] : null,
+      fullname,
       email: req.body.email ? req.body.email : null,
       password: hashedPassword,
       role: req.body.role,

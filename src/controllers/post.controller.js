@@ -19,7 +19,15 @@ const months = [
 // Lấy tất cả bài viết
 exports.getPosts = async (req, res, next) => {
   try {
-    const posts = await Post.find()
+
+    // Lấy query là id người dùng, nếu có
+    const user = req.query ? req.query : {}
+
+    // xác thực danh tính
+    // const isOwner = (req.user._id === req.)
+
+    // Nếu truyền vào query thì tìm theo người dùng, nếu không thì tìm tất cả
+    const posts = await Post.find(user)
       .sort({ createdAt: -1 })
       .populate('user', 'fullname avatar')
       // .populate('comments')
@@ -52,6 +60,36 @@ exports.getPostId = async (req, res, next) => {
     next(err);
   }
 };
+
+//  Lấy bài viết theo người dùng
+// exports.getPostByUser = async (req, res, next) => {
+//   const userId = req.params.uid
+
+//   // Tạo biến kiểm tra chủ nhân bài viết
+//   let isOwner = false
+//   if(req.user._id === userId){
+//       isOwner = true
+//   }
+
+//   try{
+//     const post = await Post.find({"user":userId});
+//     if(post){
+//       return res.json({
+//         ok: true,
+//         msg: "Trả về bài viết thành công",
+//         post: post,
+//         isOwner
+//       })
+//     } else {
+//       return res.json({
+//         ok: false, 
+//         msg: "Không tìm thấy bài viết"
+//       })
+//     }
+//   } catch (err){
+//     next(err)
+//   }
+// }
 
 // Tạo bài viết mới
 exports.create = async (req, res, next) => {
