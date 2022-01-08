@@ -18,16 +18,16 @@ const months = [
 
 // Lấy bình luận theo post ID
 exports.get = async (req, res, next) => {
-  const commentId = req.params.id
+  const postId = req.params.id
 
   try {
-    const comment = await Comment.findById(commentId);
+    const comment = await Comment.find({postId:postId}).sort({createdAt:-1});
     if (!comment) {
-      return res.json({ ok: false, msg: 'Không tìm thấy bình luận' });
+      return res.json({ ok: false, msg: 'Không tìm thấy post' });
     }
     return res.json({
       ok: true,
-      msg: `Trả về comment ${commentId} thành công!`,
+      msg: `Trả về comment cho post ${postId} thành công!`,
       comment: comment,
     });
   } catch (err) {
@@ -178,7 +178,7 @@ exports.delete = async (req, res, next) => {
       c => c._id.toString() === commentId
     );
 
-    if (!comment.user[0]._id.toString() === req.user.id) {
+    if (!comment.user._id.toString() === req.user.id) {
       return res.json({
         ok: false,
         msg: 'Không thể xoá bình luận !',

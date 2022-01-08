@@ -154,25 +154,23 @@
         </div>
         {{!-- ----------------- --}}
         {{#comments}}
-        <div class="post_comment col-12 d-flex justify-content-center mb-3" data-commentid="${comment._id}">
+        <div class="post_comment col-12 d-flex justify-content-center mb-3" data-commentid="${cmt._id}">
             <div class="d-flex flex-column container-fluid">
                 <div class="col-12 d-flex flex-row">
-                    <div class="d-flex justify-content-center col-2">
+                    <div class="d-flex justify-content-center col-1">
                         <a class="post-comments_avatar" href="/profile/${post.user._id}">
-                            <img src='{{#each user}}{{avatar}}{{/each}}'
+                            <img src='${cmt.user.avatar}'
                                 alt="avatar" width="50" height="50" class="img-fluid rounded-circle">
                         </a>
                     </div>
-                    <div class="post_comment-container bd-highlight col-9">
+                    <div class="post_comment-container bd-highlight col-10">
                         <div class="underline">
                             <strong>
-                                {{#each user}}
-                                    {{fullname}}
-                                {{/each}}
+                                ${cmt.user.fullname}
                             </strong>
                         </div>
                         <div class="post_body-comments post_comments-lineclapm">
-                                {{content}}
+                                ${cmt.content}
                         </div>
                     </div>
                     <div class="col-lg-1 col-1 d-flex align-items-center justify-content-end">
@@ -210,7 +208,7 @@
                     </div>
                 </div>
             </div>
-
+        </div>
             {{!-- Modal cập nhật bình luận --}}
             <div class="modal fade updateCommentModal" id="updateCommentModal_{{_id}}" tabindex="-1"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -246,7 +244,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         {{/comments}}
         {{!-- ----------------------------- --}}
     </script>
@@ -274,3 +271,5 @@
         }
     }
 </script>
+
+

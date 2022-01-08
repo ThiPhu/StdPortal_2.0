@@ -713,13 +713,14 @@ body {
 }
 
 .post_comment {
-  padding-left: 3rem;
-  padding-right: 3rem;
+  /* padding-left: 3rem; */
+  padding-right: 1rem;
 }
 
 .post_comment-container {
   border: 1px solid #c7c7c7;
   border-radius: 12px;
+  margin: 0 0.5rem;
   padding: 0.5rem;
   background-color: #f9f9f9;
 }

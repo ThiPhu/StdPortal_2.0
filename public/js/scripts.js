@@ -227,11 +227,13 @@ $(document).ready(function () {
 
   // Lấy dánh sách bài viết
   function getPost() {
-    fetch('/api/post')
+   return fetch('/api/post')
       .then(res => res.json())
       .then(json => {
         console.log(json);
-        json.posts.map(post => {
+        //reset
+        $('.post-container').html("")
+          json.posts.map(post => {
           $('.post-container').append(`
           <div class="post_id bg-white container d-lg-flex flex-column p-0 mb-4" data-postid="${
             post._id
@@ -358,23 +360,20 @@ $(document).ready(function () {
                           </div>
                       </div>
                   </div>
-                  <div class="d-flex justify-content-center">
-                      <div class="spinner-border d-none" id="comment_loading_${
-                        post._id
-                      }" role="status">
-                          <span class="visually-hidden">Loading...</span>
-                      </div>
-                  </div>
               </div>
 
-              <div class="col-12 post_comments comment_container_${
-                post._id
-              } d-none" id="comment_${post._id}">
-                  <div class="d-flex container-fluid mb-2">
+              <div class="col-12 post_comments comment_container_${post._id} d-none" id="comment_${post._id}">
+                  <div class="d-none" id="comment_loading_${post._id}">
+                    <div class="d-flex justify-content-center">
+                      <div class="spinner-border"  role="status">
+                          <span class="visually-hidden">Loading...</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="comment_holder w-100 my-3"></div>
+                  <div class="d-flex container-fluid pb-2">
                       <div class="d-flex justify-content-center align-items-center col-1">
-                          <a class="post-comments_avatar" href="/profile/${
-                            post.user._id
-                          }">
+                          <a class="post-comments_avatar" href="/profile/${post.user._id}">
                               <img src='${
                                 post.user.avatar
                               }' alt="avatar" width="50" height="50"
@@ -391,18 +390,102 @@ $(document).ready(function () {
           </div>
         `);
         });
+        console.log("MAP POST DONE!")
       });
   }
-  $(document).on('click', '.comments_expand', e => {
-    e.preventDefault();
 
+  // Lấy danh sách comment
+  function getCommentByPost(postId){
+    fetch(`/api/comment/${postId}`)
+    .then( res => res.json())
+    .then( json => {
+      if(json.ok){
+        if(json.comment.length > 0){
+          const comment_holder = $(`.comment_container_${json.comment[0].postId}`).find(".comment_holder")
+          // reset
+          $(comment_holder).html("")
+          json.comment.map((cmt)=>{
+            $(comment_holder).append(`
+                  <div class="post_comment col-12 d-flex justify-content-center mb-3" data-commentid="${cmt._id}">
+                      <div class="d-flex flex-column container-fluid">
+                          <div class="col-12 d-flex flex-row">
+                              <div class="d-flex justify-content-center col-1">
+                                  <a class="post-comments_avatar" href="/profile/${cmt.user._id}">
+                                      <img src='${cmt.user.avatar}'
+                                          alt="avatar" width="50" height="50" class="img-fluid rounded-circle">
+                                  </a>
+                              </div>
+                              <div class="post_comment-container bd-highlight col-10">
+                                  <div class="underline">
+                                      <strong>
+                                          ${cmt.user.fullname}
+                                      </strong>
+                                  </div>
+                                  <div class="post_body-comments post_comments-lineclapm">
+                                          ${cmt.content}
+                                  </div>
+                              </div>
+                              <div class="col-lg-1 col-1 d-flex align-items-center">
+                                      <div class="dropdown">
+                                          <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuComment"
+                                              data-bs-toggle="dropdown" aria-expanded="false">
+                                              more_horiz
+                                          </span>
+                                          <ul class="dropdown-menu post_dropdown-menu"
+                                              aria-labelledby="dropdownMenuComment">
+                                              <li class="me-1 ms-1">
+                                                  <a class="dropdown-item d-flex justify-content-start align-items-center" data-bs-toggle="modal" data-bs-target="#updateCommentModal_{{_id}}" href="#">
+                                                      <span class="material-icons-outlined me-2">
+                                                          settings
+                                                      </span>
+                                                      <span>Chỉnh sửa comment</span>
+                                                  </a>
+                                              </li>
+                                              <li class="me-1 ms-1">
+                                                  <a class="dropdown-item d-flex justify-content-start align-items-center post_comment-delBtn"
+                                                      href="#">
+                                                      <span class="material-icons-outlined me-2">
+                                                          delete
+                                                      </span>
+                                                      <span>Xoá</span>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </div>
+                          <div class="col-12">
+                              <div class="d-flex justify-content-end align-items-center me-5">
+                                  <small class="underline">${cmt.create_time}</small>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              `)
+            })
+        }
+      }
+      else{
+        console.log(json.msg)
+      }
+    })
+  }
+
+  // Get comment by post id
+  $(document).on('click', '.comments_expand', async (e) => {
+    e.preventDefault();
+    // Tiền xử lí
     const post_id = $(e.target).closest('.post_id').attr('data-postid');
     console.log(post_id);
+
+    // Show comment-container
     $(`.comment_container_${post_id}`).removeClass('d-none');
     // prevent multiple click
     $(e.currentTarget).prop('disabled', true);
-    $('#comment_loading').removeClass('d-none');
+  
+    getCommentByPost(post_id)
   });
+
 
   $('.post_create-cmtInpt').on('input', e => {
     //auto resize text area
@@ -478,12 +561,20 @@ $(document).ready(function () {
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         // If auth success, redirect to home
-        if (data.status !== 500) {
+        if (data.ok != false) {
+          getPost()
         }
-        return (window.location.href = '/');
+        // return (window.location.href = '/');
       })
       .finally(() => {
+        //close modal
+        const createModalEl = $("#createPostModal")
+        const createModal = bootstrap.Modal.getOrCreateInstance(createModalEl)
+        createModal.hide()
+
+        // 
         $('.create_post-submitBtn').removeClass('disabled');
       })
       .catch(err => {
@@ -577,7 +668,10 @@ $(document).ready(function () {
   // Cập nhật bài viết
   $(document).on('click', '#updatePostModal .create_post-updateBtn', e => {
     e.preventDefault();
-    console.log('here');
+    
+    // disable button
+    $('#updatePostModal .create_post-updateBtn').prop("disabled", true)
+
     const updatePostModal = $(e.target).closest('#updatePostModal');
     const postId = $(updatePostModal).attr('data-id');
     let caption = $(updatePostModal).find('.create_post-input').val();
@@ -654,6 +748,9 @@ $(document).ready(function () {
       })
       .finally(() => {
         $('#updatePostModal').modal('hide');
+
+        // Un-disable button
+        $('#updatePostModal .create_post-updateBtn').prop("disabled", false)
       });
   });
 
@@ -834,7 +931,7 @@ $(document).ready(function () {
   });
 
   // Tạo bình luận
-  $('.post_create-cmtInpt').keypress(e => {
+  $(document).on('keypress','.post_create-cmtInpt',e => {
     let postId = $(e.target).closest('.post_id').data('postid');
     if (e.which == 13 && !e.shiftKey) {
       e.preventDefault();
@@ -849,10 +946,52 @@ $(document).ready(function () {
         .then(res => res.json())
         .then(({ ok, msg, at }) => {
           // If auth success, redirect to home
-          return window.location.reload();
+          getCommentByPost(postId)
         });
     }
   });
+
+  // Xóa bình luận
+  $(document).on('click','.post_comment-delBtn', e => {
+    e.preventDefault();
+    let postId = $(e.target).closest('.post_id').data('postid');
+    let commentId = $(e.target).closest('.post_comment').data('commentid');
+    console.log(commentId)
+    Swal.fire({
+      title: 'Xoá bình luận này ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#0e6286',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Huỷ',
+      keydownListenerCapture: true,
+      allowOutsideClick: false,
+    }).then(result => {
+      if (result.isConfirmed) {
+        fetch('/api/comment/' + commentId, {
+          method: 'DELETE',
+          body: new URLSearchParams({postId}),
+        }).then(data => {
+          if (data.status !== 500) {
+            Swal.fire({
+              title: 'Xoá bình luận thành công',
+              icon: 'success',
+            });
+            return setTimeout(function () {
+              getCommentByPost(postId)
+            }, 800);
+          } else {
+            Swal.fire({
+              title: 'Bạn không có quyền xoá bình luận này',
+              icon: 'error',
+            });
+          }
+        });
+      }
+    });
+  });
+
 
   // ================ Kết thúc Section Jquery liên quan đến bài viết
   // ================ Jquery liên quan đến phần Thông báo
