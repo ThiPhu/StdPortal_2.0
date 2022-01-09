@@ -116,7 +116,8 @@ $(document).ready(function () {
 
   function getPost() {
     // Set cứng, nếu đường dẫn là profile thì tạo biết userid gán id user, ngược lại trả về undefined
-    let postsCount = 0;
+    let pages = 1;
+    let counts = 0;
     const userId =
       window.location.href.indexOf('profile') > -1 ||
       window.location.href.indexOf('update-info') < -1
@@ -129,85 +130,43 @@ $(document).ready(function () {
       .then(res => res.json())
       .then(json => {
         //reset
-        const jsonData = json.posts;
         $('.post-container').html('');
-        // Load 5 bài viết trước
-        for (let i = 0; i < 5; i++) {
+        json.posts.map(post => {
           $('.post-container').append(`
-      <div class="post_id bg-white container d-lg-flex flex-column p-0 mb-4" data-postid="${
-        jsonData[postsCount]._id
-      }">
-          <div class="post_header col-12 mt-3">
-              <div class="d-flex row bd-highlight">
-                  <a class="col-lg-2 col-2 d-flex align-items-center justify-content-end"
-                      href="/profile/${jsonData[postsCount].user._id}">
-                      <img src='${
-                        jsonData[postsCount].user.avatar
-                      }' alt="avatar" width="50" height="50"
-                          class="img-fluid post-comments_avatar">
-                  </a>
-                  <a class="row post_header-userInfo col-9 col-lg-8 d-flex align-items-center justify-content-center p-0"
-                      href="/profile/${jsonData[postsCount].user._id}">
-                      <div class="p-2 bd-highlight">
-                          <div>
-                              <strong>
-                                  ${jsonData[postsCount].user.fullname}
-                              </strong>
-                              ${
-                                jsonData[postsCount].isUpdated
-                                  ? `<span class="small">(Bài viết đã cập nhật)</span>`
-                                  : ''
-                              }
+          <div class="post_id bg-white container d-lg-flex flex-column p-0 mb-4" data-postid="${
+            post._id
+          }">
+              <div class="post_header col-12 mt-3">
+                  <div class="d-flex row bd-highlight">
+                      <a class="col-lg-2 col-2 d-flex align-items-center justify-content-end"
+                          href="/profile/${post.user._id}">
+                          <img src='${
+                            post.user.avatar
+                          }' alt="avatar" width="50" height="50"
+                              class="img-fluid post-comments_avatar">
+                      </a>
+                      <a class="row post_header-userInfo col-9 col-lg-8 d-flex align-items-center justify-content-center p-0"
+                          href="/profile/${post.user._id}">
+                          <div class="p-2 bd-highlight">
+                              <div>
+                                  <strong>
+                                      ${post.user.fullname}
+                                  </strong>
+                                  ${
+                                    post.isUpdated
+                                      ? `<span class="small">(Bài viết đã cập nhật)</span>`
+                                      : ''
+                                  }
+                              </div>
+                              <div class="small">
+                                  ${post.create_date} at ${post.create_time}
+                              </div>
                           </div>
-                          <div class="small">
-                              ${jsonData[postsCount].create_date} at ${
-            jsonData[postsCount].create_time
-          }
-                          </div>
-                      </div>
-                  </a>
-                  ${
-                    json.currentUser.role === 'admin'
-                      ? `
-                  <div class="col-lg-2 col-1 d-flex align-items-center justify-content-end">
-                  <div class="dropdown">
-                      <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuButton1"
-                          data-bs-toggle="dropdown" aria-expanded="false">
-                          more_horiz
-                      </span>
-                      <ul class="dropdown-menu dropdown-menu-lg-end post_dropdown-menu"
-                          aria-labelledby="dropdownMenuButton1">
-                          <li class="me-1 ms-1">
-                              <a class="dropdown-item d-flex justify-content-start align-items-center create_post-updateModal" href="#"
-                                  data-bs-toggle="modal" data-bs-target="#updatePostModal">
-                                  <span class="material-icons-outlined me-2">
-                                      settings
-                                  </span>
-                                  <span>Chỉnh sửa</span>
-                              </a>
-                          </li>
-                          <li class="me-1 ms-1">
-                              <a class="dropdown-item d-flex justify-content-start align-items-center post_delete_Btn"
-                                  href="#">
-                                  <span class="material-icons-outlined me-2">
-                                      delete
-                                  </span>
-                                  <span>Xoá</span>
-                              </a>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-                  `
-                      : ``
-                  }
-                  ${
-                    jsonData[postsCount].user._id.toString() ===
-                    json.currentUser._id.toString()
-                      ? `
-                      <div class="col-lg-2 col-1 ${
-                        json.currentUser.role === 'admin' ? `d-none` : ``
-                      } d-flex align-items-center justify-content-end">
+                      </a>
+                      ${
+                        json.currentUser.role === 'admin'
+                          ? `
+                      <div class="col-lg-2 col-1 d-flex align-items-center justify-content-end">
                       <div class="dropdown">
                           <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuButton1"
                               data-bs-toggle="dropdown" aria-expanded="false">
@@ -237,340 +196,145 @@ $(document).ready(function () {
                       </div>
                   </div>
                       `
-                      : ``
-                  }
+                          : ``
+                      }
+                      ${
+                        post.user._id.toString() ===
+                        json.currentUser._id.toString()
+                          ? `
+                          <div class="col-lg-2 col-1 ${
+                            json.currentUser.role === 'admin' ? `d-none` : ``
+                          } d-flex align-items-center justify-content-end">
+                          <div class="dropdown">
+                              <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuButton1"
+                                  data-bs-toggle="dropdown" aria-expanded="false">
+                                  more_horiz
+                              </span>
+                              <ul class="dropdown-menu dropdown-menu-lg-end post_dropdown-menu"
+                                  aria-labelledby="dropdownMenuButton1">
+                                  <li class="me-1 ms-1">
+                                      <a class="dropdown-item d-flex justify-content-start align-items-center create_post-updateModal" href="#"
+                                          data-bs-toggle="modal" data-bs-target="#updatePostModal">
+                                          <span class="material-icons-outlined me-2">
+                                              settings
+                                          </span>
+                                          <span>Chỉnh sửa</span>
+                                      </a>
+                                  </li>
+                                  <li class="me-1 ms-1">
+                                      <a class="dropdown-item d-flex justify-content-start align-items-center post_delete_Btn"
+                                          href="#">
+                                          <span class="material-icons-outlined me-2">
+                                              delete
+                                          </span>
+                                          <span>Xoá</span>
+                                      </a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                          `
+                          : ``
+                      }
+                  </div>
               </div>
-          </div>
-          <div class="post_body col-12">
-              <div class="d-flex flex-column col-12 mt-3">
-                  <div id="post_caption_${
-                    jsonData[postsCount]._id
-                  }" class="col-12 post_body-caption post_caption-lineclamp">${
-            jsonData[postsCount].caption
+              <div class="post_body col-12">
+                  <div class="d-flex flex-column col-12 mt-3">
+                      <div id="post_caption_${
+                        post._id
+                      }" class="col-12 post_body-caption post_caption-lineclamp">${
+            post.caption
           }</div>
-              </div>
-              ${
-                jsonData[postsCount].video
-                  ? `<div class="col-12 mt-3">
-                  <iframe class="post_video-iframe" id="video1" width="450" height="280"
-                      src="http://www.youtube.com/embed/${jsonData[postsCount].video}?enablejsapi" frameborder="0" allowtransparency="true"
-                      allowfullscreen></iframe>
-                  </div> `
-                  : ''
-              }
-              <div class="col-12 mt-1">
+                  </div>
                   ${
-                    jsonData[postsCount].image
-                      ? `<img src='${jsonData[postsCount].image}' alt='image' class='img-post img-fluid post_img-viewImg' data-bs-toggle='modal'
-                    data-bs-target='#post_img-viewImg_${jsonData[postsCount]._id}'/>`
+                    post.video
+                      ? `<div class="col-12 mt-3">
+                      <iframe class="post_video-iframe" id="video1" width="450" height="280"
+                          src="http://www.youtube.com/embed/${post.video}?enablejsapi" frameborder="0" allowtransparency="true"
+                          allowfullscreen></iframe>
+                      </div> `
                       : ''
                   }
-              </div>
-              <div class="modal fade" id="post_img-viewImg_${
-                jsonData[postsCount]._id
-              }" tabindex="-1" aria-labelledby="exampleModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog modal-lg modal-dialog-centered">
-                      <div class=" modal-content">
-                          <div class="modal-body d-flex flex-column justify-content-center">
-                              <div class="col-12 d-flex justify-content-end">
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="col-12">
-                                  <img src="${
-                                    jsonData[postsCount].image
-                                  }" alt="image" class="img-post img-fluid post_img-viewImg">
+                  <div class="col-12 mt-1">
+                      ${
+                        post.image
+                          ? `<img src='${post.image}' alt='image' class='img-post img-fluid post_img-viewImg' data-bs-toggle='modal'
+                        data-bs-target='#post_img-viewImg_${post._id}'/>`
+                          : ''
+                      }
+                  </div>
+                  <div class="modal fade" id="post_img-viewImg_${
+                    post._id
+                  }" tabindex="-1" aria-labelledby="exampleModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog modal-lg modal-dialog-centered">
+                          <div class=" modal-content">
+                              <div class="modal-body d-flex flex-column justify-content-center">
+                                  <div class="col-12 d-flex justify-content-end">
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="col-12">
+                                      <img src="${
+                                        post.image
+                                      }" alt="image" class="img-post img-fluid post_img-viewImg">
+                                  </div>
                               </div>
                           </div>
                       </div>
                   </div>
               </div>
-          </div>
-          <div class="post_footer col-12">
-              <div class="button_post container pb-2">
-                  <hr>
-                  <div class="row">
-                      <div type="button" class="btn d-flex justify-content-center comments_expand col-6">
-                          <div class="d-flex justify-content-center align-items-center">
-                              <div class="material-icons-outlined icon me-2">
-                                  chat_bubble_outline
+              <div class="post_footer col-12">
+                  <div class="button_post container pb-2">
+                      <hr>
+                      <div class="row">
+                          <div type="button" class="btn d-flex justify-content-center comments_expand col-6">
+                              <div class="d-flex justify-content-center align-items-center">
+                                  <div class="material-icons-outlined icon me-2">
+                                      chat_bubble_outline
+                                  </div>
+                                  <div>Bình luận</div>
                               </div>
-                              <div>Bình luận</div>
+                          </div>
+                          <div class="d-flex justify-content-center align-items-center col-6">
+                              <div>${
+                                post.comments ? post.comments.length : ''
+                              } Bình luận</div>
                           </div>
                       </div>
-                      <div class="d-flex justify-content-center align-items-center col-6">
-                          <div>${
-                            jsonData[postsCount].comments
-                              ? jsonData[postsCount].comments.length
-                              : ''
-                          } Bình luận</div>
+                  </div>
+              </div>
+
+              <div class="col-12 post_comments comment_container_${
+                post._id
+              } d-none" id="comment_${post._id}">
+                  <div class="d-none" id="comment_loading_${post._id}">
+                    <div class="d-flex justify-content-center">
+                      <div class="spinner-border"  role="status">
+                          <span class="visually-hidden">Loading...</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="comment_holder w-100 my-3"></div>
+                  <div class="d-flex container-fluid pb-2">
+                      <div class="d-flex justify-content-center align-items-center col-1">
+                          <a class="post-comments_avatar" href="/profile/${
+                            post.user._id
+                          }">
+                              <img src='${
+                                post.user.avatar
+                              }' alt="avatar" width="50" height="50"
+                                  class="img-fluid rounded-circle">
+                          </a>
+                      </div>
+                      <div class="d-flex justify-content-center col-11">
+                          <textarea type="text" rows="1" placeholder="Write a comment..."
+                              class="form-control comment_box post_create-cmtInpt text_area_border"
+                              oninput="onChangeTextArea()"></textarea>
                       </div>
                   </div>
               </div>
           </div>
-
-          <div class="col-12 post_comments comment_container_${
-            jsonData[postsCount]._id
-          } d-none" id="comment_${jsonData[postsCount]._id}">
-              <div class="d-none" id="comment_loading_${
-                jsonData[postsCount]._id
-              }">
-                <div class="d-flex justify-content-center">
-                  <div class="spinner-border"  role="status">
-                      <span class="visually-hidden">Loading...</span>
-                  </div>
-                </div>
-              </div>
-              <div class="comment_holder w-100 my-3"></div>
-              <div class="d-flex container-fluid pb-2">
-                  <div class="d-flex justify-content-center align-items-center col-1">
-                      <a class="post-comments_avatar" href="/profile/${
-                        jsonData[postsCount].user._id
-                      }">
-                          <img src='${
-                            jsonData[postsCount].user.avatar
-                          }' alt="avatar" width="50" height="50"
-                              class="img-fluid rounded-circle">
-                      </a>
-                  </div>
-                  <div class="d-flex justify-content-center col-11">
-                      <textarea type="text" rows="1" placeholder="Write a comment..."
-                          class="form-control comment_box post_create-cmtInpt text_area_border"
-                          oninput="onChangeTextArea()"></textarea>
-                  </div>
-              </div>
-          </div>
-      </div>
-    `);
-          postsCount += 1;
-        }
-
-        // Load bài viết còn lại
-        $(window).scroll(function () {
-          if (
-            $(window).scrollTop() ==
-            $(document).height() - $(window).height()
-          ) {
-            if (postsCount < jsonData.length) {
-              $('.post_middle-loading-spinners').removeClass('d-none');
-              $('.post_middle-loading-spinners').addClass('d-flex');
-              for (let i = 0; i < 1; i++) {
-                $('.post-container').append(`
-            <div class="post_id bg-white container d-lg-flex flex-column p-0 mb-4" data-postid="${
-              jsonData[postsCount]._id
-            }">
-                <div class="post_header col-12 mt-3">
-                    <div class="d-flex row bd-highlight">
-                        <a class="col-lg-2 col-2 d-flex align-items-center justify-content-end"
-                            href="/profile/${jsonData[postsCount].user._id}">
-                            <img src='${
-                              jsonData[postsCount].user.avatar
-                            }' alt="avatar" width="50" height="50"
-                                class="img-fluid post-comments_avatar">
-                        </a>
-                        <a class="row post_header-userInfo col-9 col-lg-8 d-flex align-items-center justify-content-center p-0"
-                            href="/profile/${jsonData[postsCount].user._id}">
-                            <div class="p-2 bd-highlight">
-                                <div>
-                                    <strong>
-                                        ${jsonData[postsCount].user.fullname}
-                                    </strong>
-                                    ${
-                                      jsonData[postsCount].isUpdated
-                                        ? `<span class="small">(Bài viết đã cập nhật)</span>`
-                                        : ''
-                                    }
-                                </div>
-                                <div class="small">
-                                    ${jsonData[postsCount].create_date} at ${
-                  jsonData[postsCount].create_time
-                } 
-                                </div>
-                            </div>
-                        </a>
-                        ${
-                          json.currentUser.role === 'admin'
-                            ? `
-                        <div class="col-lg-2 col-1 d-flex align-items-center justify-content-end">
-                        <div class="dropdown">
-                            <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuButton1"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                more_horiz
-                            </span>
-                            <ul class="dropdown-menu dropdown-menu-lg-end post_dropdown-menu"
-                                aria-labelledby="dropdownMenuButton1">
-                                <li class="me-1 ms-1">
-                                    <a class="dropdown-item d-flex justify-content-start align-items-center create_post-updateModal" href="#"
-                                        data-bs-toggle="modal" data-bs-target="#updatePostModal">
-                                        <span class="material-icons-outlined me-2">
-                                            settings
-                                        </span>
-                                        <span>Chỉnh sửa</span>
-                                    </a>
-                                </li>
-                                <li class="me-1 ms-1">
-                                    <a class="dropdown-item d-flex justify-content-start align-items-center post_delete_Btn"
-                                        href="#">
-                                        <span class="material-icons-outlined me-2">
-                                            delete
-                                        </span>
-                                        <span>Xoá</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                        `
-                            : ``
-                        }
-                        ${
-                          jsonData[postsCount].user._id.toString() ===
-                          json.currentUser._id.toString()
-                            ? `
-                            <div class="col-lg-2 col-1 ${
-                              json.currentUser.role === 'admin' ? `d-none` : ``
-                            } d-flex align-items-center justify-content-end">
-                            <div class="dropdown">
-                                <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    more_horiz
-                                </span>
-                                <ul class="dropdown-menu dropdown-menu-lg-end post_dropdown-menu"
-                                    aria-labelledby="dropdownMenuButton1">
-                                    <li class="me-1 ms-1">
-                                        <a class="dropdown-item d-flex justify-content-start align-items-center create_post-updateModal" href="#"
-                                            data-bs-toggle="modal" data-bs-target="#updatePostModal">
-                                            <span class="material-icons-outlined me-2">
-                                                settings
-                                            </span>
-                                            <span>Chỉnh sửa</span>
-                                        </a>
-                                    </li>
-                                    <li class="me-1 ms-1">
-                                        <a class="dropdown-item d-flex justify-content-start align-items-center post_delete_Btn"
-                                            href="#">
-                                            <span class="material-icons-outlined me-2">
-                                                delete
-                                            </span>
-                                            <span>Xoá</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                            `
-                            : ``
-                        }
-                    </div>
-                </div>
-                <div class="post_body col-12">
-                    <div class="d-flex flex-column col-12 mt-3">
-                        <div id="post_caption_${
-                          jsonData[postsCount]._id
-                        }" class="col-12 post_body-caption post_caption-lineclamp">${
-                  jsonData[postsCount].caption
-                }</div>
-                    </div>
-                    ${
-                      jsonData[postsCount].video
-                        ? `<div class="col-12 mt-3">
-                        <iframe class="post_video-iframe" id="video1" width="450" height="280"
-                            src="http://www.youtube.com/embed/${jsonData[postsCount].video}?enablejsapi" frameborder="0" allowtransparency="true"
-                            allowfullscreen></iframe>
-                        </div> `
-                        : ''
-                    }
-                    <div class="col-12 mt-1">
-                        ${
-                          jsonData[postsCount].image
-                            ? `<img src='${jsonData[postsCount].image}' alt='image' class='img-post img-fluid post_img-viewImg' data-bs-toggle='modal'
-                          data-bs-target='#post_img-viewImg_${jsonData[postsCount]._id}'/>`
-                            : ''
-                        }
-                    </div>
-                    <div class="modal fade" id="post_img-viewImg_${
-                      jsonData[postsCount]._id
-                    }" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                            <div class=" modal-content">
-                                <div class="modal-body d-flex flex-column justify-content-center">
-                                    <div class="col-12 d-flex justify-content-end">
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="col-12">
-                                        <img src="${
-                                          jsonData[postsCount].image
-                                        }" alt="image" class="img-post img-fluid post_img-viewImg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="post_footer col-12">
-                    <div class="button_post container pb-2">
-                        <hr>
-                        <div class="row">
-                            <div type="button" class="btn d-flex justify-content-center comments_expand col-6">
-                                <div class="d-flex justify-content-center align-items-center">
-                                    <div class="material-icons-outlined icon me-2">
-                                        chat_bubble_outline
-                                    </div>
-                                    <div>Bình luận</div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center align-items-center col-6">
-                                <div>${
-                                  jsonData[postsCount].comments
-                                    ? jsonData[postsCount].comments.length
-                                    : ''
-                                } Bình luận</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-  
-                <div class="col-12 post_comments comment_container_${
-                  jsonData[postsCount]._id
-                } d-none" id="comment_${jsonData[postsCount]._id}">
-                    <div class="d-none" id="comment_loading_${
-                      jsonData[postsCount]._id
-                    }">
-                      <div class="d-flex justify-content-center">
-                        <div class="spinner-border"  role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="comment_holder w-100 my-3"></div>
-                    <div class="d-flex container-fluid pb-2">
-                        <div class="d-flex justify-content-center align-items-center col-1">
-                            <a class="post-comments_avatar" href="/profile/${
-                              jsonData[postsCount].user._id
-                            }">
-                                <img src='${
-                                  jsonData[postsCount].user.avatar
-                                }' alt="avatar" width="50" height="50"
-                                    class="img-fluid rounded-circle">
-                            </a>
-                        </div>
-                        <div class="d-flex justify-content-center col-11">
-                            <textarea type="text" rows="1" placeholder="Write a comment..."
-                                class="form-control comment_box post_create-cmtInpt text_area_border"
-                                oninput="onChangeTextArea()"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          `);
-                postsCount += 1;
-              }
-            }
-          } else if (postsCount === jsonData.length) {
-            $('.post_middle-loading-spinners').addClass('d-none');
-            $('.post_middle-loading-spinners').removeClass('d-flex');
-          }
+        `);
         });
       });
   }
@@ -700,11 +464,9 @@ $(document).ready(function () {
     }
     if (youtube_parser(video) !== false) {
       video = youtube_parser(video);
-      console.log('Here');
-    } else {
-      video = '';
     }
     let formData = new FormData();
+    console.log(video, image, caption);
 
     // check size or type here with upload.getSize() and upload.getType()
     if (image !== undefined) {
@@ -713,8 +475,9 @@ $(document).ready(function () {
           title: 'Dung lượng ảnh lớn hơn 10MB',
           icon: 'error',
         });
-        $('.create_post-submitBtn').removeClass('disabled');
-        return false;
+        return setTimeout(function () {
+          window.location.reload();
+        }, 800);
       }
       formData.append('image', image, image.name);
     }
@@ -874,8 +637,9 @@ $(document).ready(function () {
           title: 'Dung lượng ảnh lớn hơn 10MB',
           icon: 'error',
         });
-        $('#updatePostModal .create_post-updateBtn').prop('disabled', false);
-        return false;
+        return setTimeout(function () {
+          window.location.reload();
+        }, 800);
       }
       formData.append('image', image, image.name);
     }
@@ -886,7 +650,7 @@ $(document).ready(function () {
         title: 'Hãy viết nội dung bài viết hoặc chèn thêm đính kèm',
         icon: 'error',
       });
-      $('#updatePostModal .create_post-updateBtn').prop('disabled', false);
+      $('.create_post-submitBtn').removeClass('disabled');
       return false;
     }
 
@@ -928,6 +692,74 @@ $(document).ready(function () {
         $('#updatePostModal .create_post-updateBtn').prop('disabled', false);
       });
   });
+
+  // $('.create_post-updateBtn').on('click', e => {
+  //   e.preventDefault();
+  //   let postId = $(e.target).closest('.post_id').data('postid');
+  //   let caption = document.querySelector('#update_post-input_' + postId).value;
+  //   let video = document.querySelector(
+  //     '#update_post-video-input_' + postId
+  //   ).value;
+  //   const image = $('.create_post-image')[0].files[0];
+  //   const formData = new FormData();
+  //   formData.append('caption', caption);
+
+  //   // Lấy youtube id
+  //   function youtube_parser(url) {
+  //     var regExp =
+  //       /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  //     var match = url.match(regExp);
+  //     return match && match[7].length == 11 ? match[7] : false;
+  //   }
+  //   if (youtube_parser(video) !== false) {
+  //     video = youtube_parser(video);
+  //   }
+
+  //   // check size or type here with upload.getSize() and upload.getType()
+  //   if (image !== undefined) {
+  //     if (image.size / (1024 * 1024).toFixed(2) >= 10) {
+  //       Swal.fire({
+  //         title: 'Dung lượng ảnh lớn hơn 10MB',
+  //         icon: 'error',
+  //       });
+  //       return setTimeout(function () {
+  //         window.location.reload();
+  //       }, 800);
+  //     }
+  //     formData.append('image', image, image.name);
+  //   }
+  //   formData.append('video', video);
+
+  //   if (!image && !video && !caption) {
+  //     Swal.fire({
+  //       title: 'Hãy viết nội dung bài viết hoặc chèn thêm đính kèm',
+  //       icon: 'error',
+  //     });
+  //     $('.create_post-submitBtn').removeClass('disabled');
+  //     return false;
+  //   }
+
+  //   fetch('/api/post/' + postId, {
+  //     method: 'PUT',
+  //     async: true,
+  //     body: formData,
+  //   }).then(data => {
+  //     if (data.status !== 500) {
+  //       Swal.fire({
+  //         title: 'Cập nhật bài viết thành công',
+  //         icon: 'success',
+  //       });
+  //       return setTimeout(function () {
+  //         window.location.reload();
+  //       }, 800);
+  //     } else {
+  //       Swal.fire({
+  //         title: 'Bạn không có quyền cập nhật viết này',
+  //         icon: 'error',
+  //       });
+  //     }
+  //   });
+  // });
 
   // Xoá bài viết
   $(document).on('click', '.post_delete_Btn', async e => {
@@ -1113,45 +945,40 @@ $(document).ready(function () {
   // ================ Jquery liên quan đến phần Thông báo
   // Lấy danh sách thông báo
   function getAnnounces() {
-    let announcesCount = 0;
     return fetch('/api/announcement')
       .then(res => res.json())
       .then(json => {
-        const jsonData = json.announces;
         $('.announce_middle-container').html('');
-        // Load 5 thông báo trước
-        for (let i = 0; i < 5; i++) {
+        json.announces.map(announce => {
           $('.announce_middle-container').append(`
           <div class="announce_id announces_container container d-lg-flex flex-column col-12 p-0 mb-4" data-userid="${
-            jsonData[announcesCount].user._id
-          }" data-announceid="${jsonData[announcesCount]._id}">
+            announce.user._id
+          }" data-announceid="${announce._id}">
           <div class="post_header col-12 mt-3">
             <div class="d-flex row bd-highlight">
               <a class="col-lg-1 col-2 d-flex align-items-center justify-content-end"
-                  href="/profile/${jsonData[announcesCount].user._id}">
+                  href="/profile/${announce.user._id}">
                   <img src='${
-                    jsonData[announcesCount].user.avatar
+                    announce.user.avatar
                   }' alt="avatar" width="50" height="50"
                       class="img-fluid post-comments_avatar">
               </a>
               <a class="row post_header-userInfo col-9 col-lg-10 d-flex align-items-center justify-content-center p-0"
-                  href="/profile/${jsonData[announcesCount].user._id}">
+                  href="/profile/${announce.user._id}">
                   <div class="p-2 bd-highlight">
                       <div>
                           <strong>
-                              ${jsonData[announcesCount].user.fullname}
+                              ${announce.user.fullname}
                           </strong>
                           ${
-                            jsonData[announcesCount].isUpdated
+                            announce.isUpdated
                               ? `<span class="small">(Thông báo đã cập nhật)</span>`
                               : ''
                           }
                       </div>
                       <div class="small">
-                          ${jsonData[announcesCount].create_date} at ${
-            jsonData[announcesCount].create_time
-          }
-                      </div> ${jsonData[announcesCount]._id}
+                          ${announce.create_date} at ${announce.create_time}
+                      </div>
                   </div>
               </a>
               ${
@@ -1190,8 +1017,7 @@ $(document).ready(function () {
                   : ''
               }
               ${
-                jsonData[announcesCount].user._id.toString() ===
-                json.currentUser._id.toString()
+                announce.user._id.toString() === json.currentUser._id.toString()
                   ? `
               <div class="col-lg-1 ${
                 json.currentUser.role === 'admin' ? `d-none` : ``
@@ -1232,22 +1058,21 @@ $(document).ready(function () {
             <div class="post_body col-12 mb-3">
               <div class="d-flex flex-column col-12 mt-3">
                 <div class="d-flex col-12 justify-content-start align-items-center announce_header-title">
-                    <h3>${jsonData[announcesCount].title}</h3>
+                    <h3>${announce.title}</h3>
                 </div>
               </div>
               <div class="d-flex flex-column col-12 mt-3">
                 <div id="announce_content_${
-                  jsonData[announcesCount]._id
+                  announce._id
                 }" class="col-12 announce_body-content announce_content-lineclamp">
-                ${jsonData[announcesCount].content}
+                ${announce.content}
                 </div>
               </div>
               <div class="d-flex flex-column col-12 mt-3">
                 <div class="col-12 announce_body-content announce_content-lineclamp">
                 ${
-                  jsonData[announcesCount].sections !== null
-                    ? `<strong>Phòng ban: </strong>` +
-                      jsonData[announcesCount].sections.name
+                  announce.sections !== null
+                    ? `<strong>Phòng ban: </strong>` + announce.sections.name
                     : ``
                 }
                 </div>
@@ -1255,160 +1080,6 @@ $(document).ready(function () {
             </div>
           </div>
         `);
-          announcesCount += 1;
-        }
-
-        // Load thông báo còn lại
-        $(window).scroll(function () {
-          if (
-            $(window).scrollTop() ==
-            $(document).height() - $(window).height()
-          ) {
-            if (announcesCount < jsonData.length) {
-              $('.announce_middle-loading-spinners').removeClass('d-none');
-              $('.announce_middle-loading-spinners').addClass('d-flex');
-              for (let i = 0; i < 1; i++) {
-                $('.announce_middle-container').append(`
-          <div class="announce_id announces_container container d-lg-flex flex-column col-12 p-0 mb-4" data-userid="${
-            jsonData[announcesCount].user._id
-          }" data-announceid="${jsonData[announcesCount]._id}">
-          <div class="post_header col-12 mt-3">
-            <div class="d-flex row bd-highlight">
-              <a class="col-lg-1 col-2 d-flex align-items-center justify-content-end"
-                  href="/profile/${jsonData[announcesCount].user._id}">
-                  <img src='${
-                    jsonData[announcesCount].user.avatar
-                  }' alt="avatar" width="50" height="50"
-                      class="img-fluid post-comments_avatar">
-              </a>
-              <a class="row post_header-userInfo col-9 col-lg-10 d-flex align-items-center justify-content-center p-0"
-                  href="/profile/${jsonData[announcesCount].user._id}">
-                  <div class="p-2 bd-highlight">
-                      <div>
-                          <strong>
-                              ${jsonData[announcesCount].user.fullname}
-                          </strong>
-                          ${
-                            jsonData[announcesCount].isUpdated
-                              ? `<span class="small">(Thông báo đã cập nhật)</span>`
-                              : ''
-                          }
-                      </div>
-                      <div class="small">
-                          ${jsonData[announcesCount].create_date} at ${
-                  jsonData[announcesCount].create_time
-                }
-                      </div> ${jsonData[announcesCount]._id}
-                  </div>
-              </a>
-              ${
-                json.currentUser.role === 'admin'
-                  ? `
-              <div class="col-lg-1 col-1 d-flex align-items-center justify-content-end">
-              <div class="dropdown">
-                  <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown" aria-expanded="false">
-                      more_horiz
-                  </span>
-                  <ul class="dropdown-menu dropdown-menu-lg-end post_dropdown-menu"
-                      aria-labelledby="dropdownMenuButton1">
-                      <li class="me-1 ms-1">
-                          <a class="dropdown-item d-flex justify-content-start align-items-center announce_update-Btn" href="#"
-                              data-bs-toggle="modal" data-bs-target="#updateAnnounceModal">
-                              <span class="material-icons-outlined me-2">
-                                  settings
-                              </span>
-                              <span>Chỉnh sửa</span>
-                          </a>
-                      </li>
-                      <li class="me-1 ms-1">
-                          <a class="dropdown-item d-flex justify-content-start align-items-center announce_delete_Btn"
-                              href="#">
-                              <span class="material-icons-outlined me-2">
-                                  delete
-                              </span>
-                              <span>Xoá</span>
-                          </a>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-              `
-                  : ''
-              }
-              ${
-                jsonData[announcesCount].user._id.toString() ===
-                json.currentUser._id.toString()
-                  ? `
-              <div class="col-lg-1 ${
-                json.currentUser.role === 'admin' ? `d-none` : ``
-              }  col-1 d-flex align-items-center justify-content-end">
-              <div class="dropdown">
-                  <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown" aria-expanded="false">
-                      more_horiz
-                  </span>
-                  <ul class="dropdown-menu dropdown-menu-lg-end post_dropdown-menu"
-                      aria-labelledby="dropdownMenuButton1">
-                      <li class="me-1 ms-1">
-                          <a class="dropdown-item d-flex justify-content-start align-items-center announce_update-Btn" href="#"
-                              data-bs-toggle="modal" data-bs-target="#updateAnnounceModal">
-                              <span class="material-icons-outlined me-2">
-                                  settings
-                              </span>
-                              <span>Chỉnh sửa</span>
-                          </a>
-                      </li>
-                      <li class="me-1 ms-1">
-                          <a class="dropdown-item d-flex justify-content-start align-items-center announce_delete_Btn"
-                              href="#">
-                              <span class="material-icons-outlined me-2">
-                                  delete
-                              </span>
-                              <span>Xoá</span>
-                          </a>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-              `
-                  : ``
-              }
-            </div>
-          </div>
-            <div class="post_body col-12 mb-3">
-              <div class="d-flex flex-column col-12 mt-3">
-                <div class="d-flex col-12 justify-content-start align-items-center announce_header-title">
-                    <h3>${jsonData[announcesCount].title}</h3>
-                </div>
-              </div>
-              <div class="d-flex flex-column col-12 mt-3">
-                <div id="announce_content_${
-                  jsonData[announcesCount]._id
-                }" class="col-12 announce_body-content announce_content-lineclamp">
-                ${jsonData[announcesCount].content}
-                </div>
-              </div>
-              <div class="d-flex flex-column col-12 mt-3">
-                <div class="col-12 announce_body-content announce_content-lineclamp">
-                ${
-                  jsonData[announcesCount].sections !== null
-                    ? `<strong>Phòng ban: </strong>` +
-                      jsonData[announcesCount].sections.name
-                    : ``
-                }
-                </div>
-              </div>
-            </div>
-          </div>
-        `);
-                announcesCount += 1;
-              }
-            }
-          } else if (announcesCount === jsonData.length) {
-            $('.announce_middle-loading-spinners').addClass('d-none');
-            $('.announce_middle-loading-spinners').removeClass('d-flex');
-          }
         });
       });
   }
@@ -1572,70 +1243,61 @@ $(document).ready(function () {
   });
 
   // Cập nhật thông báo
-  $(document).on(
-    'click',
-    '#updateAnnounceModal .update_announce-submitBtn',
-    e => {
-      e.preventDefault();
-      let announceId = $(e.target).closest('.announce_id').data('id');
-      console.log(announceId);
-      let announceTitle = $('#update_announce-title').val();
-      let announceContent =
-        CKEDITOR.instances['update_announce-content'].getData();
-      let announceSectionId = $('input[name="radioSectionId"]:checked').val();
+  $(document).on('click', '.update_announce-submitBtn', e => {
+    e.preventDefault();
+    let announceId = $(e.target).closest('.announce_id').data('id');
+    let announceTitle = $('#update_announce-title').val();
+    let announceContent =
+      CKEDITOR.instances['update_announce-content'].getData();
+    let announceSectionId = $('input[name="radioSectionId"]:checked').val();
 
-      if (
-        !announceTitle ||
-        announceContent.length <= 61 ||
-        !announceSectionId
-      ) {
-        Swal.fire({
-          title: 'Hãy viết tiêu đề nội dung thông báo và chọn Phòng ban',
-          icon: 'error',
-        });
-        $('.create_post-submitBtn').removeClass('disabled');
-        return false;
-      }
-
-      fetch('/api/announcement/' + announceId, {
-        method: 'PUT',
-        async: true,
-        body: new URLSearchParams({
-          title: announceTitle,
-          content: announceContent,
-          sectionsId: announceSectionId,
-        }),
-      })
-        .then(res => res.json())
-        .then(({ ok, msg }) => {
-          if (ok) {
-            Swal.fire({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-              title: msg,
-              icon: 'success',
-            });
-            getAnnounces();
-          } else {
-            Swal.fire({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-              title: msg,
-              icon: 'error',
-            });
-          }
-        })
-        .finally(() => {
-          $('#updateAnnounceModal').modal('hide');
-        });
+    if (!announceTitle || announceContent.length <= 61 || !announceSectionId) {
+      Swal.fire({
+        title: 'Hãy viết tiêu đề nội dung thông báo và chọn Phòng ban',
+        icon: 'error',
+      });
+      $('.create_post-submitBtn').removeClass('disabled');
+      return false;
     }
-  );
+
+    fetch('/api/announcement/' + announceId, {
+      method: 'PUT',
+      async: true,
+      body: new URLSearchParams({
+        title: announceTitle,
+        content: announceContent,
+        sectionsId: announceSectionId,
+      }),
+    })
+      .then(res => res.json())
+      .then(({ ok, msg }) => {
+        if (ok) {
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            title: msg,
+            icon: 'success',
+          });
+          getAnnounces();
+        } else {
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            title: msg,
+            icon: 'error',
+          });
+        }
+      })
+      .finally(() => {
+        $('#updateAnnounceModal').modal('hide');
+      });
+  });
 
   // Xoá thông báo
   $(document).on('click', '.announce_delete_Btn', e => {
