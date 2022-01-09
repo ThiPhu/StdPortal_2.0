@@ -108,16 +108,68 @@ $(document).ready(function () {
   )
     $(window).ready(e => {
       getPost();
+      getPostsNotification();
       getAnnounces();
       onChangeTextArea();
     });
 
-  // Lấy danh sách bài viết
+  // Lấy danh sách notifications
+  function getPostsNotification() {
+    const userId =
+      window.location.href.indexOf('profile') > -1 ||
+      window.location.href.indexOf('update-info') < -1
+        ? window.location.href.split('/').at(-1)
+        : undefined;
 
+    // Trả về route có query nếu có tham số id người dùng
+    const route = userId ? `/api/post?user=${userId}` : '/api/post/';
+    return fetch(route)
+      .then(res => res.json())
+      .then(json => {
+        //reset
+        $('.dropdown_notifications-post-container').html('');
+        json.posts.map(post => {
+          $('.dropdown_notifications-post-container').append(`
+          <li>
+              <a href="#" class="dropdown-item p-3" aria-current="true">
+                  <div
+                      class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
+                      <strong class="mb-1">
+                          <span class="me-2 material-icons-outlined">
+                              people
+                          </span>
+                          <span>${post.user.fullname}</span>
+                      </strong>
+                  </div>
+                  <div class="col-12 mb-1 dropdown-alert-content">
+                      ${post.caption}
+                  </div>
+                  <div class="col-12 mb-1 dropdown-alert-content">
+                      <strong>${
+                        post.image !== null ? `Bài viết có ảnh đính kèm` : ``
+                      }</strong>
+                  </div>
+                  <div class="col-12 mb-1 dropdown-alert-content">
+                      <strong>${
+                        post.video !== null ? `Bài viết có video` : ``
+                      }</strong>
+                  </div>
+                  <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
+                      <span class="material-icons-outlined m-1">
+                          schedule
+                      </span>
+                      ${post.create_date} lúc  ${post.create_time}
+                  </div>
+              </a>
+          </li>
+        `);
+        });
+      });
+  }
+
+  // Lấy danh sách bài viết
   function getPost() {
     // Set cứng, nếu đường dẫn là profile thì tạo biết userid gán id user, ngược lại trả về undefined
-    let pages = 1;
-    let counts = 0;
     const userId =
       window.location.href.indexOf('profile') > -1 ||
       window.location.href.indexOf('update-info') < -1
@@ -131,6 +183,8 @@ $(document).ready(function () {
       .then(json => {
         //reset
         $('.post-container').html('');
+        $('.post_middle-spinner-loading').removeClass('d-none');
+        $('.post_middle-spinner-loading').addClass('d-flex');
         json.posts.map(post => {
           $('.post-container').append(`
           <div class="post_id bg-white container d-lg-flex flex-column p-0 mb-4" data-postid="${
@@ -336,6 +390,8 @@ $(document).ready(function () {
           </div>
         `);
         });
+        $('.post_middle-spinner-loading').addClass('d-none');
+        $('.post_middle-spinner-loading').removeClass('d-flex');
       });
   }
 
@@ -505,6 +561,7 @@ $(document).ready(function () {
         // If auth success, redirect to home
         if (data.ok != false) {
           getPost();
+          getPostsNotification();
         }
         // return (window.location.href = '/');
       })
@@ -539,69 +596,6 @@ $(document).ready(function () {
           $('#updatePostModal').find('.create_post-video-input').val(pst.video);
         });
       });
-    // let caption = document.querySelector('#update_post-input_' + postId).value;
-    // let video = document.querySelector(
-    //   '#update_post-video-input_' + postId
-    // ).value;
-    // const image = $('.create_post-image')[0].files[0];
-    // const formData = new FormData();
-    // formData.append('caption', caption);
-
-    // // Lấy youtube id
-    // function youtube_parser(url) {
-    //   var regExp =
-    //     /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-    //   var match = url.match(regExp);
-    //   return match && match[7].length == 11 ? match[7] : false;
-    // }
-    // if (youtube_parser(video) !== false) {
-    //   video = youtube_parser(video);
-    // }
-
-    // // check size or type here with upload.getSize() and upload.getType()
-    // if (image !== undefined) {
-    //   if (image.size / (1024 * 1024).toFixed(2) >= 10) {
-    //     Swal.fire({
-    //       title: 'Dung lượng ảnh lớn hơn 10MB',
-    //       icon: 'error',
-    //     });
-    //     return setTimeout(function () {
-    //       window.location.reload();
-    //     }, 800);
-    //   }
-    //   formData.append('image', image, image.name);
-    // }
-    // formData.append('video', video);
-
-    // if (!image && !video && !caption) {
-    //   Swal.fire({
-    //     title: 'Hãy viết nội dung bài viết hoặc chèn thêm đính kèm',
-    //     icon: 'error',
-    //   });
-    //   $('.create_post-submitBtn').removeClass('disabled');
-    //   return false;
-    // }
-
-    // fetch('/api/post/' + postId, {
-    //   method: 'PUT',
-    //   async: true,
-    //   body: formData,
-    // }).then(data => {
-    //   if (data.status !== 500) {
-    //     Swal.fire({
-    //       title: 'Cập nhật bài viết thành công',
-    //       icon: 'success',
-    //     });
-    //     return setTimeout(function () {
-    //       window.location.reload();
-    //     }, 800);
-    //   } else {
-    //     Swal.fire({
-    //       title: 'Bạn không có quyền cập nhật viết này',
-    //       icon: 'error',
-    //     });
-    //   }
-    // });
   });
 
   // Cập nhật bài viết
@@ -672,6 +666,7 @@ $(document).ready(function () {
         });
         if (ok) {
           getPost();
+          getPostsNotification();
         } else {
           Swal.fire({
             toast: true,
@@ -692,74 +687,6 @@ $(document).ready(function () {
         $('#updatePostModal .create_post-updateBtn').prop('disabled', false);
       });
   });
-
-  // $('.create_post-updateBtn').on('click', e => {
-  //   e.preventDefault();
-  //   let postId = $(e.target).closest('.post_id').data('postid');
-  //   let caption = document.querySelector('#update_post-input_' + postId).value;
-  //   let video = document.querySelector(
-  //     '#update_post-video-input_' + postId
-  //   ).value;
-  //   const image = $('.create_post-image')[0].files[0];
-  //   const formData = new FormData();
-  //   formData.append('caption', caption);
-
-  //   // Lấy youtube id
-  //   function youtube_parser(url) {
-  //     var regExp =
-  //       /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-  //     var match = url.match(regExp);
-  //     return match && match[7].length == 11 ? match[7] : false;
-  //   }
-  //   if (youtube_parser(video) !== false) {
-  //     video = youtube_parser(video);
-  //   }
-
-  //   // check size or type here with upload.getSize() and upload.getType()
-  //   if (image !== undefined) {
-  //     if (image.size / (1024 * 1024).toFixed(2) >= 10) {
-  //       Swal.fire({
-  //         title: 'Dung lượng ảnh lớn hơn 10MB',
-  //         icon: 'error',
-  //       });
-  //       return setTimeout(function () {
-  //         window.location.reload();
-  //       }, 800);
-  //     }
-  //     formData.append('image', image, image.name);
-  //   }
-  //   formData.append('video', video);
-
-  //   if (!image && !video && !caption) {
-  //     Swal.fire({
-  //       title: 'Hãy viết nội dung bài viết hoặc chèn thêm đính kèm',
-  //       icon: 'error',
-  //     });
-  //     $('.create_post-submitBtn').removeClass('disabled');
-  //     return false;
-  //   }
-
-  //   fetch('/api/post/' + postId, {
-  //     method: 'PUT',
-  //     async: true,
-  //     body: formData,
-  //   }).then(data => {
-  //     if (data.status !== 500) {
-  //       Swal.fire({
-  //         title: 'Cập nhật bài viết thành công',
-  //         icon: 'success',
-  //       });
-  //       return setTimeout(function () {
-  //         window.location.reload();
-  //       }, 800);
-  //     } else {
-  //       Swal.fire({
-  //         title: 'Bạn không có quyền cập nhật viết này',
-  //         icon: 'error',
-  //       });
-  //     }
-  //   });
-  // });
 
   // Xoá bài viết
   $(document).on('click', '.post_delete_Btn', async e => {
@@ -793,6 +720,7 @@ $(document).ready(function () {
             });
             if (ok) {
               getPost();
+              getPostsNotification();
             } else {
               Swal.fire({
                 toast: true,
@@ -943,12 +871,15 @@ $(document).ready(function () {
 
   // ================ Kết thúc Section Jquery liên quan đến bài viết
   // ================ Jquery liên quan đến phần Thông báo
+
   // Lấy danh sách thông báo
   function getAnnounces() {
     return fetch('/api/announcement')
       .then(res => res.json())
       .then(json => {
         $('.announce_middle-container').html('');
+        $('.announce_middle-spinner-loading').addClass('d-flex');
+        $('.announce_middle-spinner-loading').removeClass('d-none');
         json.announces.map(announce => {
           $('.announce_middle-container').append(`
           <div class="announce_id announces_container container d-lg-flex flex-column col-12 p-0 mb-4" data-userid="${
@@ -1081,6 +1012,8 @@ $(document).ready(function () {
           </div>
         `);
         });
+        $('.announce_middle-spinner-loading').addClass('d-none');
+        $('.announce_middle-spinner-loading').removeClass('d-flex');
       });
   }
 

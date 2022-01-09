@@ -6,7 +6,7 @@
         <img src='{{avatar}}' alt="avatar" width="100" height="100" class="rounded-circle m-3">
         {{/if}}
         {{/each}}
-        <p class="text-white">
+        <p class="text-white text-center">
             <strong>
                 {{#each currentProfile}}
                 {{#if fullname}}
@@ -103,10 +103,15 @@
             </a>
         </li>
         <li class="nav-item sb-left-link">
+            <a href="/profile/{{user._id}}" class="nav-link d-flex justify-content-start" aria-current="page">
+                Thay đổi thông tin
+            </a>
+        </li>
+        {{!-- <li class="nav-item sb-left-link">
             <a href="/announcements/sections" class="nav-link d-flex justify-content-start" aria-current="page">
                 Thông báo đơn vị/phòng ban
             </a>
-        </li>
+        </li> --}}
         {{!-- Nếu là admin sẽ hiện trang quản lý --}}
         {{#if admin}}
         <li class="nav-item sb-left-link">
