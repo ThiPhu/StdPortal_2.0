@@ -191,12 +191,10 @@ $(document).ready(function () {
             post._id
           }">
               <div class="post_header col-12 mt-3">
-                  <div class="d-flex row bd-highlight">
+                  <div class="d-flex align-items-center justify-content-center row">
                       <a class="col-lg-2 col-2 d-flex align-items-center justify-content-end"
                           href="/profile/${post.user._id}">
-                          <img src='${
-                            post.user.avatar
-                          }' alt="avatar" width="50" height="50"
+                          <img src='${post.user.avatar}' alt="avatar"
                               class="img-fluid post-comments_avatar">
                       </a>
                       <a class="row post_header-userInfo col-9 col-lg-8 d-flex align-items-center justify-content-center p-0"
@@ -292,7 +290,7 @@ $(document).ready(function () {
                       }
                   </div>
               </div>
-              <div class="post_body col-12">
+              <div class="container post_body col-12">
                   <div class="d-flex flex-column col-12 mt-3">
                       <div id="post_caption_${
                         post._id
@@ -337,7 +335,7 @@ $(document).ready(function () {
                       </div>
                   </div>
               </div>
-              <div class="post_footer col-12">
+              <div class="container post_footer col-12">
                   <div class="button_post container pb-2">
                       <hr>
                       <div class="row">
