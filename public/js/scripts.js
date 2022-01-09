@@ -290,8 +290,8 @@ $(document).ready(function () {
                       }
                   </div>
               </div>
-              <div class="container post_body col-12">
-                  <div class="d-flex flex-column col-12 mt-3">
+              <div class="post_body col-12">
+                  <div class="container d-flex flex-column col-12 mt-3">
                       <div id="post_caption_${
                         post._id
                       }" class="col-12 post_body-caption post_caption-lineclamp">${
@@ -335,7 +335,7 @@ $(document).ready(function () {
                       </div>
                   </div>
               </div>
-              <div class="container post_footer col-12">
+              <div class="post_footer col-12">
                   <div class="button_post container pb-2">
                       <hr>
                       <div class="row">
