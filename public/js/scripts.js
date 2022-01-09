@@ -373,8 +373,8 @@ $(document).ready(function () {
                             post.user._id
                           }">
                               <img src='${
-                                post.user.avatar
-                              }' alt="avatar" width="50" height="50"
+                                json.currentUser.avatar
+                              }' alt="avatar" 
                                   class="img-fluid rounded-circle">
                           </a>
                       </div>
