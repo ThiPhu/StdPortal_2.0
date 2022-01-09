@@ -15,7 +15,9 @@ body {
 /*  Tạo class kiểu vậy: .navbar_head-abcxyz*/
 .navbar_head-items {
   color: white;
-  margin-left: 20px;
+  font-size: 20px;
+  width: 100%;
+  margin-bottom: 0.2rem;
 }
 .navbar_head-hover:hover {
   background-color: var(--secondary-color-hover);
@@ -912,6 +914,27 @@ body {
   border-radius: 12px;
 }
 
+.announce_header-items {
+  text-decoration: none;
+}
+
+.announce_backward-icon {
+  transition: all 0.2s ease-in-out;
+  color: var(--primary-color);
+  border-radius: 50%;
+}
+
+.announce_backward-icon span {
+  font-size: 36px !important;
+}
+
+.announce_backward-icon:hover {
+  transition: all 0.2s ease-in-out;
+  background-color: var(--secondary-color-hover);
+  color: #fff;
+  border-radius: 50%;
+}
+
 .announce_header-title {
   cursor: pointer;
   font-size: 17px;
@@ -1284,7 +1307,7 @@ body {
   background-color: #fff;
 }
 
-.mngt-btn-carousel:hover{
+.mngt-btn-carousel:hover {
   transition: 0.25s ease-in-out;
   background-color: var(--secondary-color-hover);
   color: white;

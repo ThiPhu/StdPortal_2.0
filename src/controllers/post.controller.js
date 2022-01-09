@@ -19,9 +19,8 @@ const months = [
 // Lấy tất cả bài viết
 exports.getPosts = async (req, res, next) => {
   try {
-
     // Lấy query là id người dùng, nếu có
-    const user = req.query ? req.query : {}
+    const user = req.query ? req.query : {};
 
     // xác thực danh tính
     // const isOwner = (req.user._id === req.)
@@ -38,6 +37,7 @@ exports.getPosts = async (req, res, next) => {
       ok: true,
       msg: 'Trả về các bài viết thành công!',
       posts: posts,
+      currentUser: req.user,
     });
   } catch (err) {
     next(err);
@@ -82,7 +82,7 @@ exports.getPostId = async (req, res, next) => {
 //       })
 //     } else {
 //       return res.json({
-//         ok: false, 
+//         ok: false,
 //         msg: "Không tìm thấy bài viết"
 //       })
 //     }
@@ -116,8 +116,7 @@ exports.create = async (req, res, next) => {
     const date = new Date();
     const create_date =
       date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
-    const create_time =
-      date.getHours() + ':' + date.getMinutes()
+    const create_time = date.getHours() + ':' + date.getMinutes();
     // Nếu không phải là người dùng đăng nhập được trên trang này hay
     // không có tài khoản đăng nhập thì không cho tạo bài viết
     if (!userId || (caption.length <= 0 && image === null && video === null)) {

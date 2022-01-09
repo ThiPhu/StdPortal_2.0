@@ -28,6 +28,7 @@ exports.get = async (req, res, next) => {
     ok: true,
     message: 'Lấy thông báo thành công',
     announces: announces,
+    currentUser: req.user,
   });
 };
 

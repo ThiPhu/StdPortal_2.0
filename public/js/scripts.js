@@ -51,6 +51,21 @@ $(document).ready(function () {
   });
   // Kết thúc login của Jquery =================================
 
+  function onChangeTextArea() {
+    //auto resize text area
+    const tx = $('.comment_box');
+    for (let i = 0; i < tx.length; i++) {
+      tx[i].setAttribute(
+        'style',
+        'height:' + tx[i].scrollHeight + 'px;overflow-y:hidden;'
+      );
+      tx[i].addEventListener('input', OnInput, false);
+    }
+    function OnInput() {
+      this.style.height = 'auto';
+      this.style.height = this.scrollHeight + 'px';
+    }
+  }
   // Khi scroll, sẽ kéo theo navbar - leftbar - rightbar
   $(window).scroll(function () {
     let stickyNavbar = $('.navbar-header');
@@ -69,147 +84,11 @@ $(document).ready(function () {
     }
   });
 
-  // ================ Jquery liên quan đến bài viết
-  // Bấm vào comment btn sẽ hiện các comment dưới bài viết ( Phần jquery này sẽ render script cho template )
-  // Các script liên quan CRUD đến bình luận sẽ ở đây
-
-  // $('.comments_expand').one('click', e => {
-  //   e.preventDefault();
-
-  //   // Tạo bình luận
-  //   let createCommentScripts = `<script type="text/javascript">
-  //     $('.post_create-cmtInpt').keypress(e => {
-  //       let postId = $(e.target).closest('.post_id').data('postid');
-  //       if (e.which == 13 && !e.shiftKey) {
-  //         e.preventDefault();
-  //         const comment = $(e.target).val();
-  //         fetch('/api/comment/', {
-  //           method: 'POST',
-  //           body: new URLSearchParams({
-  //             content: comment,
-  //             postId: postId,
-  //           }),
-  //         })
-  //           .then(res => res.json())
-  //           .then(({ ok, msg, at }) => {
-  //             // If auth success, redirect to home
-  //             return window.location.reload();
-  //           });
-  //       }
-  //     });
-  //   </script>`;
-
-  //   // Cập nhật bình luận
-  //   let updateCommentScripts = `<script type="text/javascript">
-  //   $('.update_comment-Btn').on('click', e => {
-  //     e.preventDefault();
-  //     let postId = $(e.target).closest('.post_id').data('postid');
-  //     let commentId = $(e.target).closest('.post_comment').data('commentid');
-  //     let content = document.querySelector('#update_comment-input_' + commentId).value;
-  //     fetch('/api/comment/' + commentId, {
-  //       method: 'PUT',
-  //       async: true,
-  //       body: new URLSearchParams({
-  //         content,
-  //         postId
-  //       }),
-  //     }).then(data => {
-  //       if (data.status !== 500) {
-  //         Swal.fire({
-  //           title: 'Cập nhật bình luận thành công',
-  //           icon: 'success',
-  //         });
-  //         return setTimeout(function () {
-  //           window.location.reload();
-  //         }, 800);
-  //       } else {
-  //         Swal.fire({
-  //           title: 'Bạn không có quyền cập nhật bình luận này',
-  //           icon: 'error',
-  //         });
-  //       }
-  //     });
-  //   });
-  //   </script>`;
-
-  //   // Xoá bình luận
-  //   let deleteCommentScripts = `<script type="text/javascript">
-  //   $('.post_comment-delBtn').on('click', e => {
-  //     e.preventDefault();
-  //     let postId = $(e.target).closest('.post_id').data('postid');
-  //     let commentId = $(e.target).closest('.post_comment').data('commentid');
-  //     Swal.fire({
-  //       title: 'Xoá bình luận này ?',
-  //       icon: 'warning',
-  //       showCancelButton: true,
-  //       confirmButtonColor: '#0e6286',
-  //       cancelButtonColor: '#d33',
-  //       confirmButtonText: 'Xác nhận',
-  //       cancelButtonText: 'Huỷ',
-  //       keydownListenerCapture: true,
-  //       allowOutsideClick: false,
-  //     }).then(result => {
-  //       if (result.isConfirmed) {
-  //         fetch('/api/comment/' + commentId, {
-  //           method: 'DELETE',
-  //           body: new URLSearchParams({postId}),
-  //         }).then(data => {
-  //           if (data.status !== 500) {
-  //             Swal.fire({
-  //               title: 'Xoá bình luận thành công',
-  //               icon: 'success',
-  //             });
-  //             return setTimeout(function () {
-  //               window.location.reload();
-  //             }, 800);
-  //           } else {
-  //             Swal.fire({
-  //               title: 'Bạn không có quyền xoá bình luận này',
-  //               icon: 'error',
-  //             });
-  //           }
-  //         });
-  //       }
-  //     });
-  //   });
-  //   </script>`;
-  //   let postId = $(e.target).closest('.post_id').data('postid');
-  //   $.ajax({
-  //     url: '/api/post/' + postId,
-  //     method: 'GET',
-  //     async: true,
-  //     beforeSend: function () {
-  //       $('#comment_loading_' + postId).removeClass('d-none');
-  //     },
-  //     success: function (data) {
-  //       const comments = data.post.comments.length;
-  //       for (let i = 0; i < comments; i++) {
-  //         let commentsTemplate = Handlebars.compile(
-  //           $('.comment_data_template_' + postId).html()
-  //         );
-
-  //         let dataStamp = {
-  //           comments: data.post.comments[i],
-  //         };
-  //         let template = commentsTemplate(dataStamp);
-  //         $('.comment_container_' + postId).html(
-  //           template +
-  //             createCommentScripts +
-  //             deleteCommentScripts +
-  //             updateCommentScripts
-  //         );
-  //         console.log(dataStamp);
-  //       }
-  //       $('#comment_' + postId).removeClass('d-none');
-  //       $('#comment_loading_' + postId).addClass('d-none');
-  //     },
-  //     error: function () {},
-  //   });
-  // });
+  // ================ Jquery liên quan đến bài viết ===========================================
 
   // Bấm vào caption để mở rộng bài viết
   let expandPostCaption = false;
-  $('.post_body-caption').on('click', e => {
+  $(document).on('click', '.post_body-caption', e => {
     e.preventDefault();
     let postId = $(e.target).closest('.post_id').data('postid');
     if (expandPostCaption) {
@@ -228,14 +107,17 @@ $(document).ready(function () {
     window.location.href.indexOf('announcements') > -1
   )
     $(window).ready(e => {
-      console.log(window.location.href);
       getPost();
       getAnnounces();
+      onChangeTextArea();
     });
 
   // Lấy danh sách bài viết
+
   function getPost() {
     // Set cứng, nếu đường dẫn là profile thì tạo biết userid gán id user, ngược lại trả về undefined
+    let pages = 1;
+    let counts = 0;
     const userId =
       window.location.href.indexOf('profile') > -1 ||
       window.location.href.indexOf('update-info') < -1
@@ -244,7 +126,6 @@ $(document).ready(function () {
 
     // Trả về route có query nếu có tham số id người dùng
     const route = userId ? `/api/post?user=${userId}` : '/api/post/';
-
     return fetch(route)
       .then(res => res.json())
       .then(json => {
@@ -282,7 +163,48 @@ $(document).ready(function () {
                               </div>
                           </div>
                       </a>
+                      ${
+                        json.currentUser.role === 'admin'
+                          ? `
                       <div class="col-lg-2 col-1 d-flex align-items-center justify-content-end">
+                      <div class="dropdown">
+                          <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuButton1"
+                              data-bs-toggle="dropdown" aria-expanded="false">
+                              more_horiz
+                          </span>
+                          <ul class="dropdown-menu dropdown-menu-lg-end post_dropdown-menu"
+                              aria-labelledby="dropdownMenuButton1">
+                              <li class="me-1 ms-1">
+                                  <a class="dropdown-item d-flex justify-content-start align-items-center create_post-updateModal" href="#"
+                                      data-bs-toggle="modal" data-bs-target="#updatePostModal">
+                                      <span class="material-icons-outlined me-2">
+                                          settings
+                                      </span>
+                                      <span>Chỉnh sửa</span>
+                                  </a>
+                              </li>
+                              <li class="me-1 ms-1">
+                                  <a class="dropdown-item d-flex justify-content-start align-items-center post_delete_Btn"
+                                      href="#">
+                                      <span class="material-icons-outlined me-2">
+                                          delete
+                                      </span>
+                                      <span>Xoá</span>
+                                  </a>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+                      `
+                          : ``
+                      }
+                      ${
+                        post.user._id.toString() ===
+                        json.currentUser._id.toString()
+                          ? `
+                          <div class="col-lg-2 col-1 ${
+                            json.currentUser.role === 'admin' ? `d-none` : ``
+                          } d-flex align-items-center justify-content-end">
                           <div class="dropdown">
                               <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuButton1"
                                   data-bs-toggle="dropdown" aria-expanded="false">
@@ -311,6 +233,9 @@ $(document).ready(function () {
                               </ul>
                           </div>
                       </div>
+                          `
+                          : ``
+                      }
                   </div>
               </div>
               <div class="post_body col-12">
@@ -600,7 +525,6 @@ $(document).ready(function () {
   // Cập nhật bài viết (Render phần modal của cập nhật)
   $(document).on('click', '.create_post-updateModal', async e => {
     let postId = $(e.target).closest('.post_id').data('postid');
-    console.log('POST', postId);
     fetch(`/api/post/${postId}`)
       .then(res => res.json())
       .then(json => {
@@ -1057,35 +981,78 @@ $(document).ready(function () {
                       </div>
                   </div>
               </a>
+              ${
+                json.currentUser.role === 'admin'
+                  ? `
               <div class="col-lg-1 col-1 d-flex align-items-center justify-content-end">
-                  <div class="dropdown">
-                      <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuButton1"
-                          data-bs-toggle="dropdown" aria-expanded="false">
-                          more_horiz
-                      </span>
-                      <ul class="dropdown-menu dropdown-menu-lg-end post_dropdown-menu"
-                          aria-labelledby="dropdownMenuButton1">
-                          <li class="me-1 ms-1">
-                              <a class="dropdown-item d-flex justify-content-start align-items-center announce_update-Btn" href="#"
-                                  data-bs-toggle="modal" data-bs-target="#updateAnnounceModal">
-                                  <span class="material-icons-outlined me-2">
-                                      settings
-                                  </span>
-                                  <span>Chỉnh sửa</span>
-                              </a>
-                          </li>
-                          <li class="me-1 ms-1">
-                              <a class="dropdown-item d-flex justify-content-start align-items-center announce_delete_Btn"
-                                  href="#">
-                                  <span class="material-icons-outlined me-2">
-                                      delete
-                                  </span>
-                                  <span>Xoá</span>
-                              </a>
-                          </li>
-                      </ul>
-                  </div>
+              <div class="dropdown">
+                  <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      more_horiz
+                  </span>
+                  <ul class="dropdown-menu dropdown-menu-lg-end post_dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1">
+                      <li class="me-1 ms-1">
+                          <a class="dropdown-item d-flex justify-content-start align-items-center announce_update-Btn" href="#"
+                              data-bs-toggle="modal" data-bs-target="#updateAnnounceModal">
+                              <span class="material-icons-outlined me-2">
+                                  settings
+                              </span>
+                              <span>Chỉnh sửa</span>
+                          </a>
+                      </li>
+                      <li class="me-1 ms-1">
+                          <a class="dropdown-item d-flex justify-content-start align-items-center announce_delete_Btn"
+                              href="#">
+                              <span class="material-icons-outlined me-2">
+                                  delete
+                              </span>
+                              <span>Xoá</span>
+                          </a>
+                      </li>
+                  </ul>
               </div>
+          </div>
+              `
+                  : ''
+              }
+              ${
+                announce.user._id.toString() === json.currentUser._id.toString()
+                  ? `
+              <div class="col-lg-1 ${
+                json.currentUser.role === 'admin' ? `d-none` : ``
+              }  col-1 d-flex align-items-center justify-content-end">
+              <div class="dropdown">
+                  <span class="material-icons-two-tone post-dropdown-action" id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      more_horiz
+                  </span>
+                  <ul class="dropdown-menu dropdown-menu-lg-end post_dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1">
+                      <li class="me-1 ms-1">
+                          <a class="dropdown-item d-flex justify-content-start align-items-center announce_update-Btn" href="#"
+                              data-bs-toggle="modal" data-bs-target="#updateAnnounceModal">
+                              <span class="material-icons-outlined me-2">
+                                  settings
+                              </span>
+                              <span>Chỉnh sửa</span>
+                          </a>
+                      </li>
+                      <li class="me-1 ms-1">
+                          <a class="dropdown-item d-flex justify-content-start align-items-center announce_delete_Btn"
+                              href="#">
+                              <span class="material-icons-outlined me-2">
+                                  delete
+                              </span>
+                              <span>Xoá</span>
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+              `
+                  : ``
+              }
             </div>
           </div>
             <div class="post_body col-12 mb-3">

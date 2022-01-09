@@ -3,12 +3,12 @@
 <div class="announce_id announces_container container d-lg-flex flex-column col-12 p-0 mb-4" data-announceid="{{_id}}">
     {{!-- Annoucement header - Hiển thị tên chủ bài viết và ngày đăng --}}
     <div class="post_header col-12 mt-3">
-        <div class="d-flex row bd-highlight">
+        <div class="d-flex row">
             <a class="col-lg-1 col-2 d-flex align-items-center justify-content-end" href="/profile/{{user._id}}">
                 <img src='{{announce.user.avatar}}' alt="avatar" width="50" height="50"
                     class="img-fluid post-comments_avatar">
             </a>
-            <a class="row post_header-userInfo col-9 col-lg-10 d-flex align-items-center justify-content-center p-0"
+            <a class="row post_header-userInfo col-9 col-lg-9 d-flex align-items-center justify-content-center p-0"
                 href="/profile/{{announce.user._id}}">
                 <div class="p-2 bd-highlight">
                     <div>
@@ -20,6 +20,13 @@
                     <div class="small">
                         {{announce.create_date}} at {{announce.create_time}}
                     </div>
+                </div>
+            </a>
+            <a href="/announcements" class="col d-flex justify-content-center align-items-center announce_header-items">
+                <div class="d-flex justify-content-center align-items-center announce_backward-icon">
+                    <span class="material-icons-outlined">
+                        reply
+                    </span>
                 </div>
             </a>
         </div>
