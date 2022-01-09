@@ -139,7 +139,9 @@ $(document).ready(function () {
                           <span class="me-2 material-icons-outlined">
                               people
                           </span>
-                          <span>${post.user.fullname}</span>
+                          <span class="post_middle-fullname-display">${
+                            post.user.fullname
+                          }</span>
                       </strong>
                   </div>
                   <div class="col-12 mb-1 dropdown-alert-content">
@@ -202,7 +204,7 @@ $(document).ready(function () {
                           href="/profile/${post.user._id}">
                           <div class="p-2 bd-highlight">
                               <div>
-                                  <strong>
+                                  <strong class="post_middle-fullname-display">
                                       ${post.user.fullname}
                                   </strong>
                                   ${
@@ -519,9 +521,11 @@ $(document).ready(function () {
     }
     if (youtube_parser(video) !== false) {
       video = youtube_parser(video);
+    } else {
+      video = '';
     }
     let formData = new FormData();
-    console.log(video, image, caption);
+    console.log(video);
 
     // check size or type here with upload.getSize() and upload.getType()
     if (image !== undefined) {
