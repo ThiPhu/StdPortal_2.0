@@ -611,12 +611,11 @@ $(document).ready(function () {
   });
 
   // Cập nhật bài viết
-
   $(document).on('click', '#updatePostModal .create_post-updateBtn', e => {
     e.preventDefault();
 
     // disable button
-    $('#updatePostModal .create_post-updateBtn').prop('disabled', true);
+    $('#updatePostModal .create_post-updateBtn').prop('disabled', false);
 
     const updatePostModal = $(e.target).closest('#updatePostModal');
     const postId = $(updatePostModal).attr('data-id');
