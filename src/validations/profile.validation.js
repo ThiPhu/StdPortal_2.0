@@ -29,6 +29,19 @@ exports.update = [
 
                     console.log(req.body)
                     const {fullname,class:Class,unit} = req.body
+
+                    // Fullname validation
+                    const special_character = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
+
+                    if(!(fullname) || (special_character.test(fullname))){
+                        throw new Error("Tên người dùng không được cho phép")
+                    }
+
+                    // class validation
+                    if(!(Class) || (special_character.test(Class))){
+                        throw new Error("Tên lớp không được cho phép")
+                    }
+
                     const image = req.file
                     // if(!fullname && !Class && !unit && !image){
                     //     throw new Error("Dữ liệu rỗng")
