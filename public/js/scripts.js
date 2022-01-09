@@ -103,8 +103,8 @@ $(document).ready(function () {
   // Lấy danh sách bài viết
   if (
     window.location.href.indexOf('home') > -1 ||
-    window.location.href.indexOf('profile') > -1 &&
-    window.location.href.indexOf('update-info') < 0  ||
+    (window.location.href.indexOf('profile') > -1 &&
+      window.location.href.indexOf('update-info') < 0) ||
     window.location.href.indexOf('announcements') > -1
   )
     $(window).ready(e => {
@@ -503,7 +503,10 @@ $(document).ready(function () {
   });
 
   // ============= COMMENT =====================
-
+  // Prevent space at first
+  $('.create_post-input').on('keypress', function (e) {
+    if (e.which === 32 && !this.value.length) e.preventDefault();
+  });
   // Tạo bài viết
   $('.create_post-submitBtn').on('click', e => {
     e.preventDefault();
@@ -511,7 +514,6 @@ $(document).ready(function () {
     let video = $('.create_post-video-input').val();
     let image = $('.create_post-image')[0].files[0];
     let caption = $('.create_post-input').val();
-
     // Lấy youtube id
     function youtube_parser(url) {
       var regExp =
@@ -525,7 +527,6 @@ $(document).ready(function () {
       video = '';
     }
     let formData = new FormData();
-    console.log(video);
 
     // check size or type here with upload.getSize() and upload.getType()
     if (image !== undefined) {
@@ -534,16 +535,14 @@ $(document).ready(function () {
           title: 'Dung lượng ảnh lớn hơn 10MB',
           icon: 'error',
         });
-        return setTimeout(function () {
-          window.location.reload();
-        }, 800);
+        $('.create_post-submitBtn').removeClass('disabled');
+        return false;
       }
       formData.append('image', image, image.name);
     }
 
     formData.append('caption', caption);
     formData.append('video', video);
-
     if (!image && !video && !caption) {
       Swal.fire({
         title: 'Hãy viết nội dung bài viết hoặc chèn thêm đính kèm',
@@ -573,7 +572,6 @@ $(document).ready(function () {
         const createModalEl = $('#createPostModal');
         const createModal = bootstrap.Modal.getOrCreateInstance(createModalEl);
         createModal.hide();
-
         //
         $('.create_post-submitBtn').removeClass('disabled');
       })
@@ -634,9 +632,8 @@ $(document).ready(function () {
           title: 'Dung lượng ảnh lớn hơn 10MB',
           icon: 'error',
         });
-        return setTimeout(function () {
-          window.location.reload();
-        }, 800);
+        $('.create_post-updateBtn').removeClass('disabled');
+        return false;
       }
       formData.append('image', image, image.name);
     }
@@ -647,7 +644,7 @@ $(document).ready(function () {
         title: 'Hãy viết nội dung bài viết hoặc chèn thêm đính kèm',
         icon: 'error',
       });
-      $('.create_post-submitBtn').removeClass('disabled');
+      $('.create_post-updateBtn').removeClass('disabled');
       return false;
     }
 
