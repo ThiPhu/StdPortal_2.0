@@ -10,6 +10,15 @@ body {
   background-color: rgb(238, 238, 238);
 }
 
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 12px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: var(--primary-color);
+}
+
 /* Styling phần Header - Navbar - Sidebar - Footer*/
 /* ===================================== Navbar Header ===================================== */
 /*  Tạo class kiểu vậy: .navbar_head-abcxyz*/
@@ -957,6 +966,8 @@ body {
   -webkit-box-orient: vertical;
   padding-left: 2rem;
   padding-right: 2rem;
+  max-width: 940px;
+  width: 100%;
 }
 
 .announce_content-lineclamp {

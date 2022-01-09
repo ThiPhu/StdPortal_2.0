@@ -92,7 +92,7 @@ exports.create = async (req, res, next) => {
 // Cập nhật thông báo
 exports.update = async (req, res, next) => {
   const { title, content, sectionsId } = req.body;
-
+  console.log(req.params.announceId);
   try {
     const user = await User.findById(req.user.id);
     const announces = await Announcement.findById(req.params.announceId);
