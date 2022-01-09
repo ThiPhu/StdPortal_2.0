@@ -95,26 +95,12 @@
                             </span>
                             <span
                                 class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                99+
+
                                 <span class="visually-hidden">unread messages</span>
                             </span>
                         </a>
                     </div>
 
-                    {{!-- Video post --}}
-                    <div class="btn-group me-3 ms-3 d-flex align-items-center">
-                        <a href="/" class="d-flex btn navbar-action-btn">
-                            <span class="material-icons-outlined" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Bài đăng Video">
-                                play_arrow
-                            </span>
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                99+
-                                <span class="visually-hidden">unread messages</span>
-                            </span>
-                        </a>
-                    </div>
 
                     {{!-- Faculty post --}}
                     <div class="btn-group me-3 ms-3 d-flex align-items-center">
@@ -125,7 +111,7 @@
                             </span>
                             <span
                                 class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                99+
+
                                 <span class="visually-hidden">unread messages</span>
                             </span>
                         </a>
@@ -152,71 +138,15 @@
                             </span>
                             <span
                                 class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                99+
+
                                 <span class="visually-hidden">unread messages</span>
                             </span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-alert p-0">
-                            {{#each announcements}}
-                            <li>
-                                <a href="#" class="dropdown-item p-3" aria-current="true">
-                                    <div
-                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
-                                        <strong class="mb-1">
-                                            <span class="me-2 material-icons-outlined">
-                                                cast_for_education
-                                            </span>
-                                            <span>{{user.fullname}}</span>
-                                            <span class="ms-1 small alert-danger">{{#if isUpdated}}Cập
-                                                nhật{{/if}}</span>
-                                        </strong>
-                                    </div>
-                                    <div class="col-12 mb-1 dropdown-alert-content">
-                                        <strong>Tiêu đề: </strong>{{title}}
-                                    </div>
-                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
-                                        <span class="material-icons-outlined m-1">
-                                            schedule
-                                        </span>
-                                        {{create_date}} lúc {{create_time}}
-                                    </div>
-                                </a>
-                            </li>
-                            {{/each}}
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            {{#each post}}
-                            <li>
-                                <a href="#" class="dropdown-item p-3" aria-current="true">
-                                    <div
-                                        class="d-flex w-100 align-items-center justify-content-between dropdown-alert-content">
-                                        <strong class="mb-1">
-                                            <span class="me-2 material-icons-outlined">
-                                                people
-                                            </span>
-                                            <span>{{user.fullname}}</span>
-                                        </strong>
-                                    </div>
-                                    <div class="col-12 mb-1 dropdown-alert-content">
-                                        {{caption}}
-                                    </div>
-                                    <div class="col-12 mb-1 dropdown-alert-content">
-                                        <strong>{{#if image}}Bài viết có ảnh.{{/if}}</strong>
-                                    </div>
-                                    <div class="col-12 mb-1 dropdown-alert-content">
-                                        <strong>{{#if video}}Bài viết có video.{{/if}}</strong>
-                                    </div>
-                                    <div class="col-12 mb-1 small d-flex align-items-center dropdown-alert-content">
-                                        <span class="material-icons-outlined m-1">
-                                            schedule
-                                        </span>
-                                        {{create_date}} lúc {{create_time}}
-                                    </div>
-                                </a>
-                            </li>
-                            {{/each}}
+                        <ul
+                            class="dropdown-menu dropdown-menu-end dropdown-menu-alert dropdown_notifications-post-container p-0">
+
                         </ul>
+
                     </div>
 
                     {{!-- Setting options --}}
@@ -258,56 +188,6 @@
                             </li>
                         </ul>
                     </div>
-                </div>
-
-
-                <div class="btn-group dropdown-menu-start dropdown text-end d-flex">
-                    <a href="#" class="d-block link-light text-decoration-none" id="dropdown-alert"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-start animate text-small" aria-labelledby="dropdown-alert">
-                        <li>
-                            <div class="dropdown-item list-group list-group-flush border-bottom scrollarea">
-                                <a href="#" class="list-group-item list-group-item-action py-3 lh-tight"
-                                    aria-current="true">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <strong class="mb-1">List group item heading</strong>
-                                        <small>Wed</small>
-                                    </div>
-                                    <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the
-                                        heading
-                                        and
-                                        date.
-                                    </div>
-                                </a>
-
-                            </div>
-
-                        </li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item sign-out" href="/logout">Sign out</a></li>
-
-                        {{!-- <div class="dropdown text-end d-flex">
-                            <a href="#" class="d-block link-light text-decoration-none dropdown-toggle"
-                                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32"
-                                    class="rounded-circle">
-                            </a>
-                            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                                <li><a class="dropdown-item" href="#">New project...</a></li>
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="/api/logout">Sign out</a></li>
-                            </ul> --}}
-                    </ul>
                 </div>
             </div>
         </div>
