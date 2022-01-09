@@ -103,7 +103,8 @@ $(document).ready(function () {
   // Lấy danh sách bài viết
   if (
     window.location.href.indexOf('home') > -1 ||
-    window.location.href.indexOf('profile') > -1 ||
+    window.location.href.indexOf('profile') > -1 &&
+    window.location.href.indexOf('update-info') < 0  ||
     window.location.href.indexOf('announcements') > -1
   )
     $(window).ready(e => {

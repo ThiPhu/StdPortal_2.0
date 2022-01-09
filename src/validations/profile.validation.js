@@ -36,13 +36,15 @@ exports.update = [
 
                     // Avatar validation
                     console.log("AVATAR",image)
-                    console.log(!(image.mimetype.includes("image")));
-                    if(!(image.mimetype.includes("image"))){
-                        throw new Error("Sai định dạng ảnh")
-                    }
-
-                    if(image.size > 5000000){
-                        throw new Error("Kích thước ảnh vượt quá 5Mb")
+                    if(image){
+                        console.log(!(image.mimetype.includes("image")));
+                        if(!(image.mimetype.includes("image"))){
+                            throw new Error("Sai định dạng ảnh")
+                        }
+    
+                        if(image.size > 5000000){
+                            throw new Error("Kích thước ảnh vượt quá 5Mb")
+                        }
                     }
                     break;
 
