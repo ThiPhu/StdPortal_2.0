@@ -191,7 +191,7 @@ $(document).ready(function () {
             post._id
           }">
               <div class="post_header col-12 mt-3">
-                  <div class="d-flex align-items-center justify-content-center row">
+                  <div class="d-flex align-items-center justify-content-start row">
                       <a class="col-lg-2 col-2 d-flex align-items-center justify-content-end"
                           href="/profile/${post.user._id}">
                           <img src='${post.user.avatar}' alt="avatar"
