@@ -21,15 +21,9 @@ exports.image = [
 
     // Xét điều kiện nếu bài viết tồn tại ảnh
 
-    console.log(      ['image/jpeg', 'image/gif', 'image/png'].filter(t => {
-      t == image.mimetype;
-    }).length == -1)
+    console.log("image type", image.mimetype)
 
-    if (
-      ['image/jpeg', 'image/gif', 'image/png'].filter(t => {
-        t == image.mimetype;
-      }).length == -1
-    ) {
+    if(!image.mimetype.includes("image")) {
       throw new Error('Sai định dạng ảnh');
     } else {
       return true;

@@ -49,6 +49,7 @@ exports.update = [
 
                     // Avatar validation
                     console.log("AVATAR",image)
+                    
                     if(image){
                         console.log(!(image.mimetype.includes("image")));
                         if(!(image.mimetype.includes("image"))){
