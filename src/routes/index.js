@@ -31,6 +31,7 @@ const route = app => {
     }
     console.log('error', req.session.error);
     res.render('login', { msg: req.session.error });
+    req.session.destroy();
   });
 
   // Kiểm tra token session
