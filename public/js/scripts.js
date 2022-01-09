@@ -514,6 +514,7 @@ $(document).ready(function () {
     let video = $('.create_post-video-input').val();
     let image = $('.create_post-image')[0].files[0];
     let caption = $('.create_post-input').val();
+
     // Lấy youtube id
     function youtube_parser(url) {
       var regExp =
@@ -530,9 +531,19 @@ $(document).ready(function () {
 
     // check size or type here with upload.getSize() and upload.getType()
     if (image !== undefined) {
+      let fileType = image['type'];
+      let validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
       if (image.size / (1024 * 1024).toFixed(2) >= 10) {
         Swal.fire({
           title: 'Dung lượng ảnh lớn hơn 10MB',
+          icon: 'error',
+        });
+        $('.create_post-submitBtn').removeClass('disabled');
+        return false;
+      }
+      if (!validImageTypes.includes(fileType)) {
+        Swal.fire({
+          title: 'Ảnh đính kèm không hợp lệ',
           icon: 'error',
         });
         $('.create_post-submitBtn').removeClass('disabled');
@@ -600,6 +611,7 @@ $(document).ready(function () {
   });
 
   // Cập nhật bài viết
+
   $(document).on('click', '#updatePostModal .create_post-updateBtn', e => {
     e.preventDefault();
 
