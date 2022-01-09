@@ -291,7 +291,7 @@ $(document).ready(function () {
                   </div>
               </div>
               <div class="post_body col-12">
-                  <div class="container d-flex flex-column col-12 mt-3">
+                  <div class="d-flex flex-column col-12 mt-3 mb-3 ms-1">
                       <div id="post_caption_${
                         post._id
                       }" class="col-12 post_body-caption post_caption-lineclamp">${
