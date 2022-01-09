@@ -378,7 +378,7 @@ $(document).ready(function () {
                               <img src='${
                                 json.currentUser.avatar
                               }' alt="avatar" 
-                                  class="img-fluid rounded-circle">
+                                  class="img-comment rounded-circle">
                           </a>
                       </div>
                       <div class="d-flex justify-content-center col-11">

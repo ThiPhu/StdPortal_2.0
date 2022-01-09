@@ -723,6 +723,11 @@ body {
   height: 50px;
 }
 
+.img-comment {
+  height: 100%;
+  width: 100%;
+}
+
 .post_comment {
   /* padding-left: 3rem; */
   padding-right: 1rem;
