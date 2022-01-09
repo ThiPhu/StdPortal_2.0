@@ -371,7 +371,7 @@ $(document).ready(function () {
                   </div>
                   <div class="comment_holder w-100 my-3"></div>
                   <div class="d-flex container-fluid pb-2">
-                      <div class="d-flex justify-content-center align-items-center col-1">
+                      <div class="d-flex justify-content-center align-items-center col-2">
                           <a class="post-comments_avatar" href="/profile/${
                             post.user._id
                           }">
@@ -381,7 +381,7 @@ $(document).ready(function () {
                                   class="img-comment rounded-circle">
                           </a>
                       </div>
-                      <div class="d-flex justify-content-center col-11">
+                      <div class="d-flex justify-content-center col-10">
                           <textarea type="text" rows="1" placeholder="Write a comment..."
                               class="form-control comment_box post_create-cmtInpt text_area_border"
                               oninput="onChangeTextArea()"></textarea>
