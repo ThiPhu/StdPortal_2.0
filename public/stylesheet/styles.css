@@ -804,6 +804,7 @@ body {
 
 .post_body-caption {
   cursor: pointer;
+  word-break: break-all;
   font-size: 17px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -949,6 +950,7 @@ body {
 
 .announce_body-content {
   cursor: pointer;
+  word-break: break-all;
   font-size: 17px;
   overflow: hidden;
   text-overflow: ellipsis;
