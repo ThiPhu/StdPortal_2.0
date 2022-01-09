@@ -802,6 +802,18 @@ body {
   color: gray;
 }
 
+.post_middle-fullname-display {
+  cursor: pointer;
+  word-break: break-all;
+  font-size: 17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-line;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
 .post_body-caption {
   cursor: pointer;
   word-break: break-all;
